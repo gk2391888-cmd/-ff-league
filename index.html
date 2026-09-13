@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - NEW UPI</title>
+<title>FF LEAGUE - @fam UPI</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
@@ -37,24 +37,24 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 <body>
 <div class="header"><div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE</div><div style="display:flex;gap:10px;align-items:center"><span id="pendingBadge" style="display:none;background:#ffcc00;color:#000;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:900">0 PENDING</span><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div></div>
 
-<div id="page-home" class="page active"><div style="color:#ff1a1a;font-size:11px;font-weight:800">NEW UPI: 9709461672@ibl - GAURAV KUMAR</div><h1 style="font-size:34px;font-weight:900;line-height:0.9">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1><div style="display:flex;gap:8px;margin:12px 0"><div style="background:#1c1c26;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-wallet" style="color:#00e676"></i> Balance: ₹<span id="bal1">0</span></div></div><div id="home-list"></div></div>
+<div id="page-home" class="page active"><div style="color:#ff1a1a;font-size:11px;font-weight:800">NEW UPI: 9709461672@fam - FAST PAYMENT</div><h1 style="font-size:34px;font-weight:900;line-height:0.9">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1><div style="display:flex;gap:8px;margin:12px 0"><div style="background:#1c1c26;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-wallet" style="color:#00e676"></i> Balance: ₹<span id="bal1">0</span></div></div><div id="home-list"></div></div>
 <div id="page-tournaments" class="page"><h2>All Tournaments</h2><div id="tournaments-list" style="margin-top:12px"></div></div>
-<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches (5 Min)</h2><div id="live-list" style="margin-top:14px"></div></div>
+<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches</h2><div id="live-list" style="margin-top:14px"></div></div>
 
 <div id="page-wallet" class="page">
-<div class="wallet-box"><div style="font-size:12px;opacity:0.8">WALLET BALANCE</div><div style="font-size:42px;font-weight:900;margin:8px 0">₹<span id="bal2">0</span></div><div style="font-size:11px;opacity:0.7">UPI: 9709461672@ibl | GAURAV KUMAR | Min ₹1</div></div>
-<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px"><label style="font-size:12px;color:#fff;font-weight:700">Enter Amount (₹1 - ₹5000)</label><input id="customAmount" class="input" type="number" value="1" min="1" max="5000" style="font-size:18px"><button onclick="openPayModal()" style="width:100%;margin-top:12px;background:#00e676;color:#000;padding:16px;border:none;border-radius:12px;font-weight:900;font-size:14px"><i class="fa-solid fa-qrcode"></i> PAY NOW - SHOW QR</button></div>
+<div class="wallet-box"><div style="font-size:12px;opacity:0.8">WALLET BALANCE</div><div style="font-size:42px;font-weight:900;margin:8px 0">₹<span id="bal2">0</span></div><div style="font-size:11px;opacity:0.7">UPI: 9709461672@fam | GAURAV KUMAR | Min ₹1</div></div>
+<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px"><label style="font-size:12px;color:#fff;font-weight:700">Enter Amount</label><input id="customAmount" class="input" type="number" value="1" min="1" max="5000" style="font-size:18px"><button onclick="openPayModal()" style="width:100%;margin-top:12px;background:#00e676;color:#000;padding:16px;border:none;border-radius:12px;font-weight:900;font-size:14px"><i class="fa-solid fa-qrcode"></i> PAY NOW - SHOW QR</button></div>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:14px">
-<div style="background:#1c1c26;border:1px solid #2a2a3a;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(1)"><b>₹1</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
-<div style="background:#1c1c26;border:1px solid #2a2a3a;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(10)"><b>₹10</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
-<div style="background:#1c1c26;border:1px solid #2a2a3a;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(50)"><b>₹50</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
-<div style="background:#1c1c26;border:1px solid #2a2a3a;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(100)"><b>₹100</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
+<div style="background:#1c1c26;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(1)"><b>₹1</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
+<div style="background:#1c1c26;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(10)"><b>₹10</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
+<div style="background:#1c1c26;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(50)"><b>₹50</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
+<div style="background:#1c1c26;padding:10px;border-radius:12px;text-align:center;cursor:pointer" onclick="quick(100)"><b>₹100</b><div style="background:#ff1a1a;color:#fff;padding:4px;border-radius:6px;margin-top:6px;font-size:10px">SELECT</div></div>
 </div>
-<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px"><label style="font-size:12px;color:#ffcc00;font-weight:700">Step 2: Enter UTR After Payment</label><input id="utrInput" class="input" placeholder="e.g. 409712345678"><button onclick="submitRequest()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">SUBMIT FOR APPROVAL</button></div>
+<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px"><label style="font-size:12px;color:#ffcc00;font-weight:700">Step 2: Enter UTR</label><input id="utrInput" class="input" placeholder="e.g. 409712345678"><button onclick="submitRequest()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">SUBMIT FOR APPROVAL</button></div>
 <div style="background:#15151c;border-radius:14px;padding:14px;margin-top:16px"><h4>My Requests</h4><div id="my-requests" style="margin-top:8px"></div><h4 style="margin-top:16px">History</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px"></div></div>
 </div>
 
-<div id="page-profile" class="page"><div style="text-align:center;padding:20px"><i class="fa-solid fa-user" style="font-size:50px;background:#1c1c26;padding:20px;border-radius:50%"></i><h2 style="margin-top:12px">GAURAV KUMAR</h2><p style="color:#888;font-size:12px">UPI: 9709461672@ibl | Balance: ₹<span class="bal">0</span></p></div></div>
+<div id="page-profile" class="page"><div style="text-align:center;padding:20px"><i class="fa-solid fa-user" style="font-size:50px;background:#1c1c26;padding:20px;border-radius:50%"></i><h2 style="margin-top:12px">GAURAV KUMAR</h2><p style="color:#888;font-size:12px">UPI: 9709461672@fam | Balance: ₹<span class="bal">0</span></p></div></div>
 
 <div class="bottom-nav">
 <div class="active" id="nav-home" onclick="showPage('home')"><i class="fa-solid fa-house"></i><br>Home</div>
@@ -67,18 +67,15 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 <div class="pay-modal" id="payModal">
 <div class="pay-box">
 <h3 style="color:#00e676">Pay ₹<span id="payModalAmount">1</span> to GAURAV KUMAR</h3>
-<p style="font-size:11px;color:#888">UPI ID: 9709461672@ibl</p>
-
-<img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=9709461672@ibl%26pn=GAURAV%20KUMAR%26cu=INR" style="width:280px;height:280px;margin:14px auto;background:#fff;padding:8px;border-radius:16px;display:block">
-
-<div style="background:#5f259f;color:#fff;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block">UPI @ibl - NEW</div>
+<p style="font-size:11px;color:#888">UPI ID: 9709461672@fam</p>
+<img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=upi://pay?pa=9709461672@fam%26pn=GAURAV%20KUMAR%26cu=INR" style="width:280px;height:280px;margin:14px auto;background:#fff;padding:8px;border-radius:16px;display:block">
+<div style="background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block">FamPay UPI - @fam - FAST</div>
 <p style="font-size:11px;color:#aaa;margin-top:8px">Scan & Pay Using Any UPI App</p>
-<p style="font-size:12px;color:#fff;font-weight:800">GAURAV KUMAR - 9709461672@ibl</p>
-
+<p style="font-size:12px;color:#fff;font-weight:800">9709461672@fam</p>
 <div style="margin-top:16px;text-align:left">
 <div class="pay-option" onclick="payWith('gpay')"><span>Pay with Google Pay</span>→</div>
 <div class="pay-option" onclick="payWith('phonepe')"><span>Pay with PhonePe</span>→</div>
-<div class="pay-option" onclick="payWith('paytm')"><span>Pay with Paytm</span>→</div>
+<div class="pay-option" onclick="payWith('fam')"><span>Pay with FamPay</span>→</div>
 <div class="pay-option" onclick="payWith('upi')"><span>Pay with Any UPI App</span>→</div>
 </div>
 <div style="display:flex;gap:8px;margin-top:16px">
@@ -90,7 +87,7 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 
 <div class="admin-panel" id="adminPanel">
 <h2 style="color:#ff1a1a">ADMIN PANEL</h2>
-<p style="color:#888;font-size:11px">NEW UPI: 9709461672@ibl | Password: GKFF2026</p>
+<p style="color:#888;font-size:11px">NEW UPI: 9709461672@fam | Password: GKFF2026</p>
 <div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:2px solid #ffcc00">
 <h3 style="color:#ffcc00">PAYMENT APPROVAL - <span id="adminPendingCount">0</span> Pending</h3>
 <div id="adminPendingList" style="margin-top:12px"></div>
@@ -105,7 +102,7 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 </div>
 
 <script>
-const ADMIN_UPI="9709461672@ibl"; const ADMIN_NAME="GAURAV KUMAR";
+const ADMIN_UPI="9709461672@fam"; const ADMIN_NAME="GAURAV KUMAR";
 const DEFAULT=[{id:"SOLO", name:"SOLO — RUSH CLASH #247", map:"Bermuda", starts:"12:34", fee:29, prize:1500, slots:"87/100", bar:87, room:"8743921", pass:"1234", status:"LIVE"},{id:"SQUAD", name:"SQUAD — TEAM DOMINATION #112", map:"Purgatory", starts:"45:20", fee:99, prize:5000, slots:"32/64", bar:50, room:"9921345", pass:"7777", status:"REGISTRATION"}];
 const SHOW_TIME=5*60*1000;
 function getData(){let d=localStorage.getItem('ff_full_admin');return d?JSON.parse(d):DEFAULT;}
@@ -122,11 +119,11 @@ function render(){let data=getData();let html="";data.forEach(t=>{html+=`<div cl
 function joinTournament(id){let data=getData().find(x=>x.id===id);let bal=getBalance();if(bal<data.fee){alert(`Low Balance! Need ₹${data.fee}, you have ₹${bal}`);showPage('wallet');return;}if(!confirm(`JOIN ${data.name}? ₹${data.fee} will be deducted`)) return;setBalance(bal-data.fee);let joined=JSON.parse(localStorage.getItem('joined_full')||"[]");joined.unshift({id:id, room:data.room, pass:data.pass, time:Date.now(), name:data.name, prize:data.prize});localStorage.setItem('joined_full', JSON.stringify(joined));let txns=JSON.parse(localStorage.getItem('txns_full')||"[]");txns.unshift(`JOINED ${id} -₹${data.fee} - ${new Date().toLocaleString()}`);localStorage.setItem('txns_full', JSON.stringify(txns));localStorage.setItem('paid_obj_'+id, JSON.stringify({room:data.room, pass:data.pass, time:Date.now()}));render();showPage('live');}
 function quick(amt){document.getElementById('customAmount').value=amt; openPayModal();}
 let currentAmount=1;
-function openPayModal(){let amount=parseInt(document.getElementById('customAmount').value);if(isNaN(amount)||amount<1){alert("Minimum ₹1 required");return;}if(amount>5000){alert("Maximum ₹5000");return;}currentAmount=amount;document.getElementById('payModalAmount').innerText=amount;let upiStr=`upi://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=FF LEAGUE`;let qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiStr)}`;document.getElementById('qrImage').src=qrUrl;document.getElementById('payModal').style.display='flex';}
+function openPayModal(){let amount=parseInt(document.getElementById('customAmount').value);if(isNaN(amount)||amount<1){alert("Minimum ₹1");return;}if(amount>5000){alert("Max ₹5000");return;}currentAmount=amount;document.getElementById('payModalAmount').innerText=amount;let upiStr=`upi://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=FF LEAGUE`;let qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiStr)}`;document.getElementById('qrImage').src=qrUrl;document.getElementById('payModal').style.display='flex';}
 function closePayModal(){document.getElementById('payModal').style.display='none';}
-function payWith(app){let amount=currentAmount;let upiString=`upi://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=FF LEAGUE`;let link=upiString;if(app==='gpay') link=`tez://upi/pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;if(app==='phonepe') link=`phonepe://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;if(app==='paytm') link=`paytmmp://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;window.location.href=link;}
+function payWith(app){let amount=currentAmount;let upiString=`upi://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=FF LEAGUE`;let link=upiString;if(app==='gpay') link=`tez://upi/pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;if(app==='phonepe') link=`phonepe://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;if(app==='fam') link=`fampay://pay?pa=${ADMIN_UPI}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR`;window.location.href=link;}
 function copyUPI(){navigator.clipboard.writeText(ADMIN_UPI).then(()=>alert("UPI Copied: "+ADMIN_UPI));}
-function submitRequest(){let amount=parseInt(document.getElementById('customAmount').value);let utr=document.getElementById('utrInput').value.trim();if(isNaN(amount)||amount<1){alert("Minimum ₹1 required");return;}if(!utr||utr.length<4){alert("Please enter UTR");return;}let pending=getPending();if(pending.some(p=>p.utr===utr)){alert("This UTR already exists");return;}pending.unshift({id:Date.now(), amount:amount, utr:utr, time:new Date().toLocaleString(), status:'pending', upi:ADMIN_UPI});setPending(pending);document.getElementById('utrInput').value='';alert(`Submitted! ₹${amount} - UTR ${utr}`);}
+function submitRequest(){let amount=parseInt(document.getElementById('customAmount').value);let utr=document.getElementById('utrInput').value.trim();if(isNaN(amount)||amount<1){alert("Minimum ₹1");return;}if(!utr||utr.length<4){alert("Please enter UTR");return;}let pending=getPending();if(pending.some(p=>p.utr===utr)){alert("This UTR already exists");return;}pending.unshift({id:Date.now(), amount:amount, utr:utr, time:new Date().toLocaleString(), status:'pending', upi:ADMIN_UPI});setPending(pending);document.getElementById('utrInput').value='';alert(`Submitted! ₹${amount} - UTR ${utr}`);}
 function renderMyRequests(){let pending=getPending();let html=pending.length===0?`<div style="color:#666;font-size:12px">No requests</div>`:pending.map(r=>{let color=r.status==='pending'?'#ffcc00':r.status==='approved'?'#00e676':'#ff1a1a';return `<div style="background:#0f0f14;border:1px solid ${color};padding:10px;border-radius:10px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b>₹${r.amount}</b><span style="color:${color};font-weight:900">${r.status.toUpperCase()}</span></div><div style="color:#888">UTR: ${r.utr}<br>${r.time}</div></div>`;}).join('');document.getElementById('my-requests').innerHTML=html;}
 function renderAdmin(){let pending=getPending();let approved=getApproved();let htmlPending="";let pendingOnly=pending.filter(p=>p.status==='pending');if(pendingOnly.length===0) htmlPending=`<div style="color:#666;padding:20px;text-align:center">No pending</div>`;else htmlPending=pendingOnly.map(r=>`<div class="pending-card"><div style="display:flex;justify-content:space-between"><b>₹${r.amount}</b><span style="font-size:10px;color:#888">${r.time}</span></div><div style="margin-top:6px;font-size:12px">UTR: <b style="color:#fff">${r.utr}</b><br>To: ${r.upi}</div><div style="margin-top:10px"><button class="approve-btn" onclick="approveReq(${r.id})">APPROVE</button><button class="reject-btn" onclick="rejectReq(${r.id})">REJECT</button></div></div>`).join('');document.getElementById('adminPendingList').innerHTML=htmlPending;document.getElementById('adminApprovedList').innerHTML=approved.length?approved.slice(0,10).map(r=>`<div style="padding:6px;border-bottom:1px solid #222">${r.status.toUpperCase()} - ₹${r.amount} - UTR ${r.utr}</div>`).join(''):"";let data=getData();let tHtml="";data.forEach((t,i)=>{tHtml+=`<div class="t-box"><h3 style="color:#ff1a1a">${t.id}</h3><span class="label">Tournament Name</span><input id="t_name_${i}" class="input" value="${t.name}"><div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Map</span><input id="t_map_${i}" class="input" value="${t.map}"></div><div style="flex:1"><span class="label">Starts</span><input id="t_starts_${i}" class="input" value="${t.starts}"></div></div><div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Entry Fee</span><input id="t_fee_${i}" class="input" type="number" value="${t.fee}"></div><div style="flex:1"><span class="label">Win Prize</span><input id="t_prize_${i}" class="input" type="number" value="${t.prize}"></div></div><div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Slots</span><input id="t_slots_${i}" class="input" value="${t.slots}"></div><div style="flex:1"><span class="label">Bar %</span><input id="t_bar_${i}" class="input" type="number" value="${t.bar}"></div></div><div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Room ID</span><input id="t_room_${i}" class="input" value="${t.room}"></div><div style="flex:1"><span class="label">Room Pass</span><input id="t_pass_${i}" class="input" value="${t.pass}"></div></div><span class="label">Status</span><input id="t_status_${i}" class="input" value="${t.status}"></div>`;});document.getElementById('adminTour').innerHTML=tHtml;}
 function approveReq(id){if(!confirm("Approve?")) return;let pending=getPending();let approved=getApproved();let idx=pending.findIndex(p=>p.id===id);if(idx===-1) return;let req=pending[idx];req.status='approved';setBalance(getBalance()+req.amount);let txns=JSON.parse(localStorage.getItem('txns_full')||"[]");txns.unshift(`RECHARGE APPROVED +₹${req.amount} - UTR ${req.utr}`);localStorage.setItem('txns_full', JSON.stringify(txns));approved.unshift(req);setApproved(approved);pending.splice(idx,1);pending.unshift(req);setPending(pending);render();alert(`APPROVED ₹${req.amount}`);}
