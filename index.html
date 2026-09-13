@@ -2,77 +2,146 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - Official</title>
+<title>FF LEAGUE - Admin Pro</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:#07070a;color:#fff}
 .nav{background:#111;padding:14px 16px;display:flex;justify-content:space-between;position:fixed;top:0;width:100%;z-index:10;border-bottom:1px solid #222}
 .card{background:#16161f;border:1px solid #2a2a36;border-radius:20px;padding:18px;margin:16px}
 .price{font-size:42px;font-weight:900;color:#ff1744}
-.btn{width:100%;padding:15px;background:#fff;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:14px;cursor:pointer}
-.btn2{width:100%;padding:15px;background:#00e676;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:14px;display:none;cursor:pointer}
+.btn{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:12px;cursor:pointer}
+.btn2{width:100%;padding:14px;background:#00e676;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:12px;display:none;cursor:pointer}
 .lock{background:#000;border:1px dashed #ff1744;color:#ff1744;padding:10px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;margin-top:10px}
 .unlock{background:#001a0a;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:10px;margin-top:10px;display:none;font-weight:700}
+.admin-fab{position:fixed;bottom:14px;right:14px;background:#ff1744;color:#fff;padding:10px 16px;border-radius:30px;font-size:12px;font-weight:900;cursor:pointer;z-index:99}
+.admin-panel{position:fixed;inset:0;background:#07070a;z-index:9999;padding:16px;display:none;overflow:auto}
+.input{background:#1e1e28;border:1px solid #333;padding:12px;border-radius:10px;width:100%;color:#fff;margin-top:8px}
+.label{font-size:11px;color:#888;margin-top:14px;display:block}
+.t-box{background:#16161f;border:1px solid #2a2a36;border-radius:16px;padding:16px;margin-top:16px}
 </style>
 </head>
 <body>
-<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span style="background:#00e676;color:#000;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">PAYMENT LIVE ✓</span></div>
+<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span style="background:#00e676;color:#000;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">PRO ADMIN ✓</span></div>
+<div style="padding-top:70px;max-width:650px;margin:auto" id="tournamentList"></div>
 
-<div style="padding-top:70px;max-width:600px;margin:auto">
-<div class="card">
-<h2>SOLO CLASH #1</h2>
-<div class="price">₹29</div>
-<p style="color:#888;font-size:12px">Win ₹800 | Today 8PM | 48 Players</p>
-<div class="lock" id="lock-solo">🔒 ROOM ID LOCKED</div>
-<div class="unlock" id="unlock-solo"></div>
-<button class="btn" id="btn-solo" onclick="pay('SOLO','8743921','1234')">PAY ₹29 WITH RAZORPAY</button>
-<button class="btn2" id="verify-solo" onclick="unlock('SOLO','8743921','1234')">I HAVE PAID - SHOW ROOM ID</button>
-</div>
+<div class="admin-fab" onclick="adminLogin()">⚙️ ADMIN</div>
 
-<div class="card">
-<h2>SQUAD DOMINATION</h2>
-<div class="price">₹99</div>
-<p style="color:#888;font-size:12px">Win ₹3000 | Today 9:30PM | 12 Teams</p>
-<div class="lock" id="lock-squad">🔒 ROOM ID LOCKED</div>
-<div class="unlock" id="unlock-squad"></div>
-<button class="btn" id="btn-squad" onclick="pay('SQUAD','9921345','7777')">PAY ₹99 WITH RAZORPAY</button>
-<button class="btn2" id="verify-squad" onclick="unlock('SQUAD','9921345','7777')">I HAVE PAID - SHOW ROOM ID</button>
-</div>
+<div class="admin-panel" id="adminPanel">
+<h2 style="color:#ff1744">🔐 SUPER ADMIN PANEL</h2>
+<p style="color:#666;font-size:12px">Sab kuch yaha se edit kar</p>
+
+<div id="adminForms"></div>
+
+<button class="btn" style="background:#ff1744;color:#fff;margin-top:20px" onclick="saveAll()">💾 SAVE ALL CHANGES</button>
+<button class="btn" style="background:#222;color:#fff" onclick="closeAdmin()">CLOSE</button>
+<button class="btn" style="background:#000;color:#ff1744;border:1px solid #333" onclick="resetAll()">RESET TO DEFAULT</button>
 </div>
 
 <script>
-const LINKS = {
-  SOLO: "https://rzp.io/rzp/dT74Iym",
-  SQUAD: "https://rzp.io/rzp/gKa8g0l3"
-};
+const DEFAULT_DATA = [
+  {id:"SOLO", name:"SOLO CLASH #1", fee:29, prize:800, time:"8PM Today", players:"48 Players", room:"8743921", pass:"1234", link:"https://rzp.io/rzp/dT74Iym"},
+  {id:"SQUAD", name:"SQUAD DOMINATION", fee:99, prize:3000, time:"9:30PM Today", players:"12 Teams", room:"9921345", pass:"7777", link:"https://rzp.io/rzp/gKa8g0l3"}
+];
 
-function pay(mode, room, pass){
-  localStorage.setItem('pending_'+mode, 'yes');
-  window.open(LINKS[mode], '_blank');
-  document.getElementById('verify-'+mode.toLowerCase()).style.display='block';
-  alert(mode+" Payment Page Khula Hai!\\nPay karne ke baad wapas aake 'I HAVE PAID' dabao, Room khul jayega!");
+function getData(){
+  let d = localStorage.getItem('ff_tournaments');
+  return d? JSON.parse(d) : DEFAULT_DATA;
 }
 
-function unlock(mode, room, pass){
-  document.getElementById('lock-'+mode.toLowerCase()).style.display='none';
-  let u = document.getElementById('unlock-'+mode.toLowerCase());
-  u.style.display='block';
-  u.innerHTML = "✅ PAYMENT VERIFIED<br><br>🏠 Room ID: <b style='color:#fff'>"+room+"</b><br>🔑 Password: <b style='color:#fff'>"+pass+"</b><br><br><small>WhatsApp pe screenshot bhejo</small>";
-  document.getElementById('btn-'+mode.toLowerCase()).style.display='none';
-  document.getElementById('verify-'+mode.toLowerCase()).style.display='none';
-  localStorage.setItem('paid_'+mode, room+"|"+pass);
-}
-
-// Auto unlock if already paid before
-window.onload = ()=>{
-  ["SOLO","SQUAD"].forEach(m=>{
-    let d = localStorage.getItem('paid_'+m);
-    if(d){
-      let p = d.split('|');
-      unlock(m,p[0],p[1]);
+function renderTournaments(){
+  let data = getData();
+  let html = "";
+  data.forEach(t=>{
+    let paid = localStorage.getItem('paid_'+t.id);
+    html += `
+    <div class="card">
+      <h2>${t.name}</h2>
+      <div class="price">₹${t.fee}</div>
+      <p style="color:#888;font-size:12px">Win ₹${t.prize} | ${t.time} | ${t.players}</p>
+      <div class="lock" id="lock-${t.id}" style="${paid?'display:none':''}">🔒 ROOM ID LOCKED - Pay ke baad khulega</div>
+      <div class="unlock" id="unlock-${t.id}" style="${paid?'display:block':''}">${paid?paid:''}</div>
+      <button class="btn" id="btn-${t.id}" style="${paid?'display:none':''}" onclick="pay('${t.id}')">PAY ₹${t.fee} WITH RAZORPAY</button>
+      <button class="btn2" id="verify-${t.id}" onclick="unlock('${t.id}')">I HAVE PAID - SHOW ROOM ID</button>
+    </div>`;
+  });
+  document.getElementById('tournamentList').innerHTML = html;
+  // show already unlocked
+  data.forEach(t=>{
+    let p = localStorage.getItem('paid_'+t.id);
+    if(p){
+      document.getElementById('unlock-'+t.id).innerHTML = p;
+      document.getElementById('lock-'+t.id).style.display='none';
+      document.getElementById('btn-'+t.id).style.display='none';
     }
   });
 }
+
+function pay(id){
+  let data = getData().find(x=>x.id===id);
+  localStorage.setItem('pending_'+id,'yes');
+  window.open(data.link,'_blank');
+  document.getElementById('verify-'+id).style.display='block';
+  alert(id+" Payment Khula! Pay karke wapas aake VERIFY dabao");
+}
+
+function unlock(id){
+  let data = getData().find(x=>x.id===id);
+  let content = `✅ PAID - ₹${data.fee}<br><br>🏠 Room: <b style='color:#fff'>${data.room}</b><br>🔑 Pass: <b style='color:#fff'>${data.pass}</b><br><br><small>Prize: ₹${data.prize}</small>`;
+  document.getElementById('unlock-'+id).innerHTML = content;
+  document.getElementById('unlock-'+id).style.display='block';
+  document.getElementById('lock-'+id).style.display='none';
+  document.getElementById('btn-'+id).style.display='none';
+  document.getElementById('verify-'+id).style.display='none';
+  localStorage.setItem('paid_'+id, content);
+}
+
+function adminLogin(){
+  let p = prompt("Admin Password:");
+  if(p==="GKFF2026"){
+    buildAdminForms();
+    document.getElementById('adminPanel').style.display='block';
+  }else if(p!==null) alert("Galat Password!");
+}
+function buildAdminForms(){
+  let data = getData();
+  let h = "";
+  data.forEach((t,i)=>{
+    h+=`
+    <div class="t-box">
+      <h3 style="color:#ff1744">${t.id} - EDIT</h3>
+      <span class="label">Tournament Name</span><input id="name_${i}" class="input" value="${t.name}">
+      <span class="label">Entry Fee (₹)</span><input id="fee_${i}" class="input" type="number" value="${t.fee}">
+      <span class="label">Winning Prize (₹)</span><input id="prize_${i}" class="input" type="number" value="${t.prize}">
+      <span class="label">Time</span><input id="time_${i}" class="input" value="${t.time}">
+      <span class="label">Players / Teams</span><input id="players_${i}" class="input" value="${t.players}">
+      <span class="label">Custom Room ID</span><input id="room_${i}" class="input" value="${t.room}">
+      <span class="label">Custom Room Password</span><input id="pass_${i}" class="input" value="${t.pass}">
+      <span class="label">Razorpay Payment Link</span><input id="link_${i}" class="input" value="${t.link}">
+    </div>`;
+  });
+  document.getElementById('adminForms').innerHTML = h;
+}
+function saveAll(){
+  let data = getData();
+  data.forEach((t,i)=>{
+    t.name = document.getElementById('name_'+i).value;
+    t.fee = parseInt(document.getElementById('fee_'+i).value);
+    t.prize = parseInt(document.getElementById('prize_'+i).value);
+    t.time = document.getElementById('time_'+i).value;
+    t.players = document.getElementById('players_'+i).value;
+    t.room = document.getElementById('room_'+i).value;
+    t.pass = document.getElementById('pass_'+i).value;
+    t.link = document.getElementById('link_'+i).value;
+  });
+  localStorage.setItem('ff_tournaments', JSON.stringify(data));
+  alert("✅ SAB SAVE HO GAYA!");
+  closeAdmin();
+  renderTournaments();
+}
+function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; }
+function resetAll(){ if(confirm("Default pe le aau?")){ localStorage.removeItem('ff_tournaments'); renderTournaments(); closeAdmin(); } }
+
+renderTournaments();
 </script>
 </body>
 </html>
