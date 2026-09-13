@@ -2,146 +2,205 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - Admin Pro</title>
+<title>FF LEAGUE - PRO ESPORTS</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#07070a;color:#fff}
-.nav{background:#111;padding:14px 16px;display:flex;justify-content:space-between;position:fixed;top:0;width:100%;z-index:10;border-bottom:1px solid #222}
-.card{background:#16161f;border:1px solid #2a2a36;border-radius:20px;padding:18px;margin:16px}
-.price{font-size:42px;font-weight:900;color:#ff1744}
-.btn{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:12px;cursor:pointer}
-.btn2{width:100%;padding:14px;background:#00e676;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:12px;display:none;cursor:pointer}
-.lock{background:#000;border:1px dashed #ff1744;color:#ff1744;padding:10px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;margin-top:10px}
-.unlock{background:#001a0a;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:10px;margin-top:10px;display:none;font-weight:700}
-.admin-fab{position:fixed;bottom:14px;right:14px;background:#ff1744;color:#fff;padding:10px 16px;border-radius:30px;font-size:12px;font-weight:900;cursor:pointer;z-index:99}
-.admin-panel{position:fixed;inset:0;background:#07070a;z-index:9999;padding:16px;display:none;overflow:auto}
-.input{background:#1e1e28;border:1px solid #333;padding:12px;border-radius:10px;width:100%;color:#fff;margin-top:8px}
-.label{font-size:11px;color:#888;margin-top:14px;display:block}
-.t-box{background:#16161f;border:1px solid #2a2a36;border-radius:16px;padding:16px;margin-top:16px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
+body{background:#0a0a0e;color:#fff;overflow-x:hidden}
+.header{background:#15151c;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:22px;letter-spacing:1px;cursor:pointer}
+.logo b{color:#ff1a1a}
+.logo span{color:#fff}
+.hero{background:linear-gradient(180deg,#1a0a0a 0%, #0a0a0e 100%);padding:18px;border-bottom:1px solid #1f1f2a}
+.hero h1{font-size:38px;line-height:0.9;font-weight:900;letter-spacing:-1px}
+.hero h1 em{color:#ff1a1a;font-style:normal}
+.badges{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.badge{background:#1c1c26;border:1px solid #2a2a36;padding:7px 12px;border-radius:10px;font-size:12px;display:flex;align-items:center;gap:6px}
+.badge i{color:#ff1a1a}
+.t-head{display:flex;justify-content:space-between;align-items:center;padding:18px}
+.live-badge{background:#ff1a1a;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:800}
+.card{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;margin:0 14px 16px 14px;padding:16px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#ff1a1a}
+.card.squad::before{background:#ff8a00}
+.top-row{display:flex;justify-content:space-between;align-items:center}
+.mode{background:#ff1a1a;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:900}
+.mode.squad{background:#ff1a1a}
+.status{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900}
+.status.live{background:#00e676;color:#000}
+.status.reg{background:#ff8a00;color:#000}
+.card h2{margin:14px 0 10px 0;font-size:18px;font-weight:900}
+.map{background:#0f0f14;padding:8px 10px;border-radius:8px;font-size:12px;color:#aaa;display:flex;gap:6px}
+.stats{display:flex;justify-content:space-between;margin-top:14px;border-top:1px solid #222;padding-top:12px}
+.stat{flex:1;text-align:center;border-right:1px solid #222}
+.stat:last-child{border:0}
+.stat span{font-size:11px;color:#888;display:block}
+.stat b{font-size:16px}
+.stat b.red{color:#ff1a1a}
+.bar{height:5px;background:#222;border-radius:10px;margin-top:6px;overflow:hidden}
+.bar div{height:100%;background:#ff1a1a;width:87%}
+.actions{display:flex;gap:10px;margin-top:14px}
+.btn-pay{flex:1;background:#1c1c26;border:1px solid #ff1a1a;color:#ff1a1a;padding:12px;border-radius:12px;font-weight:800}
+.btn-join{flex:1;background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800}
+.unlock-box{background:#00200f;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:12px;margin-top:12px;display:none;font-weight:700;font-size:13px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
+.bottom-nav div{text-align:center;font-size:10px;color:#666}
+.bottom-nav div.active{color:#ff1a1a}
+.bottom-nav i{display:block;font-size:18px;margin-bottom:4px}
+
+/* ADMIN - HIDDEN */
+.admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:16px;display:none;overflow:auto}
+.input{background:#1e1e28;border:1px solid #333;padding:12px;border-radius:10px;width:100%;color:#fff;margin-top:6px}
+.label{font-size:11px;color:#888;margin-top:12px;display:block}
+.t-box{background:#15151c;border:1px solid #2a2a3a;border-radius:16px;padding:14px;margin-top:14px}
 </style>
 </head>
 <body>
-<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span style="background:#00e676;color:#000;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">PRO ADMIN ✓</span></div>
-<div style="padding-top:70px;max-width:650px;margin:auto" id="tournamentList"></div>
 
-<div class="admin-fab" onclick="adminLogin()">⚙️ ADMIN</div>
+<div class="header">
+  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> <span>LEAGUE</span></div>
+  <div style="display:flex;gap:14px;font-size:18px;color:#aaa"><i class="fa-solid fa-bell"></i><i class="fa-solid fa-wallet"></i><i class="fa-solid fa-headset"></i></div>
+</div>
 
+<div class="hero">
+  <div style="color:#ff1a1a;font-size:12px;font-weight:800;letter-spacing:1px">PRO ESPORTS TOURNAMENTS</div>
+  <h1>COMPETE. WIN. <em>EARN.</em></h1>
+  <div style="font-size:12px;color:#888;margin-top:6px">Live tournaments for Free Fire - Join now and claim rewards</div>
+  <div class="badges">
+    <div class="badge"><i class="fa-solid fa-wallet"></i> Balance: $250.00</div>
+    <div class="badge"><i class="fa-solid fa-trophy"></i> Wins: 12</div>
+    <div class="badge"><i class="fa-solid fa-gem"></i> Diamond II</div>
+  </div>
+</div>
+
+<div class="t-head"><h3>Active Tournaments</h3><div class="live-badge">All • 2 Live</div></div>
+
+<div id="list"></div>
+
+<div style="height:80px"></div>
+
+<div class="bottom-nav">
+  <div class="active"><i class="fa-solid fa-house"></i>Home</div>
+  <div><i class="fa-solid fa-trophy"></i>Tournaments</div>
+  <div><i class="fa-solid fa-circle-play"></i>Live</div>
+  <div><i class="fa-solid fa-wallet"></i>Wallet</div>
+  <div><i class="fa-solid fa-user"></i>Profile</div>
+</div>
+
+<!-- HIDDEN ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
-<h2 style="color:#ff1744">🔐 SUPER ADMIN PANEL</h2>
-<p style="color:#666;font-size:12px">Sab kuch yaha se edit kar</p>
-
+<h2 style="color:#ff1a1a">🔐 ADMIN ONLY</h2>
+<p style="color:#666;font-size:12px">Sirf tu dekh sakta hai - Yaha se sab edit hoga</p>
 <div id="adminForms"></div>
-
-<button class="btn" style="background:#ff1744;color:#fff;margin-top:20px" onclick="saveAll()">💾 SAVE ALL CHANGES</button>
-<button class="btn" style="background:#222;color:#fff" onclick="closeAdmin()">CLOSE</button>
-<button class="btn" style="background:#000;color:#ff1744;border:1px solid #333" onclick="resetAll()">RESET TO DEFAULT</button>
+<button class="btn-join" style="width:100%;margin-top:20px" onclick="saveAll()">💾 SAVE ALL CHANGES</button>
+<button class="btn-pay" style="width:100%;margin-top:10px" onclick="closeAdmin()">CLOSE ADMIN</button>
 </div>
 
 <script>
-const DEFAULT_DATA = [
-  {id:"SOLO", name:"SOLO CLASH #1", fee:29, prize:800, time:"8PM Today", players:"48 Players", room:"8743921", pass:"1234", link:"https://rzp.io/rzp/dT74Iym"},
-  {id:"SQUAD", name:"SQUAD DOMINATION", fee:99, prize:3000, time:"9:30PM Today", players:"12 Teams", room:"9921345", pass:"7777", link:"https://rzp.io/rzp/gKa8g0l3"}
+const DEFAULT = [
+ {id:"SOLO", name:"SOLO — RUSH CLASH #247", map:"Bermuda", starts:"12:34", fee:5, prize:1500, slots:"87/100", bar:87, room:"8743921", pass:"1234", link:"https://rzp.io/rzp/dT74Iym", status:"LIVE"},
+ {id:"SQUAD", name:"SQUAD — TEAM DOMINATION #112", map:"Purgatory", starts:"45:20", fee:20, prize:5000, slots:"32/64", bar:50, room:"9921345", pass:"7777", link:"https://rzp.io/rzp/gKa8g0l3", status:"REGISTRATION"}
 ];
 
-function getData(){
-  let d = localStorage.getItem('ff_tournaments');
-  return d? JSON.parse(d) : DEFAULT_DATA;
-}
+function getData(){ let d=localStorage.getItem('ff_pro_v3'); return d?JSON.parse(d):DEFAULT; }
 
-function renderTournaments(){
-  let data = getData();
-  let html = "";
-  data.forEach(t=>{
-    let paid = localStorage.getItem('paid_'+t.id);
-    html += `
-    <div class="card">
-      <h2>${t.name}</h2>
-      <div class="price">₹${t.fee}</div>
-      <p style="color:#888;font-size:12px">Win ₹${t.prize} | ${t.time} | ${t.players}</p>
-      <div class="lock" id="lock-${t.id}" style="${paid?'display:none':''}">🔒 ROOM ID LOCKED - Pay ke baad khulega</div>
-      <div class="unlock" id="unlock-${t.id}" style="${paid?'display:block':''}">${paid?paid:''}</div>
-      <button class="btn" id="btn-${t.id}" style="${paid?'display:none':''}" onclick="pay('${t.id}')">PAY ₹${t.fee} WITH RAZORPAY</button>
-      <button class="btn2" id="verify-${t.id}" onclick="unlock('${t.id}')">I HAVE PAID - SHOW ROOM ID</button>
-    </div>`;
-  });
-  document.getElementById('tournamentList').innerHTML = html;
-  // show already unlocked
-  data.forEach(t=>{
-    let p = localStorage.getItem('paid_'+t.id);
-    if(p){
-      document.getElementById('unlock-'+t.id).innerHTML = p;
-      document.getElementById('lock-'+t.id).style.display='none';
-      document.getElementById('btn-'+t.id).style.display='none';
-    }
-  });
+function render(){
+ let data=getData(); let html="";
+ data.forEach(t=>{
+   let paid=localStorage.getItem('paid_'+t.id+'_pro');
+   html+=`
+   <div class="card ${t.id==='SQUAD'?'squad':''}">
+     <div class="top-row">
+       <div style="display:flex;gap:8px;align-items:center"><div class="mode">${t.id}</div><i class="fa-solid fa-crosshairs" style="color:#ff1a1a"></i></div>
+       <div class="status ${t.status==='LIVE'?'live':'reg'}">${t.status}</div>
+     </div>
+     <h2>${t.name}</h2>
+     <div class="map"><i class="fa-solid fa-location-dot"></i> Map: ${t.map} • Starts in ${t.starts}</div>
+     <div class="stats">
+       <div class="stat"><span><i class="fa-solid fa-sack-dollar"></i> Entry Fee</span><b>$${t.fee}.00</b></div>
+       <div class="stat"><span><i class="fa-solid fa-trophy"></i> Prize Pool</span><b class="red">$${t.prize.toLocaleString()}</b></div>
+       <div class="stat"><span><i class="fa-solid fa-users"></i> Slots Filled</span><b>${t.slots}</b><div class="bar"><div style="width:${t.bar}%"></div></div></div>
+     </div>
+     <div class="unlock-box" id="unlock-${t.id}" style="${paid?'display:block':''}">${paid||''}</div>
+     <div class="actions" id="act-${t.id}" style="${paid?'display:none':''}">
+       <button class="btn-pay" onclick="pay('${t.id}')"><i class="fa-solid fa-wallet"></i> PAY $${t.fee}.00</button>
+       <button class="btn-join" onclick="join('${t.id}')">JOIN NOW <i class="fa-solid fa-chevron-right"></i></button>
+     </div>
+   </div>`;
+ });
+ document.getElementById('list').innerHTML=html;
 }
 
 function pay(id){
-  let data = getData().find(x=>x.id===id);
-  localStorage.setItem('pending_'+id,'yes');
-  window.open(data.link,'_blank');
-  document.getElementById('verify-'+id).style.display='block';
-  alert(id+" Payment Khula! Pay karke wapas aake VERIFY dabao");
+ let d=getData().find(x=>x.id===id);
+ window.open(d.link,'_blank');
+ alert('Payment page khula! Pay karke JOIN NOW dabao, Room milega');
+}
+function join(id){
+ let txn=prompt("Razorpay Transaction ID / UTR daalo (Pay ke baad milta hai):");
+ if(!txn||txn.length<4){alert("Sahi Transaction ID daalo");return;}
+ let d=getData().find(x=>x.id===id);
+ let box=`✅ VERIFIED - ${id}<br>Txn: ${txn}<br><br>🏠 Room ID: <b style="color:#fff">${d.room}</b><br>🔑 Password: <b style="color:#fff">${d.pass}</b>`;
+ localStorage.setItem('paid_'+id+'_pro', box);
+ render();
 }
 
-function unlock(id){
-  let data = getData().find(x=>x.id===id);
-  let content = `✅ PAID - ₹${data.fee}<br><br>🏠 Room: <b style='color:#fff'>${data.room}</b><br>🔑 Pass: <b style='color:#fff'>${data.pass}</b><br><br><small>Prize: ₹${data.prize}</small>`;
-  document.getElementById('unlock-'+id).innerHTML = content;
-  document.getElementById('unlock-'+id).style.display='block';
-  document.getElementById('lock-'+id).style.display='none';
-  document.getElementById('btn-'+id).style.display='none';
-  document.getElementById('verify-'+id).style.display='none';
-  localStorage.setItem('paid_'+id, content);
-}
+// SECRET ADMIN OPEN - 5 TAP ON LOGO
+let tapCount=0, lastTap=0;
+document.getElementById('logoTap').addEventListener('click',()=>{
+ let now=Date.now();
+ if(now-lastTap>2000) tapCount=0;
+ tapCount++; lastTap=now;
+ if(tapCount>=5){
+   tapCount=0;
+   let p=prompt("ADMIN PASSWORD:");
+   if(btoa(p)==="R0tGRjIwMjY="){
+     buildAdmin(); document.getElementById('adminPanel').style.display='block';
+   }else if(p!==null) alert("Wrong Password!");
+ }
+});
 
-function adminLogin(){
-  let p = prompt("Admin Password:");
-  if(p==="GKFF2026"){
-    buildAdminForms();
-    document.getElementById('adminPanel').style.display='block';
-  }else if(p!==null) alert("Galat Password!");
-}
-function buildAdminForms(){
-  let data = getData();
-  let h = "";
-  data.forEach((t,i)=>{
-    h+=`
-    <div class="t-box">
-      <h3 style="color:#ff1744">${t.id} - EDIT</h3>
-      <span class="label">Tournament Name</span><input id="name_${i}" class="input" value="${t.name}">
-      <span class="label">Entry Fee (₹)</span><input id="fee_${i}" class="input" type="number" value="${t.fee}">
-      <span class="label">Winning Prize (₹)</span><input id="prize_${i}" class="input" type="number" value="${t.prize}">
-      <span class="label">Time</span><input id="time_${i}" class="input" value="${t.time}">
-      <span class="label">Players / Teams</span><input id="players_${i}" class="input" value="${t.players}">
-      <span class="label">Custom Room ID</span><input id="room_${i}" class="input" value="${t.room}">
-      <span class="label">Custom Room Password</span><input id="pass_${i}" class="input" value="${t.pass}">
-      <span class="label">Razorpay Payment Link</span><input id="link_${i}" class="input" value="${t.link}">
-    </div>`;
-  });
-  document.getElementById('adminForms').innerHTML = h;
+function buildAdmin(){
+ let data=getData(); let h="";
+ data.forEach((t,i)=>{
+   h+=`<div class="t-box">
+   <h3 style="color:#ff1a1a">${t.id} EDIT</h3>
+   <span class="label">Tournament Name</span><input id="name_${i}" class="input" value="${t.name}">
+   <span class="label">Map</span><input id="map_${i}" class="input" value="${t.map}">
+   <span class="label">Starts In</span><input id="starts_${i}" class="input" value="${t.starts}">
+   <span class="label">Entry Fee $</span><input id="fee_${i}" class="input" type="number" value="${t.fee}">
+   <span class="label">Prize Pool $</span><input id="prize_${i}" class="input" type="number" value="${t.prize}">
+   <span class="label">Slots e.g. 87/100</span><input id="slots_${i}" class="input" value="${t.slots}">
+   <span class="label">Bar % (0-100)</span><input id="bar_${i}" class="input" type="number" value="${t.bar}">
+   <span class="label">Custom Room ID</span><input id="room_${i}" class="input" value="${t.room}">
+   <span class="label">Custom Room Password</span><input id="pass_${i}" class="input" value="${t.pass}">
+   <span class="label">Razorpay Link</span><input id="link_${i}" class="input" value="${t.link}">
+   <span class="label">Status (LIVE / REGISTRATION)</span><input id="status_${i}" class="input" value="${t.status}">
+   </div>`;
+ });
+ document.getElementById('adminForms').innerHTML=h;
 }
 function saveAll(){
-  let data = getData();
-  data.forEach((t,i)=>{
-    t.name = document.getElementById('name_'+i).value;
-    t.fee = parseInt(document.getElementById('fee_'+i).value);
-    t.prize = parseInt(document.getElementById('prize_'+i).value);
-    t.time = document.getElementById('time_'+i).value;
-    t.players = document.getElementById('players_'+i).value;
-    t.room = document.getElementById('room_'+i).value;
-    t.pass = document.getElementById('pass_'+i).value;
-    t.link = document.getElementById('link_'+i).value;
-  });
-  localStorage.setItem('ff_tournaments', JSON.stringify(data));
-  alert("✅ SAB SAVE HO GAYA!");
-  closeAdmin();
-  renderTournaments();
+ let data=getData();
+ data.forEach((t,i)=>{
+   t.name=document.getElementById('name_'+i).value;
+   t.map=document.getElementById('map_'+i).value;
+   t.starts=document.getElementById('starts_'+i).value;
+   t.fee=parseInt(document.getElementById('fee_'+i).value)||t.fee;
+   t.prize=parseInt(document.getElementById('prize_'+i).value)||t.prize;
+   t.slots=document.getElementById('slots_'+i).value;
+   t.bar=parseInt(document.getElementById('bar_'+i).value)||t.bar;
+   t.room=document.getElementById('room_'+i).value;
+   t.pass=document.getElementById('pass_'+i).value;
+   t.link=document.getElementById('link_'+i).value;
+   t.status=document.getElementById('status_'+i).value;
+ });
+ localStorage.setItem('ff_pro_v3', JSON.stringify(data));
+ alert("✅ Saved! Sab update ho gaya");
+ closeAdmin(); render();
 }
 function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; }
-function resetAll(){ if(confirm("Default pe le aau?")){ localStorage.removeItem('ff_tournaments'); renderTournaments(); closeAdmin(); } }
 
-renderTournaments();
+render();
 </script>
 </body>
 </html>
