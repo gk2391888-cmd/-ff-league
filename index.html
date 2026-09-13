@@ -2,86 +2,76 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE</title>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<title>FF LEAGUE - Official</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{background:#07070a;color:#fff}
-.nav{background:#111;padding:12px 16px;display:flex;justify-content:space-between;position:fixed;top:0;width:100%;z-index:9;border-bottom:1px solid #222}
-.card{background:#16161f;border:1px solid #2a2a36;border-radius:20px;padding:18px;margin:18px}
+.nav{background:#111;padding:14px 16px;display:flex;justify-content:space-between;position:fixed;top:0;width:100%;z-index:10;border-bottom:1px solid #222}
+.card{background:#16161f;border:1px solid #2a2a36;border-radius:20px;padding:18px;margin:16px}
 .price{font-size:42px;font-weight:900;color:#ff1744}
 .btn{width:100%;padding:15px;background:#fff;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:14px;cursor:pointer}
+.btn2{width:100%;padding:15px;background:#00e676;color:#000;border:none;border-radius:12px;font-weight:900;margin-top:14px;display:none;cursor:pointer}
 .lock{background:#000;border:1px dashed #ff1744;color:#ff1744;padding:10px;border-radius:10px;text-align:center;font-size:12px;font-weight:700;margin-top:10px}
-.unlock{background:#001a0a;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:10px;margin-top:10px;display:none}
-.pop{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:92%;max-width:380px;background:#1c1c24;border:1px solid #444;border-radius:20px;padding:22px;z-index:9999;display:none}
-.bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9998;display:none}
+.unlock{background:#001a0a;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:10px;margin-top:10px;display:none;font-weight:700}
 </style>
 </head>
 <body>
-<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span style="background:#ff1744;padding:4px 8px;border-radius:20px;font-size:10px">PAYMENT ON</span></div>
+<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span style="background:#00e676;color:#000;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">PAYMENT LIVE ✓</span></div>
 
 <div style="padding-top:70px;max-width:600px;margin:auto">
-
 <div class="card">
-<h2>SOLO CLASH</h2>
+<h2>SOLO CLASH #1</h2>
 <div class="price">₹29</div>
-<p style="color:#888;font-size:12px">Win ₹800 | Today 8PM</p>
-<div class="lock" id="lock-solo">🔒 ROOM ID LOCKED - Pay ke baad khulega</div>
+<p style="color:#888;font-size:12px">Win ₹800 | Today 8PM | 48 Players</p>
+<div class="lock" id="lock-solo">🔒 ROOM ID LOCKED</div>
 <div class="unlock" id="unlock-solo"></div>
-<button class="btn" onclick="startPay('SOLO',29,'8743921','1234')">PAY ₹29 WITH RAZORPAY</button>
+<button class="btn" id="btn-solo" onclick="pay('SOLO','8743921','1234')">PAY ₹29 WITH RAZORPAY</button>
+<button class="btn2" id="verify-solo" onclick="unlock('SOLO','8743921','1234')">I HAVE PAID - SHOW ROOM ID</button>
 </div>
 
 <div class="card">
-<h2>SQUAD CLASH</h2>
+<h2>SQUAD DOMINATION</h2>
 <div class="price">₹99</div>
-<p style="color:#888;font-size:12px">Win ₹3000 | Today 9:30PM</p>
-<div class="lock" id="lock-squad">🔒 ROOM ID LOCKED - Pay ke baad khulega</div>
+<p style="color:#888;font-size:12px">Win ₹3000 | Today 9:30PM | 12 Teams</p>
+<div class="lock" id="lock-squad">🔒 ROOM ID LOCKED</div>
 <div class="unlock" id="unlock-squad"></div>
-<button class="btn" onclick="startPay('SQUAD',99,'9921345','7777')">PAY ₹99 WITH RAZORPAY</button>
+<button class="btn" id="btn-squad" onclick="pay('SQUAD','9921345','7777')">PAY ₹99 WITH RAZORPAY</button>
+<button class="btn2" id="verify-squad" onclick="unlock('SQUAD','9921345','7777')">I HAVE PAID - SHOW ROOM ID</button>
 </div>
-
-</div>
-
-<div class="bg" id="bg"></div>
-<div class="pop" id="pop">
-<h2 style="color:#00e676">✓ PAYMENT SUCCESS!</h2>
-<p id="pid" style="color:#999;font-size:12px;margin-top:8px"></p>
-<div id="rbox" style="background:#000;padding:12px;border-radius:10px;margin-top:12px"></div>
-<button class="btn" onclick="location.reload()">OK JOIN NOW</button>
 </div>
 
 <script>
-// TERA KEY - SCREENSHOT WALA
-const RZP_KEY = "rzp_test_TbPUILJwNtJjck";
+const LINKS = {
+  SOLO: "https://rzp.io/rzp/dT74Iym",
+  SQUAD: "https://rzp.io/rzp/gKa8g0l3"
+};
 
-function startPay(mode, amount, roomId, roomPass){
-  var options = {
-    key: RZP_KEY,
-    amount: amount*100,
-    currency: "INR",
-    name: "FF LEAGUE",
-    description: mode + " Tournament",
-    handler: function(response){
-      // SUCCESS
-      document.getElementById('bg').style.display='block';
-      document.getElementById('pop').style.display='block';
-      document.getElementById('pid').innerHTML = "Payment ID: <b style='color:#fff'>"+response.razorpay_payment_id+"</b>";
-      document.getElementById('rbox').innerHTML = "Mode: "+mode+"<br><br>🏠 Room ID: <b style='color:#00e676'>"+roomId+"</b><br>🔑 Pass: <b style='color:#00e676'>"+roomPass+"</b>";
-      // Unlock card
-      document.getElementById('lock-'+mode.toLowerCase()).style.display='none';
-      let u = document.getElementById('unlock-'+mode.toLowerCase());
-      u.style.display='block';
-      u.innerHTML = "✅ PAID - Room: "+roomId+" | Pass: "+roomPass;
-      localStorage.setItem(mode, roomId+"|"+roomPass+"|"+response.razorpay_payment_id);
-    },
-    prefill: { name: "FF Player", email: "ff@test.com", contact: "9999999999" },
-    theme: { color: "#ff1744" }
-  };
-  var rzp = new Razorpay(options);
-  rzp.on('payment.failed', function(resp){
-    alert("Failed: "+resp.error.description + "\n\nTest Card Use Kar:\n4111 1111 1111 1111\nExp 12/30 CVV 123");
+function pay(mode, room, pass){
+  localStorage.setItem('pending_'+mode, 'yes');
+  window.open(LINKS[mode], '_blank');
+  document.getElementById('verify-'+mode.toLowerCase()).style.display='block';
+  alert(mode+" Payment Page Khula Hai!\\nPay karne ke baad wapas aake 'I HAVE PAID' dabao, Room khul jayega!");
+}
+
+function unlock(mode, room, pass){
+  document.getElementById('lock-'+mode.toLowerCase()).style.display='none';
+  let u = document.getElementById('unlock-'+mode.toLowerCase());
+  u.style.display='block';
+  u.innerHTML = "✅ PAYMENT VERIFIED<br><br>🏠 Room ID: <b style='color:#fff'>"+room+"</b><br>🔑 Password: <b style='color:#fff'>"+pass+"</b><br><br><small>WhatsApp pe screenshot bhejo</small>";
+  document.getElementById('btn-'+mode.toLowerCase()).style.display='none';
+  document.getElementById('verify-'+mode.toLowerCase()).style.display='none';
+  localStorage.setItem('paid_'+mode, room+"|"+pass);
+}
+
+// Auto unlock if already paid before
+window.onload = ()=>{
+  ["SOLO","SQUAD"].forEach(m=>{
+    let d = localStorage.getItem('paid_'+m);
+    if(d){
+      let p = d.split('|');
+      unlock(m,p[0],p[1]);
+    }
   });
-  rzp.open();
 }
 </script>
 </body>
