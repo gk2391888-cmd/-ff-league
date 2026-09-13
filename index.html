@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - REAL UPI</title>
+<title>FF LEAGUE - ADMIN APPROVAL</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
@@ -13,68 +13,75 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 .card{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;margin-bottom:14px;padding:16px;position:relative;overflow:hidden}
 .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#ff1a1a}
 .mode{background:#ff1a1a;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:900}
-.status.live{background:#00e676;color:#000;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900}
-.stats{display:flex;justify-content:space-between;margin-top:14px;border-top:1px solid #222;padding-top:12px}
-.stat{flex:1;text-align:center;border-right:1px solid #222}.stat:last-child{border:0}
-.stat span{font-size:10px;color:#888;display:block}.stat b{font-size:14px}.stat b.red{color:#ff1a1a}
-.bar{height:5px;background:#222;border-radius:10px;margin-top:6px;overflow:hidden}.bar div{height:100%;background:#ff1a1a}
-.btn-join{background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;width:100%}
-.unlock-box{background:#00200f;border:1px solid #00e676;padding:12px;border-radius:12px;margin-top:12px;display:none}
-.timer{background:#ff1a1a;color:#fff;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:900;float:right}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
 .bottom-nav div{text-align:center;font-size:10px;color:#666;cursor:pointer;padding:6px 12px;border-radius:10px}.bottom-nav div.active{color:#ff1a1a;background:#1f1f2a}
 .wallet-box{background:linear-gradient(135deg,#ff1a1a,#8a0000);border-radius:20px;padding:20px;text-align:center}
 .input{background:#0f0f14;border:1px solid #333;padding:14px;border-radius:12px;width:100%;color:#fff;font-size:16px;font-weight:700;margin-top:8px}
-.recharge-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .recharge-card{background:#1c1c26;border:1px solid #2a2a3a;padding:14px;border-radius:14px;text-align:center;cursor:pointer}
 .admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:16px;display:none;overflow:auto}
+.pending-card{background:#1a1a00;border:1px solid #ffcc00;border-radius:14px;padding:12px;margin-bottom:10px}
+.approve-btn{background:#00e676;color:#000;border:none;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer}
+.reject-btn{background:#222;color:#ff1a1a;border:1px solid #ff1a1a;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer;margin-left:8px}
+.unlock-box{background:#00200f;border:1px solid #00e676;padding:12px;border-radius:12px;margin-top:12px;display:none}
+.timer{background:#ff1a1a;color:#fff;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:900;float:right}
+.btn-join{background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;width:100%}
+.stats{display:flex;justify-content:space-between;margin-top:14px;border-top:1px solid #222;padding-top:12px}
+.stat{flex:1;text-align:center;border-right:1px solid #222}.stat:last-child{border:0}
+.stat span{font-size:10px;color:#888;display:block}.stat b{font-size:14px}
+.bar{height:5px;background:#222;border-radius:10px;margin-top:6px;overflow:hidden}.bar div{height:100%;background:#ff1a1a}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE <small style="font-size:8px;background:#00e676;color:#000;padding:2px 6px;border-radius:4px">LIVE UPI</small></div>
-  <div><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div>
+  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE <small style="font-size:8px;background:#00e676;color:#000;padding:2px 6px;border-radius:4px">ADMIN APPROVAL</small></div>
+  <div style="display:flex;gap:10px;align-items:center"><span id="pendingBadge" style="display:none;background:#ffcc00;color:#000;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:900">0 PENDING</span><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div>
 </div>
 
 <div id="page-home" class="page active">
-  <div style="color:#ff1a1a;font-size:11px;font-weight:800">PRO ESPORTS - REAL MONEY • UPI: 9709461672@YBL</div>
+  <div style="color:#ff1a1a;font-size:11px;font-weight:800">UPI: 9709461672@YBL - ADMIN APPROVAL SYSTEM</div>
   <h1 style="font-size:34px;font-weight:900;line-height:0.9">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1>
   <div style="display:flex;gap:8px;margin:12px 0"><div style="background:#1c1c26;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-wallet" style="color:#00e676"></i> Balance: ₹<span id="bal1">0</span></div></div>
   <div id="home-list"></div>
 </div>
 
 <div id="page-tournaments" class="page"><h2>All Tournaments</h2><div id="tournaments-list" style="margin-top:12px"></div></div>
-<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches - 5 Min Only</h2><div id="live-list" style="margin-top:14px"></div></div>
+<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches</h2><div id="live-list" style="margin-top:14px"></div></div>
 
 <div id="page-wallet" class="page">
   <div class="wallet-box">
     <div style="font-size:12px;opacity:0.8">WALLET BALANCE</div>
     <div style="font-size:42px;font-weight:900;margin:8px 0">₹<span id="bal2">0</span></div>
-    <div style="font-size:11px;opacity:0.7">UPI: 9709461672@YBL - Direct Pay</div>
+    <div style="font-size:11px;opacity:0.7">Direct UPI to 9709461672@YBL</div>
   </div>
 
-  <h3 style="margin:18px 0 10px 0">Manual Amount Recharge</h3>
+  <h3 style="margin:18px 0 10px 0">Recharge - Manual Amount</h3>
   <div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a">
-    <label style="font-size:11px;color:#888">Kitna Recharge Karna Hai? (₹10 - ₹5000)</label>
+    <label style="font-size:11px;color:#888">Amount (₹10 - ₹5000)</label>
     <input id="customAmount" class="input" type="number" placeholder="e.g. 100" value="100">
-    <button onclick="rechargeUPI()" style="width:100%;margin-top:10px;background:#00e676;color:#000;padding:14px;border:none;border-radius:12px;font-weight:900"><i class="fa-brands fa-google-pay"></i> PAY TO 9709461672@YBL</button>
-    <p style="font-size:10px;color:#888;margin-top:8px;text-align:center">Google Pay / PhonePe / Paytm khulega -> Pay karo -> UTR daalo</p>
+    <button onclick="payUPI()" style="width:100%;margin-top:10px;background:#00e676;color:#000;padding:14px;border:none;border-radius:12px;font-weight:900"><i class="fa-brands fa-google-pay"></i> STEP 1: PAY TO 9709461672@YBL</button>
+    <div style="background:#0f0f14;border:1px dashed #333;padding:12px;border-radius:10px;margin-top:10px">
+      <label style="font-size:11px;color:#ffcc00">STEP 2: UTR / Transaction ID Daalo (Pay karne ke baad)</label>
+      <input id="utrInput" class="input" type="text" placeholder="e.g. 409712345678">
+      <button onclick="submitRequest()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">STEP 2: SUBMIT FOR ADMIN APPROVAL</button>
+    </div>
+    <p style="font-size:10px;color:#888;margin-top:8px;text-align:center">Pay -> UTR daalo -> Admin approve karega -> Balance add hoga</p>
   </div>
 
-  <div class="recharge-grid">
-    <div class="recharge-card" onclick="quickRecharge(50)"><b>₹50</b><br><small>Starter</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">PAY</div></div>
-    <div class="recharge-card" onclick="quickRecharge(100)"><b>₹100</b><br><small>Popular</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">PAY</div></div>
-    <div class="recharge-card" onclick="quickRecharge(250)"><b>₹250</b><br><small>Value</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">PAY</div></div>
-    <div class="recharge-card" onclick="quickRecharge(500)"><b>₹500</b><br><small>Pro</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">PAY</div></div>
+  <div class="recharge-grid" style="margin-top:14px">
+    <div class="recharge-card" onclick="quick(50)"><b>₹50</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
+    <div class="recharge-card" onclick="quick(100)"><b>₹100</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
+    <div class="recharge-card" onclick="quick(250)"><b>₹250</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
+    <div class="recharge-card" onclick="quick(500)"><b>₹500</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
   </div>
 
   <div style="background:#15151c;border-radius:14px;padding:14px;margin-top:16px">
-    <h4>Recent Transactions</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px">No transactions</div>
+    <h4>My Recharge Requests</h4><div id="my-requests" style="margin-top:8px"></div>
+    <h4 style="margin-top:16px">Wallet History</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px">No transactions</div>
   </div>
 </div>
 
-<div id="page-profile" class="page"><div style="text-align:center;padding:20px"><i class="fa-solid fa-user" style="font-size:50px;background:#1c1c26;padding:20px;border-radius:50%"></i><h2 style="margin-top:12px">Pro Player</h2><p style="color:#888;font-size:12px">Balance: ₹<span class="bal">0</span> | UPI: 9709461672@YBL</p></div></div>
+<div id="page-profile" class="page"><div style="text-align:center;padding:20px"><i class="fa-solid fa-user" style="font-size:50px;background:#1c1c26;padding:20px;border-radius:50%"></i><h2 style="margin-top:12px">Pro Player</h2><p style="color:#888;font-size:12px">Balance: ₹<span class="bal">0</span></p></div></div>
 
 <div class="bottom-nav">
   <div class="active" id="nav-home" onclick="showPage('home')"><i class="fa-solid fa-house"></i><br>Home</div>
@@ -84,11 +91,28 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
   <div id="nav-profile" onclick="showPage('profile')"><i class="fa-solid fa-user"></i><br>Profile</div>
 </div>
 
+<!-- ADMIN PANEL -->
 <div class="admin-panel" id="adminPanel">
-<h2 style="color:#ff1a1a">🔐 ADMIN</h2>
-<p style="color:#888;font-size:12px">UPI: 9709461672@YBL is LIVE</p>
-<div id="adminTour" style="margin-top:14px"></div>
-<button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:12px" onclick="closeAdmin()">CLOSE</button>
+<h2 style="color:#ff1a1a">🔐 ADMIN PANEL - 9709461672@YBL</h2>
+<p style="color:#888;font-size:11px">Logo pe 5 tap = Admin | Password: GKFF2026</p>
+
+<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:1px solid #ffcc00">
+  <h3 style="color:#ffcc00"><i class="fa-solid fa-clock"></i> PENDING APPROVALS (<span id="adminPendingCount">0</span>)</h3>
+  <p style="font-size:10px;color:#888;margin-top:4px">Yahan se approve karne pe hi user ka balance add hoga</p>
+  <div id="adminPendingList" style="margin-top:12px"></div>
+</div>
+
+<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px">
+  <h3>Approved History</h3>
+  <div id="adminApprovedList" style="margin-top:8px;font-size:12px;color:#888"></div>
+</div>
+
+<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px">
+  <h3>Tournament Settings</h3>
+  <div id="adminTour"></div>
+</div>
+
+<button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:16px" onclick="closeAdmin()">CLOSE ADMIN</button>
 </div>
 
 <script>
@@ -99,24 +123,37 @@ const DEFAULT = [
  {id:"SQUAD", name:"SQUAD — TEAM DOMINATION #112", map:"Purgatory", starts:"45:20", fee:99, prize:5000, slots:"32/64", bar:50, room:"9921345", pass:"7777", status:"REGISTRATION"}
 ];
 const SHOW_TIME = 5*60*1000;
-function getData(){ let d=localStorage.getItem('ff_final_upi'); return d?JSON.parse(d):DEFAULT; }
-function getBalance(){ return parseInt(localStorage.getItem('wallet_final')||"0"); }
-function setBalance(v){ localStorage.setItem('wallet_final', v.toString()); updateBal(); }
+
+function getData(){ let d=localStorage.getItem('ff_admin_approval'); return d?JSON.parse(d):DEFAULT; }
+function getBalance(){ return parseInt(localStorage.getItem('wallet_admin')||"0"); }
+function setBalance(v){ localStorage.setItem('wallet_admin', v.toString()); updateBal(); }
 function updateBal(){ document.querySelectorAll('#bal1,#bal2,.bal').forEach(e=>{ if(e) e.innerText=getBalance(); }); }
+function getPending(){ return JSON.parse(localStorage.getItem('pending_req')||"[]"); }
+function setPending(arr){ localStorage.setItem('pending_req', JSON.stringify(arr)); updateBadge(); renderAdmin(); renderMyRequests(); }
+function getApproved(){ return JSON.parse(localStorage.getItem('approved_req')||"[]"); }
+function setApproved(arr){ localStorage.setItem('approved_req', JSON.stringify(arr)); }
+
+function updateBadge(){
+  let pending=getPending().filter(p=>p.status==='pending').length;
+  let badge=document.getElementById('pendingBadge');
+  let count=document.getElementById('adminPendingCount');
+  if(count) count.innerText=pending;
+  if(badge){ if(pending>0){ badge.style.display='inline-block'; badge.innerText=pending+' PENDING'; } else badge.style.display='none'; }
+}
 
 function render(){
  let data=getData(); let html="";
  data.forEach(t=>{
-   html+=`<div class="card"><div style="display:flex;justify-content:space-between"><div class="mode">${t.id}</div><div class="status live">${t.status}</div></div>
+   html+=`<div class="card"><div style="display:flex;justify-content:space-between"><div class="mode">${t.id}</div><div style="background:#00e676;color:#000;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900">${t.status}</div></div>
    <h2 style="margin:12px 0 8px 0">${t.name}</h2><div style="background:#0f0f14;padding:8px 10px;border-radius:8px;font-size:11px;color:#aaa">Map: ${t.map} • Starts: ${t.starts}</div>
-   <div class="stats"><div class="stat"><span>Entry Fee</span><b>₹${t.fee}</b></div><div class="stat"><span>Prize Pool</span><b class="red">₹${t.prize.toLocaleString()}</b></div><div class="stat"><span>Slots</span><b>${t.slots}</b><div class="bar"><div style="width:${t.bar}%"></div></div></div></div>
+   <div class="stats"><div class="stat"><span>Entry Fee</span><b>₹${t.fee}</b></div><div class="stat"><span>Prize Pool</span><b style="color:#ff1a1a">₹${t.prize.toLocaleString()}</b></div><div class="stat"><span>Slots</span><b>${t.slots}</b><div class="bar"><div style="width:${t.bar}%"></div></div></div></div>
    <div class="unlock-box" id="unlock-${t.id}"><div class="timer" id="timer-${t.id}">05:00</div><div id="unlock-content-${t.id}"></div></div>
    <div id="act-${t.id}" style="margin-top:14px"><button class="btn-join" onclick="joinTournament('${t.id}')">JOIN NOW - ₹${t.fee} ></button></div>
-   <div id="expired-${t.id}" style="display:none;background:#1a0000;border:1px solid #ff1a1a;color:#ff1a1a;padding:10px;border-radius:10px;margin-top:12px;text-align:center;font-size:11px">⏰ Room Expired - 5 min over</div></div>`;
+   <div id="expired-${t.id}" style="display:none;background:#1a0000;border:1px solid #ff1a1a;color:#ff1a1a;padding:10px;border-radius:10px;margin-top:12px;text-align:center;font-size:11px">⏰ Room Expired</div></div>`;
  });
  document.getElementById('home-list').innerHTML=html;
  document.getElementById('tournaments-list').innerHTML=html;
- checkPaid(); updateBal(); renderLive(); renderTxns();
+ checkPaid(); updateBal(); renderLive(); renderTxns(); renderMyRequests(); updateBadge();
 }
 
 function joinTournament(id){
@@ -125,34 +162,103 @@ function joinTournament(id){
  if(bal < data.fee){ alert(`Balance kam hai! ₹${data.fee} chahiye, balance ₹${bal} hai. Wallet recharge karo.`); showPage('wallet'); return; }
  if(!confirm(`JOIN ${data.name}?\n₹${data.fee} wallet se katega`)) return;
  setBalance(bal - data.fee);
- let joined=JSON.parse(localStorage.getItem('joined_final')||"[]");
+ let joined=JSON.parse(localStorage.getItem('joined_admin')||"[]");
  joined.unshift({id:id, room:data.room, pass:data.pass, time:Date.now(), name:data.name, prize:data.prize});
- localStorage.setItem('joined_final', JSON.stringify(joined));
- let txns=JSON.parse(localStorage.getItem('txns_final')||"[]");
+ localStorage.setItem('joined_admin', JSON.stringify(joined));
+ let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]");
  txns.unshift(`JOINED ${id} -₹${data.fee} - ${new Date().toLocaleString()}`);
- localStorage.setItem('txns_final', JSON.stringify(txns));
+ localStorage.setItem('txns_admin', JSON.stringify(txns));
  localStorage.setItem('paid_obj_'+id, JSON.stringify({room:data.room, pass:data.pass, time:Date.now()}));
  render(); showPage('live');
 }
 
-function quickRecharge(amt){ document.getElementById('customAmount').value=amt; rechargeUPI(); }
-
-function rechargeUPI(){
+function quick(amt){ document.getElementById('customAmount').value=amt; }
+function payUPI(){
  let amount=parseInt(document.getElementById('customAmount').value);
- if(isNaN(amount)||amount<10){ alert("Minimum ₹10"); return; }
- if(amount>5000){ alert("Max ₹5000"); return; }
- let upiLink = `upi://pay?pa=${encodeURIComponent(ADMIN_UPI)}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent('FF LEAGUE Wallet Recharge')}`;
+ if(isNaN(amount)||amount<10){ alert("Minimum ₹10 daalo"); return; }
+ let upiLink = `upi://pay?pa=${encodeURIComponent(ADMIN_UPI)}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent('FF LEAGUE Recharge Rs.'+amount)}`;
  window.location.href = upiLink;
- setTimeout(()=>{
-   let utr=prompt(`₹${amount} ka UPI payment kiya ${ADMIN_UPI} pe?\n\nGoogle Pay / PhonePe me UTR / Transaction ID milega, woh daalo:`);
-   if(utr && utr.length>=4){
-     setBalance(getBalance()+amount);
-     let txns=JSON.parse(localStorage.getItem('txns_final')||"[]");
-     txns.unshift(`RECHARGE +₹${amount} - UTR ${utr} - To ${ADMIN_UPI} - ${new Date().toLocaleString()}`);
-     localStorage.setItem('txns_final', JSON.stringify(txns));
-     render(); alert(`✅ ₹${amount} Wallet me add! UTR: ${utr}\nPaise ${ADMIN_UPI} pe gaye`);
-   }
- },1500);
+ alert(`STEP 1: ${ADMIN_UPI} pe ₹${amount} pay karo\n\nPay karne ke baad neeche UTR daal ke SUBMIT karo`);
+}
+
+function submitRequest(){
+ let amount=parseInt(document.getElementById('customAmount').value);
+ let utr=document.getElementById('utrInput').value.trim();
+ if(isNaN(amount)||amount<10){ alert("Amount daalo"); return; }
+ if(!utr||utr.length<4){ alert("UTR / Transaction ID daalo (Google Pay me milta hai)"); return; }
+ let pending=getPending();
+ // duplicate check
+ if(pending.some(p=>p.utr===utr)){ alert("Ye UTR pehle se submit hai"); return; }
+ let req={id:Date.now(), amount:amount, utr:utr, time:new Date().toLocaleString(), status:'pending', upi:ADMIN_UPI};
+ pending.unshift(req);
+ setPending(pending);
+ document.getElementById('utrInput').value='';
+ alert(`✅ Request Submitted!\n\n₹${amount} - UTR ${utr}\n\nAdmin approve karega tab balance add hoga. Thoda wait karo.`);
+ renderMyRequests();
+}
+
+function renderMyRequests(){
+ let pending=getPending();
+ let html="";
+ if(pending.length===0) html=`<div style="color:#666;font-size:12px">No requests yet</div>`;
+ else{
+   html=pending.map(r=>{
+     let color = r.status==='pending'? '#ffcc00' : r.status==='approved'? '#00e676' : '#ff1a1a';
+     let icon = r.status==='pending'? '⏳ PENDING' : r.status==='approved'? '✅ APPROVED' : '❌ REJECTED';
+     return `<div style="background:#0f0f14;border:1px solid ${color};padding:10px;border-radius:10px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b>₹${r.amount}</b><span style="color:${color};font-weight:900">${icon}</span></div><div style="color:#888;margin-top:4px">UTR: ${r.utr}<br>Time: ${r.time}<br>To: ${r.upi}</div></div>`;
+   }).join('');
+ }
+ document.getElementById('my-requests').innerHTML=html;
+}
+
+function renderAdmin(){
+ let pending=getPending();
+ let approved=getApproved();
+ let htmlPending="";
+ let pendingOnly=pending.filter(p=>p.status==='pending');
+ if(pendingOnly.length===0) htmlPending=`<div style="color:#666;font-size:12px;padding:20px;text-align:center">No pending requests</div>`;
+ else{
+   htmlPending=pendingOnly.map(r=>`<div class="pending-card"><div style="display:flex;justify-content:space-between"><b style="font-size:16px">₹${r.amount}</b><span style="font-size:10px;color:#888">${r.time}</span></div><div style="margin-top:6px;font-size:12px">UTR: <b style="color:#fff">${r.utr}</b><br>To: ${r.upi}</div><div style="margin-top:10px"><button class="approve-btn" onclick="approveReq(${r.id})">✅ APPROVE & ADD BALANCE</button><button class="reject-btn" onclick="rejectReq(${r.id})">REJECT</button></div></div>`).join('');
+ }
+ document.getElementById('adminPendingList').innerHTML=htmlPending;
+ document.getElementById('adminApprovedList').innerHTML= approved.length? approved.map(r=>`<div style="padding:6px;border-bottom:1px solid #222">${r.status.toUpperCase()} - ₹${r.amount} - UTR ${r.utr} - ${r.time}</div>`).join('') : "No history";
+}
+
+function approveReq(id){
+ if(!confirm("Approve karu? Isse user ka balance add ho jayega. UTR check kiya kya Google Pay me?")) return;
+ let pending=getPending();
+ let approved=getApproved();
+ let idx=pending.findIndex(p=>p.id===id);
+ if(idx===-1) return;
+ let req=pending[idx];
+ req.status='approved';
+ // ADD BALANCE - REAL
+ setBalance(getBalance()+req.amount);
+ let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]");
+ txns.unshift(`RECHARGE APPROVED +₹${req.amount} - UTR ${req.utr} - ${new Date().toLocaleString()}`);
+ localStorage.setItem('txns_admin', JSON.stringify(txns));
+ approved.unshift(req);
+ setApproved(approved);
+ pending.splice(idx,1);
+ pending.unshift(req); // keep in list as approved
+ setPending(pending);
+ render(); alert(`✅ APPROVED! ₹${req.amount} balance me add ho gaya\nUTR: ${req.utr}`);
+}
+
+function rejectReq(id){
+ let reason=prompt("Reject reason (optional):");
+ let pending=getPending();
+ let approved=getApproved();
+ let idx=pending.findIndex(p=>p.id===id);
+ if(idx===-1) return;
+ let req=pending[idx];
+ req.status='rejected'; req.reason=reason||'';
+ approved.unshift(req);
+ setApproved(approved);
+ pending.splice(idx,1);
+ pending.unshift(req);
+ setPending(pending);
+ render(); alert("❌ Rejected");
 }
 
 function checkPaid(){
@@ -164,7 +270,7 @@ function checkPaid(){
    let elapsed=Date.now()-obj.time;
    let ub=document.getElementById('unlock-'+t.id), act=document.getElementById('act-'+t.id), exp=document.getElementById('expired-'+t.id);
    if(elapsed>SHOW_TIME){ localStorage.removeItem('paid_obj_'+t.id); if(ub) ub.style.display='none'; if(exp) exp.style.display='block'; if(act) act.style.display='none'; }
-   else{ if(ub) ub.style.display='block'; if(act) act.style.display='none'; let cont=document.getElementById('unlock-content-'+t.id); if(cont) cont.innerHTML=`✅ JOINED<br><br>🏠 Room: <b style="color:#fff;font-size:18px">${obj.room}</b><br>🔑 Pass: <b style="color:#fff;font-size:18px">${obj.pass}</b><br><small>Screenshot le lo - 5 min me gayab</small>`; startTimer(t.id); }
+   else{ if(ub) ub.style.display='block'; if(act) act.style.display='none'; let cont=document.getElementById('unlock-content-'+t.id); if(cont) cont.innerHTML=`✅ JOINED<br><br>🏠 Room: <b style="color:#fff;font-size:18px">${obj.room}</b><br>🔑 Pass: <b style="color:#fff;font-size:18px">${obj.pass}</b><br><small>5 min me gayab</small>`; startTimer(t.id); }
  });
 }
 let timers={};
@@ -180,19 +286,21 @@ function startTimer(id){
  },1000);
 }
 function renderLive(){
- let joined=JSON.parse(localStorage.getItem('joined_final')||"[]");
- let html= joined.length===0? `<div style="text-align:center;color:#666;padding:40px"><i class="fa-solid fa-gamepad" style="font-size:40px"></i><br><br>No live matches<br><small>Join karke Room ID yahan dekho - 5 min ke liye</small></div>` : joined.map(j=>{
+ let joined=JSON.parse(localStorage.getItem('joined_admin')||"[]");
+ let html= joined.length===0? `<div style="text-align:center;color:#666;padding:40px">No live matches</div>` : joined.map(j=>{
    let left=SHOW_TIME-(Date.now()-j.time); let expired=left<=0;
-   return `<div class="card" style="${expired?'opacity:0.5':''}"><div style="display:flex;justify-content:space-between"><div class="mode">${j.id}</div><div class="timer" id="ltimer-${j.id}">${expired?'EXPIRED':''}</div></div><h2 style="margin:12px 0">${j.name}</h2><div class="unlock-box" style="display:block">${expired?'⏰ Expired - 5 min khatam':`🏠 Room: <b style="color:#fff">${j.room}</b><br>🔑 Pass: <b style="color:#fff">${j.pass}</b><br>Prize: ₹${j.prize}`}</div></div>`;
+   return `<div class="card" style="${expired?'opacity:0.5':''}"><div style="display:flex;justify-content:space-between"><div class="mode">${j.id}</div><div class="timer" id="ltimer-${j.id}">${expired?'EXPIRED':''}</div></div><h2 style="margin:12px 0">${j.name}</h2><div class="unlock-box" style="display:block">${expired?'⏰ Expired':`🏠 Room: <b style="color:#fff">${j.room}</b><br>🔑 Pass: <b style="color:#fff">${j.pass}</b><br>Prize: ₹${j.prize}`}</div></div>`;
  }).join('');
  document.getElementById('live-list').innerHTML=html;
  joined.forEach(j=>{ if(SHOW_TIME-(Date.now()-j.time)>0) startTimer(j.id); });
 }
-function renderTxns(){ let txns=JSON.parse(localStorage.getItem('txns_final')||"[]"); document.getElementById('txn-list').innerHTML=txns.length?txns.map(t=>`<div style="padding:8px;border-bottom:1px solid #222">${t}</div>`).join(''):"No transactions"; }
-function showPage(p){ document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); document.querySelectorAll('.bottom-nav div').forEach(el=>el.classList.remove('active')); document.getElementById('nav-'+p).classList.add('active'); if(p==='live') renderLive(); if(p==='wallet') renderTxns(); }
-let tapCount=0,lastTap=0; document.getElementById('logoTap').addEventListener('click',()=>{ let now=Date.now(); if(now-lastTap>2000) tapCount=0; tapCount++; lastTap=now; if(tapCount>=5){ tapCount=0; let pw=prompt("ADMIN PASSWORD:"); if(btoa(pw)==="R0tGRjIwMjY="){ document.getElementById('adminPanel').style.display='block'; } }});
+function renderTxns(){ let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]"); document.getElementById('txn-list').innerHTML=txns.length?txns.map(t=>`<div style="padding:8px;border-bottom:1px solid #222">${t}</div>`).join(''):"No transactions"; }
+function showPage(p){ document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); document.querySelectorAll('.bottom-nav div').forEach(el=>el.classList.remove('active')); document.getElementById('nav-'+p).classList.add('active'); if(p==='live') renderLive(); if(p==='wallet') {renderTxns(); renderMyRequests();} }
+let tapCount=0,lastTap=0; document.getElementById('logoTap').addEventListener('click',()=>{ let now=Date.now(); if(now-lastTap>2000) tapCount=0; tapCount++; lastTap=now; if(tapCount>=5){ tapCount=0; let pw=prompt("ADMIN PASSWORD:"); if(btoa(pw)==="R0tGRjIwMjY="){ renderAdmin(); document.getElementById('adminPanel').style.display='block'; } }});
 function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; }
+
 render();
+renderAdmin();
 </script>
 </body>
 </html>
