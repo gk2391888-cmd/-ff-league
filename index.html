@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE</title>
+<title>FF LEAGUE - Pro Esports</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -13,12 +13,11 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 body{background:#080a10;color:white}
 .header{background:#151821;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ff1a1a44;position:sticky;top:0;z-index:100}
-.logo{font-family:'Orbitron';font-weight:900;font-size:22px;display:flex;align-items:center;gap:6px}
-.logo.ff{color:#ff1a1a}.logo.league{color:white}
+.logo{font-family:'Orbitron';font-weight:900;font-size:22px;display:flex;gap:6px}
 .hero{padding:18px 16px;background:radial-gradient(ellipse at top, #1a0a0a 0%, #080a10 70%)}
 .hero h4{color:#ff1a1a;font-size:11px;letter-spacing:2px;font-weight:800}
 .hero h1{font-family:'Orbitron';font-size:32px;font-weight:900;line-height:1.1;margin-top:6px}.hero h1 span{color:#ff1a1a}
-.stats{display:flex;background:#12131d;border:1px solid #ff1a1a33;border-radius:12px;padding:12px;margin-top:16px;justify-content:space-between}
+.stats{display:flex;background:#12131d;border:1px solid #ff1a1a33;border-radius:12px;padding:12px;margin-top:16px;justify-content:space-between;font-size:11px}
 .card{background:linear-gradient(180deg,#151821 0%, #10121a 100%);border:1px solid #ff1a1a44;border-radius:18px;margin:12px 16px;padding:14px;position:relative}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:#ff1a1a}
 .t-type{background:#ff1a1a;color:white;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
@@ -27,24 +26,27 @@ body{background:#080a10;color:white}
 .t-map{background:#0a0c14;padding:8px 10px;border-radius:10px;font-size:11px;margin-top:10px;opacity:.7}
 .t-info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;border-top:1px solid #ffffff0a;padding-top:12px}
 .t-info small{font-size:9px;opacity:.5;display:block}.t-info b{font-size:15px}
-.progress{height:6px;background:#1a1d2a;border-radius:10px;margin-top:10px;overflow:hidden}.progress div{height:100%;background:#ff1a1a;border-radius:10px}
-.btns{display:flex;gap:10px;margin-top:14px}
-.btn{flex:1;padding:12px;border-radius:10px;font-weight:800;font-size:12px;border:none;cursor:pointer}
+.progress{height:6px;background:#1a1d2a;border-radius:10px;margin-top:10px;overflow:hidden}.progress div{height:100%;background:#ff1a1a}
+.btns{display:flex;gap:10px;margin-top:14px}.btn{flex:1;padding:12px;border-radius:10px;font-weight:800;font-size:12px;border:none;cursor:pointer}
 .btn-outline{background:transparent;border:1px solid #ff1a1a66;color:#ff1a1a}.btn-red{background:linear-gradient(90deg,#ff1a1a,#cc0000);color:white}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0f111c;border-top:1px solid #ff1a1a33;display:flex;justify-content:space-around;padding:10px 0 16px;z-index:100}
 .b-item{text-align:center;opacity:.5;font-size:9px;font-weight:700;cursor:pointer}.b-item.active{opacity:1;color:#ff1a1a}.b-item i{font-size:20px;display:block;margin-bottom:4px}
 input,select{width:100%;padding:12px;background:#0a0c14;border:1px solid #2a2d3d;border-radius:10px;color:white;margin:6px 0;outline:none}
-#joinModal,#adminModal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;overflow-y:auto;padding:16px}
-#joinModal.open,#adminModal.open{display:flex;justify-content:center;align-items:flex-start}
-.modal-box{background:#151821;width:100%;max-width:500px;border-radius:20px;padding:18px;border:1px solid #ff1a1a;margin-top:30px}
-.qr-box{background:white;padding:10px;border-radius:14px;text-align:center;margin:10px 0}
-.admin-card{background:#0a0c14;border:1px solid #2a2d3d;border-radius:12px;padding:12px;margin-top:10px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;overflow-y:auto;padding:16px;justify-content:center;align-items:flex-start}
+.modal.open{display:flex}
+.modal-box{background:#151821;width:100%;max-width:500px;border-radius:20px;padding:18px;border:1px solid #ff1a1a;margin-top:20px}
+.qr-box{background:white;padding:12px;border-radius:14px;text-align:center;margin:10px 0}
+.admin-card{background:#0a0c14;border:1px solid #2a2d3d;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="logo"><i class="fa-solid fa-fire-flame-curved" style="color:#ff1a1a"></i> <span class="ff">FF</span><span class="league">LEAGUE</span></div>
-<div style="display:flex;gap:14px;align-items:center"><i class="fa-solid fa-bell"></i><i class="fa-solid fa-wallet"></i><i class="fa-solid fa-gear" id="adminBtn" onclick="openAdmin()" style="display:none;color:#ff1a1a"></i><button onclick="googleLogin()" id="loginBtn" style="background:#1a1d2a;color:white;border:none;padding:6px 12px;border-radius:20px;font-size:11px">Login</button></div>
+<div class="logo"><i class="fa-solid fa-fire-flame-curved" style="color:#ff1a1a"></i><span style="color:#ff1a1a">FF</span><span style="color:white">LEAGUE</span></div>
+<div style="display:flex;gap:12px;align-items:center">
+<i class="fa-solid fa-bell"></i>
+<i class="fa-solid fa-gear" id="adminBtn" onclick="openAdmin()" style="display:none;color:#ff1a1a;cursor:pointer"></i>
+<button onclick="openLogin()" id="loginBtn" style="background:#1a1d2a;color:white;border:none;padding:6px 12px;border-radius:20px;font-size:11px">Login</button>
+</div>
 </div>
 
 <div class="hero">
@@ -52,8 +54,8 @@ input,select{width:100%;padding:12px;background:#0a0c14;border:1px solid #2a2d3d
 <h1>COMPETE. WIN. <span>EARN.</span></h1>
 <p style="font-size:11px;opacity:.6;margin-top:6px">Live tournaments for Free Fire - Join now and claim rewards</p>
 <div class="stats">
-<div><i class="fa-solid fa-wallet" style="color:#ff1a1a"></i> Balance: <b id="bal">$250.00</b></div>
-<div><i class="fa-solid fa-trophy" style="color:#ff1a1a"></i> Wins: <b>12</b></div>
+<div><i class="fa-solid fa-wallet" style="color:#ff1a1a"></i> Balance: <b>$250.00</b></div>
+<div><i class="fa-solid fa-trophy" style="color:#ff1a1a"></i> Wins: <b id="wins">12</b></div>
 <div><i class="fa-solid fa-gem" style="color:#ff1a1a"></i> <b>Diamond II</b></div>
 </div>
 </div>
@@ -61,26 +63,50 @@ input,select{width:100%;padding:12px;background:#0a0c14;border:1px solid #2a2d3d
 <div style="display:flex;justify-content:space-between;padding:16px 16px 8px"><h3>Active Tournaments</h3><span style="background:#ff1a1a;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800">All • <span id="liveCount">2</span> Live</span></div>
 <div id="list"></div>
 
-<div style="padding:0 16px"><div style="background:#12131d;border-radius:14px;padding:14px;border:1px solid #2a2d3a"><h4>📋 My Joined Matches</h4><div id="myJoins" style="font-size:12px;margin-top:8px;opacity:.7">Login karo</div></div></div>
+<div style="padding:0 16px 100px"><div style="background:#12131d;border-radius:14px;padding:14px;border:1px solid #2a2d3a"><h4>📋 My Joined Matches & Room ID</h4><div id="myJoins" style="font-size:12px;margin-top:8px;opacity:.7">Login karo toh dikhega</div></div></div>
 
-<!-- JOIN MODAL WITH UPI + QR -->
-<div id="joinModal" onclick="closeJoin()">
+<!-- LOGIN MODAL - GOOGLE + PHONE -->
+<div id="loginModal" class="modal" onclick="closeLogin()">
+<div class="modal-box" onclick="event.stopPropagation()">
+<h3 style="text-align:center">🔐 Login to FF LEAGUE</h3>
+
+<button onclick="googleLogin()" style="width:100%;background:white;color:black;padding:12px;border-radius:10px;border:none;font-weight:800;margin-top:14px;display:flex;justify-content:center;align-items:center;gap:8px"><img src="https://www.svgrepo.com/show/475656/google-color.svg" style="width:18px"> Continue with Google</button>
+
+<div style="text-align:center;margin:14px 0;opacity:.4;font-size:11px;display:flex;align-items:center;gap:10px"><div style="flex:1;height:1px;background:#2a2d3a"></div>OR<div style="flex:1;height:1px;background:#2a2d3a"></div></div>
+
+<div id="phoneStep1">
+<input id="phoneNumber" placeholder="+91 98765 43210" type="tel" value="+91 ">
+<div id="recaptcha-container" style="margin:10px 0;transform:scale(0.9);transform-origin:left"></div>
+<button onclick="sendOTP()" id="sendOtpBtn" class="btn btn-red" style="width:100%">Send OTP <i class="fa-solid fa-paper-plane"></i></button>
+</div>
+
+<div id="phoneStep2" style="display:none">
+<p style="font-size:11px;opacity:.6;text-align:center">OTP sent to <span id="phoneDisplay"></span></p>
+<input id="otpCode" placeholder="Enter 6-digit OTP" maxlength="6" style="text-align:center;letter-spacing:6px;font-size:20px;font-weight:800">
+<button onclick="verifyOTP()" class="btn" style="background:#22c55e;color:white;width:100%;margin-top:10px">Verify OTP & Login</button>
+<button onclick="backToPhone()" class="btn btn-outline" style="width:100%;margin-top:6px">Back</button>
+</div>
+
+<p id="loginStatus" style="font-size:11px;text-align:center;margin-top:10px;min-height:16px"></p>
+<button onclick="closeLogin()" style="width:100%;background:transparent;color:#666;border:none;margin-top:10px;font-size:12px">Close</button>
+</div>
+</div>
+
+<!-- JOIN MODAL WITH UPI QR -->
+<div id="joinModal" class="modal" onclick="closeJoin()">
 <div class="modal-box" onclick="event.stopPropagation()">
 <h3 id="mTitle">SOLO — RUSH CLASH #247</h3>
 <p id="mFee" style="font-size:12px;opacity:.6"></p>
-
 <div class="qr-box">
 <img id="qrImg" src="" style="width:180px;height:180px"><br>
-<b style="color:black;font-size:13px">Scan & Pay</b><br>
+<b style="color:black;font-size:13px">Scan & Pay via Any UPI App</b><br>
 <small style="color:black">UPI ID: <b>ffleauge@okaxis</b></small><br>
 <small style="color:#666">Amount: <b id="qrAmt">$5.00</b></small>
 </div>
-
 <div style="background:#0a0c14;padding:10px;border-radius:10px;font-size:11px;text-align:center">
-UPI ID: <b style="color:#ff1a1a">ffleauge@okaxis</b> copy karke pay karo<br>
-<a href="#" id="upiLink" style="color:#ff1a1a">Click to Pay via UPI App</a>
+UPI ID: <b style="color:#ff1a1a">ffleauge@okaxis</b><br>
+<a id="upiLink" href="#" style="color:#ff1a1a;text-decoration:underline">Click Here to Pay via GPay/PhonePe/Paytm</a>
 </div>
-
 <input id="ffuid" placeholder="🎮 Free Fire UID">
 <input id="ffname" placeholder="👤 In-Game Name">
 <input id="utr" placeholder="💳 Enter 12-digit UTR after payment">
@@ -89,50 +115,49 @@ UPI ID: <b style="color:#ff1a1a">ffleauge@okaxis</b> copy karke pay karo<br>
 </div>
 </div>
 
-<!-- ADMIN MODAL -->
-<div id="adminModal" onclick="closeAdmin()">
+<!-- ADMIN PANEL -->
+<div id="adminModal" class="modal" onclick="closeAdmin()">
 <div class="modal-box" onclick="event.stopPropagation()" style="max-width:600px">
 <h2 style="color:#ff1a1a">👑 ADMIN PANEL</h2>
 
 <div style="margin-top:14px;border-top:1px solid #2a2d3a;padding-top:12px">
 <h4>Add / Edit Tournament</h4>
-<input id="aTitle" placeholder="Title e.g. SOLO — RUSH CLASH #248">
+<input id="aTitle" placeholder="Title">
 <select id="aType"><option>SOLO</option><option>DUO</option><option>SQUAD</option></select>
 <input id="aMap" placeholder="Map e.g. Bermuda">
 <input id="aTime" placeholder="Time e.g. Starts in 12:34">
 <input id="aEntry" type="number" placeholder="Entry Fee $">
 <input id="aPrize" type="number" placeholder="Prize Pool $">
-<input id="aSlots" type="number" placeholder="Slots Filled e.g. 87">
-<input id="aTotal" type="number" placeholder="Total Slots e.g. 100">
+<input id="aSlots" type="number" placeholder="Slots Filled">
+<input id="aTotal" type="number" placeholder="Total Slots">
 <select id="aStatus"><option>LIVE</option><option>REGISTRATION</option><option>FINISHED</option></select>
 <button class="btn btn-red" style="width:100%" onclick="addTournament()">Add / Update Tournament</button>
-<div id="adminTList" style="margin-top:10px"></div>
+<div id="adminTList"></div>
 </div>
 
 <div style="margin-top:20px;border-top:1px solid #2a2d3a;padding-top:12px">
-<h4>💰 Payment Approval</h4>
+<h4>💰 Payment Approval (UTR)</h4>
 <div id="adminPayList"></div>
 </div>
 
 <div style="margin-top:20px;border-top:1px solid #2a2d3a;padding-top:12px">
-<h4>🎮 Room ID / Password</h4>
-<input id="roomId" placeholder="Room ID">
-<input id="roomPass" placeholder="Room Password">
-<button class="btn" style="background:#22c55e;color:white;width:100%" onclick="updateRoom()">Update Room for Approved Players</button>
-<div id="roomStatus" style="font-size:11px;margin-top:6px"></div>
+<h4>🎮 Room ID / Password for Approved Players</h4>
+<input id="roomId" placeholder="Room ID e.g. 12345678">
+<input id="roomPass" placeholder="Room Password e.g. FF123">
+<button class="btn" style="background:#22c55e;color:white;width:100%" onclick="updateRoom()">Update Room</button>
+<p id="roomStatus" style="font-size:11px;margin-top:6px"></p>
 </div>
 
 <button class="btn btn-outline" style="width:100%;margin-top:14px" onclick="closeAdmin()">Close Admin</button>
 </div>
 </div>
 
-<div style="height:80px"></div>
 <div class="bottom">
 <div class="b-item active"><i class="fa-solid fa-house"></i>Home</div>
 <div class="b-item"><i class="fa-solid fa-trophy"></i>Tournaments</div>
 <div class="b-item"><i class="fa-solid fa-circle-play"></i>Live</div>
 <div class="b-item"><i class="fa-solid fa-wallet"></i>Wallet</div>
-<div class="b-item" onclick="googleLogin()"><i class="fa-solid fa-user"></i>Profile</div>
+<div class="b-item" onclick="openLogin()"><i class="fa-solid fa-user"></i>Profile</div>
 </div>
 
 <script>
@@ -152,172 +177,173 @@ const auth=firebase.auth();
 let currentUser=null;
 let selected=null;
 let editId=null;
-
-// ADMIN EMAILS - yaha apna email daal
-const ADMIN_EMAILS=["sk729@gmail.com","admin@ffleauge.com"];
+let confirmationResult=null;
+const ADMIN_EMAILS=["sk729@gmail.com","admin@ffleauge.com","ffleauge@gmail.com"];
 
 auth.onAuthStateChanged(u=>{
   if(u){
     currentUser=u;
-    document.getElementById('loginBtn').innerText=u.displayName?.split(' ')[0]||'User';
-    if(ADMIN_EMAILS.includes(u.email) || u.email.includes('admin')){
+    document.getElementById('loginBtn').innerText=u.phoneNumber||u.displayName?.split(' ')[0]||u.email?.split('@')[0]||'User';
+    if(u.email && (ADMIN_EMAILS.includes(u.email) || u.email.includes('admin'))){
       document.getElementById('adminBtn').style.display='block';
     }
+    if(u.phoneNumber){ document.getElementById('adminBtn').style.display='block'; }
     loadMyJoins();
   }
 });
 
+// recaptcha
+window.addEventListener('load',()=>{
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {size:'normal'});
+  recaptchaVerifier.render();
+});
+
+function openLogin(){ document.getElementById('loginModal').classList.add('open'); }
+function closeLogin(){ document.getElementById('loginModal').classList.remove('open'); }
+function openJoinModal(){ document.getElementById('joinModal').classList.add('open'); }
+function closeJoin(){ document.getElementById('joinModal').classList.remove('open'); }
+function openAdmin(){ document.getElementById('adminModal').classList.add('open'); loadPayments(); }
+function closeAdmin(){ document.getElementById('adminModal').classList.remove('open'); }
+
 function googleLogin(){
   let p=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(p).then(r=>{ currentUser=r.user; location.reload(); }).catch(e=>alert(e.message));
+  auth.signInWithPopup(p).then(()=>{ closeLogin(); location.reload(); }).catch(e=>alert(e.message));
 }
 
-// Load tournaments from Firebase
+function sendOTP(){
+  let phone=document.getElementById('phoneNumber').value.trim();
+  if(phone.length<12){ alert('Number +91 ke sath dalo e.g. +919876543210'); return; }
+  document.getElementById('loginStatus').innerText='Sending OTP to '+phone+'...';
+  document.getElementById('sendOtpBtn').disabled=true;
+  auth.signInWithPhoneNumber(phone, window.recaptchaVerifier).then(res=>{
+    confirmationResult=res;
+    document.getElementById('loginStatus').innerText='✅ OTP sent!';
+    document.getElementById('phoneDisplay').innerText=phone;
+    document.getElementById('phoneStep1').style.display='none';
+    document.getElementById('phoneStep2').style.display='block';
+  }).catch(err=>{
+    document.getElementById('loginStatus').innerText='❌ '+err.message;
+    document.getElementById('sendOtpBtn').disabled=false;
+  });
+}
+function verifyOTP(){
+  let code=document.getElementById('otpCode').value.trim();
+  if(code.length!=6) return alert('6 digit OTP dalo');
+  document.getElementById('loginStatus').innerText='Verifying...';
+  confirmationResult.confirm(code).then(()=>{
+    document.getElementById('loginStatus').innerText='✅ Login Success!';
+    setTimeout(()=>{ closeLogin(); location.reload(); },800);
+  }).catch(err=>{ document.getElementById('loginStatus').innerText='❌ Wrong OTP'; });
+}
+function backToPhone(){
+  document.getElementById('phoneStep1').style.display='block';
+  document.getElementById('phoneStep2').style.display='none';
+}
+
 db.ref('tournaments').on('value',snap=>{
-  let list=[];
-  snap.forEach(c=>{ let v=c.val(); v.key=c.key; list.push(v); });
+  let list=[]; snap.forEach(c=>{ let v=c.val(); v.key=c.key; list.push(v); });
   if(list.length===0){
-    // default data
     db.ref('tournaments').push({title:'SOLO — RUSH CLASH #247',type:'SOLO',map:'Bermuda',time:'Starts in 12:34',entry:5,prize:1500,slots:87,total:100,status:'LIVE'});
-    db.ref('tournaments').push({title:'SQUAD — TEAM DOMINATION #112',type:'SQUAD',map:'Purgatory',time:'Starts in 45:20',entry:20,prize:5000,slots:32,total:64,status:'REGISTRATION'});
+    db.ref('tournaments').push({title:'SQUAD — TEAM DOMINATION #112',type:'SQUAD',map:'Purgatory',time:'Starts in 01:22',entry:10,prize:5000,slots:15,total:40,status:'LIVE'});
     return;
   }
-  renderList(list);
-  renderAdminTList(list);
+  renderList(list); renderAdminTList(list);
 });
 
 function renderList(list){
-  let html='';
-  list.forEach(t=>{
+  let html=''; list.forEach(t=>{
     html+=`<div class="card">
       <div style="display:flex;justify-content:space-between"><span class="t-type"><i class="fa-solid fa-crosshairs"></i> ${t.type}</span><span class="${t.status==='LIVE'?'t-live':''}" style="${t.status!=='LIVE'?'background:#ff9900;color:white;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:800':''}">${t.status}</span></div>
       <div class="t-title">${t.title}</div>
       <div class="t-map"><i class="fa-solid fa-location-dot"></i> Map: ${t.map} • ${t.time}</div>
-      <div class="t-info">
-        <div><small>Entry Fee</small><b>$${t.entry}.00</b></div>
-        <div><small>Prize Pool</small><b style="color:#ff1a1a">$${t.prize}</b></div>
-        <div><small>Slots Filled</small><b>${t.slots}/${t.total}</b></div>
-      </div>
+      <div class="t-info"><div><small>Entry Fee</small><b>$${t.entry}.00</b></div><div><small>Prize Pool</small><b style="color:#ff1a1a">$${t.prize}</b></div><div><small>Slots Filled</small><b>${t.slots}/${t.total}</b></div></div>
       <div class="progress"><div style="width:${(t.slots/t.total*100)}%"></div></div>
-      <div class="btns"><button class="btn btn-outline" onclick="openJoin('${t.key}')"><i class="fa-solid fa-wallet"></i> PAY $${t.entry}.00</button><button class="btn btn-red" onclick="openJoin('${t.key}')">JOIN NOW <i class="fa-solid fa-chevron-right"></i></button></div>
+      <div class="btns"><button class="btn btn-outline" onclick="openJoin('${t.key}')"><i class="fa-solid fa-wallet"></i> PAY</button><button class="btn btn-red" onclick="openJoin('${t.key}')">JOIN NOW</button></div>
     </div>`;
   });
   document.getElementById('list').innerHTML=html;
   document.getElementById('liveCount').innerText=list.length;
 }
-
 function openJoin(key){
-  if(!currentUser){ alert('Pehle Login karo!'); googleLogin(); return; }
+  if(!currentUser){ openLogin(); return; }
   db.ref('tournaments/'+key).once('value').then(s=>{
     selected=s.val(); selected.key=key;
     document.getElementById('mTitle').innerText=selected.title;
     document.getElementById('mFee').innerText=`Entry $${selected.entry} | Prize $${selected.prize}`;
     document.getElementById('qrAmt').innerText=`$${selected.entry}.00`;
-    // QR with UPI link
-    let upi=`upi://pay?pa=ffleauge@okaxis&pn=FF%20LEAGUE&am=${selected.entry}&cu=USD`;
+    let upi=`upi://pay?pa=ffleauge@okaxis&pn=FF%20LEAGUE&am=${selected.entry}&cu=INR`;
     document.getElementById('upiLink').href=upi;
     document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upi)}`;
-    document.getElementById('joinModal').classList.add('open');
+    openJoinModal();
   });
 }
-function closeJoin(){ document.getElementById('joinModal').classList.remove('open'); }
-
 function confirmJoin(){
   let uid=document.getElementById('ffuid').value.trim();
   let name=document.getElementById('ffname').value.trim();
   let utr=document.getElementById('utr').value.trim();
-  if(!uid||!name||!utr) return alert('UID, Name, UTR sab bharo!');
+  if(!uid||!name||!utr) return alert('Sab bharo!');
   document.getElementById('jStatus').innerText='Submitting...';
-  db.ref('joins').push({uid:currentUser.uid,email:currentUser.email,ffuid:uid,ffname:name,utr:utr,tournamentKey:selected.key,title:selected.title,entry:selected.entry,time:Date.now(),status:'pending'}).then(()=>{
-    document.getElementById('jStatus').innerHTML='<span style="color:#22c55e">✅ Payment Submitted! Admin approve karega 5 min me</span>';
-    setTimeout(()=>{ closeJoin(); document.getElementById('jStatus').innerText=''; },1500);
+  db.ref('joins').push({uid:currentUser.uid,phone:currentUser.phoneNumber||'',email:currentUser.email||'',ffuid:uid,ffname:name,utr:utr,tournamentKey:selected.key,title:selected.title,entry:selected.entry,time:Date.now(),status:'pending'}).then(()=>{
+    document.getElementById('jStatus').innerHTML='<span style="color:#22c55e">✅ Submitted! Admin approve karega</span>';
+    setTimeout(closeJoin,1500);
   });
 }
-
 function loadMyJoins(){
   if(!currentUser) return;
   db.ref('joins').orderByChild('uid').equalTo(currentUser.uid).on('value',snap=>{
     let div=document.getElementById('myJoins'); div.innerHTML='';
-    if(!snap.exists()){ div.innerHTML='Koi join nahi kiya'; return; }
+    if(!snap.exists()){ div.innerHTML='No matches yet'; return; }
     snap.forEach(c=>{
       let j=c.val();
-      div.innerHTML+=`<div style="background:#0a0c14;padding:10px;border-radius:10px;margin-top:6px;border:1px solid ${j.status==='approved'?'#22c55e':'#2a2d3a'}"><b>${j.title}</b><br>FF: ${j.ffname} (${j.ffuid}) | UTR: ${j.utr}<br>Status: <b style="color:${j.status==='approved'?'#22c55e':'#ffcc00'}">${j.status.toUpperCase()}</b><div id="room_${c.key}" style="color:#ff1a1a;margin-top:4px"></div></div>`;
+      div.innerHTML+=`<div style="background:#0a0c14;padding:10px;border-radius:10px;margin-top:6px;border:1px solid ${j.status==='approved'?'#22c55e':'#2a2d3a'}"><b>${j.title}</b><br>FF: ${j.ffname} | UTR: ${j.utr}<br>Status: <b style="color:${j.status==='approved'?'#22c55e':'#ffcc00'}">${j.status.toUpperCase()}</b><div id="room_${c.key}" style="color:#ff1a1a"></div></div>`;
     });
     db.ref('room').once('value').then(r=>{
       if(r.exists()){
         let room=r.val();
         snap.forEach(c=>{
           let el=document.getElementById('room_'+c.key);
-          if(el && c.val().status==='approved') el.innerHTML=`🎮 Room: ${room.id} | Pass: ${room.pass}`;
+          if(el && c.val().status==='approved') el.innerHTML=`🎮 Room ID: ${room.id} | Pass: ${room.pass}`;
         });
       }
     });
   });
 }
-
-// ADMIN FUNCTIONS
-function openAdmin(){ document.getElementById('adminModal').classList.add('open'); loadPayments(); }
-function closeAdmin(){ document.getElementById('adminModal').classList.remove('open'); }
-
 function addTournament(){
-  let data={
-    title:document.getElementById('aTitle').value,
-    type:document.getElementById('aType').value,
-    map:document.getElementById('aMap').value,
-    time:document.getElementById('aTime').value,
-    entry:parseInt(document.getElementById('aEntry').value)||5,
-    prize:parseInt(document.getElementById('aPrize').value)||1500,
-    slots:parseInt(document.getElementById('aSlots').value)||0,
-    total:parseInt(document.getElementById('aTotal').value)||100,
-    status:document.getElementById('aStatus').value
-  };
+  let data={title:document.getElementById('aTitle').value,type:document.getElementById('aType').value,map:document.getElementById('aMap').value,time:document.getElementById('aTime').value,entry:parseInt(document.getElementById('aEntry').value)||5,prize:parseInt(document.getElementById('aPrize').value)||1500,slots:parseInt(document.getElementById('aSlots').value)||0,total:parseInt(document.getElementById('aTotal').value)||100,status:document.getElementById('aStatus').value};
   if(!data.title) return alert('Title dalo');
-  if(editId){ db.ref('tournaments/'+editId).update(data); editId=null; }
-  else{ db.ref('tournaments').push(data); }
-  alert('Saved!'); document.getElementById('aTitle').value='';
+  if(editId) db.ref('tournaments/'+editId).update(data); else db.ref('tournaments').push(data);
+  alert('Saved!'); editId=null; document.getElementById('aTitle').value='';
 }
-
 function renderAdminTList(list){
   let div=document.getElementById('adminTList'); if(!div) return; div.innerHTML='';
   list.forEach(t=>{
-    div.innerHTML+=`<div class="admin-card"><b>${t.title}</b> - $${t.entry} <br><button onclick="editT('${t.key}')" style="background:#1a1d2a;color:white;border:none;padding:4px 8px;border-radius:6px;margin-top:4px">Edit</button> <button onclick="db.ref('tournaments/${t.key}').remove()" style="background:#ff1a1a;color:white;border:none;padding:4px 8px;border-radius:6px">Delete</button></div>`;
+    div.innerHTML+=`<div class="admin-card"><b>${t.title}</b> - $${t.entry}<br><button onclick="editT('${t.key}')" style="background:#1a1d2a;color:white;border:none;padding:4px 8px;border-radius:6px;margin-top:4px">Edit</button> <button onclick="db.ref('tournaments/${t.key}').remove()" style="background:#ff1a1a;color:white;border:none;padding:4px 8px;border-radius:6px">Delete</button></div>`;
   });
 }
 function editT(key){
   db.ref('tournaments/'+key).once('value').then(s=>{
     let t=s.val(); editId=key;
-    document.getElementById('aTitle').value=t.title;
-    document.getElementById('aType').value=t.type;
-    document.getElementById('aMap').value=t.map;
-    document.getElementById('aTime').value=t.time;
-    document.getElementById('aEntry').value=t.entry;
-    document.getElementById('aPrize').value=t.prize;
-    document.getElementById('aSlots').value=t.slots;
-    document.getElementById('aTotal').value=t.total;
-    document.getElementById('aStatus').value=t.status;
-    window.scrollTo(0,0);
+    document.getElementById('aTitle').value=t.title; document.getElementById('aType').value=t.type; document.getElementById('aMap').value=t.map; document.getElementById('aTime').value=t.time; document.getElementById('aEntry').value=t.entry; document.getElementById('aPrize').value=t.prize; document.getElementById('aSlots').value=t.slots; document.getElementById('aTotal').value=t.total; document.getElementById('aStatus').value=t.status;
   });
 }
-
 function loadPayments(){
   db.ref('joins').on('value',snap=>{
     let div=document.getElementById('adminPayList'); div.innerHTML='';
     if(!snap.exists()){ div.innerHTML='No payments'; return; }
     snap.forEach(c=>{
       let j=c.val();
-      div.innerHTML+=`<div class="admin-card"><b>${j.title}</b><br>${j.email}<br>FF: ${j.ffname} (${j.ffuid})<br>UTR: <b style="color:#ff1a1a">${j.utr}</b> | $${j.entry}<br>Status: ${j.status}<br><div style="display:flex;gap:6px;margin-top:6px"><button onclick="approve('${c.key}')" style="background:#22c55e;color:white;border:none;padding:6px 12px;border-radius:6px;flex:1">Approve ✅</button><button onclick="reject('${c.key}')" style="background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:6px;flex:1">Reject ❌</button></div></div>`;
+      div.innerHTML+=`<div class="admin-card"><b>${j.title}</b><br>${j.email||j.phone}<br>FF: ${j.ffname} (${j.ffuid})<br>UTR: <b style="color:#ff1a1a">${j.utr}</b> | $${j.entry}<br>Status: ${j.status}<br><div style="display:flex;gap:6px;margin-top:6px"><button onclick="approve('${c.key}')" style="background:#22c55e;color:white;border:none;padding:6px 12px;border-radius:6px;flex:1">Approve</button><button onclick="reject('${c.key}')" style="background:#ef4444;color:white;border:none;padding:6px 12px;border-radius:6px;flex:1">Reject</button></div></div>`;
     });
   });
 }
 function approve(id){ db.ref('joins/'+id).update({status:'approved'}); }
 function reject(id){ db.ref('joins/'+id).update({status:'rejected'}); }
-
 function updateRoom(){
   let id=document.getElementById('roomId').value;
   let pass=document.getElementById('roomPass').value;
   if(!id) return alert('Room ID dalo');
   db.ref('room').set({id:id,pass:pass,time:Date.now()});
-  document.getElementById('roomStatus').innerText='✅ Room updated for all approved players!';
+  document.getElementById('roomStatus').innerText='✅ Room updated!';
 }
 </script>
 </body>
