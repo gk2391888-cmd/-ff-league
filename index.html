@@ -1,50 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAUGE - Tournament</title>
+<title>FF LEAUGE - India's Biggest FF Tournament</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0a0e1a;color:white}
-.header{background:#11182c;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ffcc00}
-.logo{font-weight:900;font-size:22px;color:#ffcc00;letter-spacing:1px}
-.btn{padding:12px 20px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
-.btn-yellow{background:#ffcc00;color:black;width:100%;margin-top:10px}
-.card{background:#151c32;border:1px solid #1e2a4a;border-radius:16px;padding:18px;margin-bottom:15px}
-input{width:100%;padding:13px;background:#0a0e1a;border:1px solid #1e2a4a;border-radius:10px;color:white;margin:6px 0}
-.main{max-width:500px;margin:0 auto;padding:16px;padding-bottom:80px}
-.t-badge{background:#ffcc0022;color:#ffcc00;padding:4px 10px;border-radius:20px;font-size:11px;border:1px solid #ffcc00}
+body{background:#070a14;color:#e2e8f0}
+:root{--y:#ffcc00;--y2:#ff9900;--card:#12182e;--border:#1e294a}
+.header{background:rgba(18,24,46,.9);backdrop-filter:blur(10px);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
+.logo{font-weight:900;font-size:24px;color:var(--y);letter-spacing:1px}
+.logo span{color:white}
+.btn{padding:10px 18px;border:none;border-radius:100px;font-weight:800;cursor:pointer}
+.btn-y{background:linear-gradient(90deg,var(--y),var(--y2));color:black}
+.btn-dark{background:#1e294a;color:white}
+.main{max-width:600px;margin:0 auto;padding:14px;padding-bottom:100px}
+.banner{background:linear-gradient(135deg,#ffcc00 0%, #ff6a00 100%);border-radius:22px;padding:22px;color:black;text-align:center;position:relative;overflow:hidden}
+.banner h1{font-size:28px;font-weight:900;line-height:1}
+.banner p{font-size:12px;font-weight:600;margin-top:6px;opacity:.8}
+.card{background:linear-gradient(180deg,#151d36 0%, #12182e 100%);border:1px solid var(--border);border-radius:20px;padding:18px;margin-top:14px}
+.t-row{display:flex;justify-content:space-between;align-items:center}
+.badge{background:#ffcc0022;color:var(--y);padding:5px 12px;border-radius:100px;font-size:10px;font-weight:800;border:1px solid #ffcc0033}
+.meta{display:flex;gap:12px;margin-top:12px;font-size:12px}
+.meta span{background:#0a0e1e;padding:6px 12px;border-radius:100px;border:1px solid var(--border)}
+input,select{width:100%;padding:13px 14px;background:#090d1a;border:1px solid var(--border);border-radius:12px;color:white;margin:6px 0;outline:none}
+.prize-box{background:#090d1a;border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;margin-top:12px}
+.prize-box b{color:var(--y);font-size:18px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0e1428;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0 18px;z-index:99}
+.b-item{flex:1;text-align:center;opacity:.5;font-size:10px;font-weight:700;cursor:pointer}
+.b-item.active{opacity:1;color:var(--y)}
+.b-item i{font-size:20px;display:block;margin-bottom:4px}
+.hidden{display:none}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo">FF LEAUGE</div><button onclick="login()" id="loginBtn" class="btn" style="background:#1e2a4a;color:white;padding:8px 14px">Login</button></div>
+<div class="header">
+<div class="logo">FF <span>LEAUGE</span></div>
+<div style="display:flex;gap:8px;align-items:center">
+<span id="userName" style="font-size:11px;opacity:.7"></span>
+<button id="loginBtn" onclick="googleLogin()" class="btn btn-dark" style="font-size:11px"><i class="fa-brands fa-google"></i> Login</button>
+</div>
+</div>
+
 <div class="main">
-<div class="card" style="background:linear-gradient(135deg,#ffcc00,#ff8800);color:black;text-align:center"><h2>🔥 FREE FIRE TOURNAMENT</h2><p style="font-size:13px;margin-top:6px">Join & Win Cash Prize Daily</p><h1 style="margin-top:10px">₹5000 PRIZE</h1></div>
+<div class="banner">
+<h1>WIN ₹5000 DAILY</h1>
+<p>SOLO • DUO • SQUAD • FULL MAP • CUSTOM ROOM</p>
+<div style="margin-top:14px;display:flex;justify-content:center;gap:10px">
+<span style="background:black;color:#ffcc00;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:800">100% SAFE</span>
+<span style="background:black;color:#ffcc00;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:800">INSTANT PAYOUT</span>
+</div>
+</div>
 
-<div id="tournaments"></div>
+<div style="display:flex;gap:8px;margin-top:14px;overflow-x:auto">
+<div onclick="filterType('All')" id="fAll" class="btn btn-y" style="font-size:11px;white-space:nowrap">All</div>
+<div onclick="filterType('Solo')" id="fSolo" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Solo</div>
+<div onclick="filterType('Duo')" id="fDuo" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Duo</div>
+<div onclick="filterType('Squad')" id="fSquad" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Squad</div>
+</div>
 
-<div class="card">
-<h3>💳 Add Money / Join</h3>
-<p style="font-size:11px;opacity:.6;margin:8px 0">UPI ID: ffleauge@upi<br>Payment karke UTR dalo</p>
-<input id="utr" placeholder="Enter UTR / Transaction ID">
-<input id="ffid" placeholder="Free Fire ID">
-<button class="btn-yellow" onclick="joinTournament()">Submit & Join</button>
-<p id="status" style="font-size:12px;margin-top:10px;text-align:center"></p>
+<div id="tournamentList"></div>
+
+<div class="card" id="joinCard" style="border:1px dashed #ffcc00">
+<h3><i class="fa-solid fa-bolt" style="color:#ffcc00"></i> Join Tournament</h3>
+<p id="selectedInfo" style="font-size:11px;margin:8px 0;opacity:.6">Pehle upar se koi tournament select karo</p>
+<input id="ffid" placeholder="🎮 Free Fire UID (e.g. 1234567890)">
+<input id="ffname" placeholder="👤 In-Game Name">
+<input id="utr" placeholder="💳 UTR / Transaction ID (12 digit)">
+<div style="background:#090d1a;padding:10px;border-radius:10px;margin:8px 0;font-size:11px">
+<b>UPI ID:</b> <span style="color:#ffcc00">ffleauge@okaxis</span><br>
+QR ke liye: <span style="color:#ffcc00">9100000000@ybl</span> pe ₹ Entry Fee bhejo
+</div>
+<button class="btn btn-y" style="width:100%;padding:14px" onclick="submitJoin()">Pay & Join Now <i class="fa-solid fa-arrow-right"></i></button>
+<p id="joinStatus" style="font-size:11px;text-align:center;margin-top:10px"></p>
 </div>
 
 <div class="card">
-<h3>📋 My Joined Matches</h3>
-<div id="myMatches" style="font-size:13px;margin-top:10px;opacity:.7">Login karke join karo</div>
+<h3>🏆 My Matches & Room ID</h3>
+<div id="myJoins" style="margin-top:10px">Login karo toh dikhega</div>
 </div>
+
+<div class="card" id="adminPanel" style="display:none;border:1px solid #ff3300">
+<h3 style="color:#ff3300">👑 ADMIN PANEL</h3>
+<input id="roomId" placeholder="Room ID">
+<input id="roomPass" placeholder="Room Password">
+<button class="btn btn-dark" style="width:100%;margin-top:6px" onclick="updateRoom()">Update Room ID for All</button>
+<div id="adminJoins" style="margin-top:14px"></div>
+</div>
+
+</div>
+
+<div class="bottom">
+<div class="b-item active" onclick="window.scrollTo(0,0)"><i class="fa-solid fa-house"></i>Home</div>
+<div class="b-item" onclick="document.getElementById('myJoins').scrollIntoView()"><i class="fa-solid fa-trophy"></i>My Match</div>
+<div class="b-item" onclick="alert('Wallet: Admin approve ke baad prize milega')"><i class="fa-solid fa-wallet"></i>Wallet</div>
+<div class="b-item" onclick="googleLogin()"><i class="fa-solid fa-user"></i>Profile</div>
 </div>
 
 <script>
-// YOUR CORRECT CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyAd9e5eLTZkxVyimuJFoCV_M_RflsFlQHc",
   authDomain: "ff-leauge.firebaseapp.com",
@@ -55,66 +113,153 @@ const firebaseConfig = {
   appId: "1:26073423984:web:a4c56728df0aca79ec14b5",
   measurementId: "G-J65B23P84F"
 };
-
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const auth = firebase.auth();
-let currentUser = null;
+const db=firebase.database();
+const auth=firebase.auth();
+let currentUser=null;
+let selectedTournament=null;
+let allTournaments=[];
+let currentFilter='All';
 
-// Auto Login Check
 auth.onAuthStateChanged(u=>{
-  if(u){ currentUser=u; document.getElementById('loginBtn').innerText = u.email.split('@')[0]; loadMyMatches(); }
-});
-
-function login(){
-  let provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).then(res=>{
-    currentUser=res.user;
-    alert("Logged in: "+res.user.email);
-    location.reload();
-  }).catch(e=>alert(e.message));
-}
-
-// Load Tournaments
-db.ref('tournaments').on('value',snap=>{
-  let div=document.getElementById('tournaments');
-  div.innerHTML='';
-  if(!snap.exists()){
-    // create default tournament if none
-    db.ref('tournaments').push({title:'Daily Solo - 6PM',type:'Solo',entry:30,prize:1000,time:'Today 6PM',map:'Bermuda'});
-    return;
+  if(u){
+    currentUser=u;
+    document.getElementById('loginBtn').innerHTML='<i class="fa-solid fa-check"></i> '+u.displayName.split(' ')[0];
+    document.getElementById('userName').innerText=u.email;
+    if(u.email==='sk729@gmail.com' || u.email.includes('admin')) document.getElementById('adminPanel').style.display='block';
+    loadMyJoins();
+    if(u.email.includes('admin')) loadAdminJoins();
   }
-  snap.forEach(c=>{
-    let t=c.val();
-    div.innerHTML+=`<div class="card"><div style="display:flex;justify-content:space-between"><b>${t.title}</b><span class="t-badge">${t.type}</span></div><div style="display:flex;gap:10px;margin-top:10px;font-size:12px"><span>💰 ₹${t.prize}</span><span>🎫 ₹${t.entry}</span><span>🗺️ ${t.map}</span></div><div style="margin-top:8px;font-size:11px;opacity:.6">⏰ ${t.time}</div><button class="btn-yellow" onclick="selectT('${c.key}')">Join Now</button></div>`;
-  });
 });
 
-let selectedT = null;
-function selectT(id){ selectedT=id; document.getElementById('status').innerText="Selected: "+id+" - Ab UTR dalo"; window.scrollTo(0,500); }
-
-function joinTournament(){
-  if(!currentUser) return alert('Pehle Login karo!');
-  let utr=document.getElementById('utr').value.trim();
-  let ffid=document.getElementById('ffid').value.trim();
-  if(!utr||!ffid||!selectedT) return alert('Tournament select karo + UTR + FF ID dalo');
-  db.ref('joins').push({uid:currentUser.uid,email:currentUser.email,utr:utr,ffid:ffid,tournamentId:selectedT,time:Date.now(),status:'pending'});
-  document.getElementById('status').innerText="✅ Submitted! Admin approve karega 5 min me";
-  document.getElementById('status').style.color="#22c55e";
-  alert("Request sent!");
+function googleLogin(){
+  const p=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(p).then(r=>location.reload()).catch(e=>alert(e.message));
 }
 
-function loadMyMatches(){
+function filterType(t){
+  currentFilter=t;
+  ['All','Solo','Duo','Squad'].forEach(x=>{
+    document.getElementById('f'+x).className = (x===t)?'btn btn-y':'btn btn-dark';
+  });
+  renderTournaments();
+}
+
+db.ref('tournaments').on('value',snap=>{
+  allTournaments=[];
+  snap.forEach(c=>{ let v=c.val(); v.id=c.key; allTournaments.push(v); });
+  if(allTournaments.length===0){
+    // auto create 3 tournaments
+    db.ref('tournaments').push({title:'Daily Solo Special',type:'Solo',entry:30,prize:1000,map:'Bermuda',time:'Today 7:00 PM',slots:'48/100'});
+    db.ref('tournaments').push({title:'Duo Domination',type:'Duo',entry:50,prize:2000,map:'Kalahari',time:'Today 9:00 PM',slots:'22/50'});
+    db.ref('tournaments').push({title:'Squad Showdown',type:'Squad',entry:100,prize:5000,map:'Bermuda',time:'Tomorrow 8:00 PM',slots:'10/25'});
+  }
+  renderTournaments();
+});
+
+function renderTournaments(){
+  let div=document.getElementById('tournamentList');
+  div.innerHTML='';
+  let filtered = currentFilter==='All'? allTournaments : allTournaments.filter(x=>x.type===currentFilter);
+  filtered.forEach(t=>{
+    div.innerHTML+=`
+    <div class="card">
+      <div class="t-row"><b>${t.title}</b><span class="badge">${t.type}</span></div>
+      <div class="prize-box">
+        <div><small>PRIZE</small><br><b>₹${t.prize}</b></div>
+        <div><small>ENTRY</small><br><b>₹${t.entry}</b></div>
+        <div><small>SLOTS</small><br><b>${t.slots||'0/100'}</b></div>
+      </div>
+      <div class="meta">
+        <span><i class="fa-solid fa-map"></i> ${t.map}</span>
+        <span><i class="fa-solid fa-clock"></i> ${t.time}</span>
+      </div>
+      <button class="btn btn-y" style="width:100%;margin-top:12px" onclick="selectTournament('${t.id}','${t.title} - ₹${t.entry}')"><i class="fa-solid fa-gamepad"></i> Join ₹${t.entry}</button>
+    </div>`;
+  });
+}
+
+function selectTournament(id, name){
+  selectedTournament=id;
+  document.getElementById('selectedInfo').innerHTML=`Selected: <b style="color:#ffcc00">${name}</b>`;
+  document.getElementById('joinCard').scrollIntoView({behavior:'smooth'});
+}
+
+function submitJoin(){
+  if(!currentUser) return alert('Pehle Login karo!');
+  let ffid=document.getElementById('ffid').value.trim();
+  let ffname=document.getElementById('ffname').value.trim();
+  let utr=document.getElementById('utr').value.trim();
+  if(!selectedTournament) return alert('Pehle tournament select karo upar se!');
+  if(ffid.length<5 || ffname.length<2 || utr.length<6) return alert('Sare fields sahi bharo!');
+
+  document.getElementById('joinStatus').innerText='Submitting...';
+  db.ref('joins').push({
+    uid:currentUser.uid,
+    email:currentUser.email,
+    ffid:ffid,
+    ffname:ffname,
+    utr:utr,
+    tournamentId:selectedTournament,
+    status:'pending',
+    time:Date.now()
+  }).then(()=>{
+    document.getElementById('joinStatus').innerHTML='<span style="color:#22c55e">✅ Request sent! Admin 5 min me approve karega. My Matches me Room ID dikhega.</span>';
+    document.getElementById('ffid').value='';document.getElementById('utr').value='';
+  });
+}
+
+function loadMyJoins(){
   if(!currentUser) return;
   db.ref('joins').orderByChild('uid').equalTo(currentUser.uid).on('value',snap=>{
-    let div=document.getElementById('myMatches');
+    let div=document.getElementById('myJoins');
     div.innerHTML='';
-    if(!snap.exists()) div.innerHTML='No joins yet';
+    if(!snap.exists()){ div.innerHTML='<p style="opacity:.5;font-size:12px">Abhi koi match join nahi kiya</p>'; return; }
     snap.forEach(c=>{
       let j=c.val();
-      div.innerHTML+=`<div style="background:#0a0e1a;padding:10px;border-radius:10px;margin-top:8px">🎮 ${j.tournamentId} | FF ID:${j.ffid} | Status:<b style="color:${j.status=='approved'?'#22c55e':'#ffcc00'}"> ${j.status}</b></div>`;
+      div.innerHTML+=`<div style="background:#090d1a;padding:12px;border-radius:12px;margin-top:8px;border:1px solid ${j.status==='approved'?'#22c55e':'#1e294a'}">
+      <div style="display:flex;justify-content:space-between"><b>${j.tournamentId.substring(0,8)}..</b><span style="background:${j.status==='approved'?'#22c55e':'#ffcc00'};color:black;padding:2px 8px;border-radius:20px;font-size:9px">${j.status.toUpperCase()}</span></div>
+      <div style="font-size:11px;margin-top:6px">FF: ${j.ffname} (${j.ffid})<br>UTR: ${j.utr}</div>
+      <div id="room_${c.key}" style="margin-top:8px;font-size:12px;color:#ffcc00"></div>
+      </div>`;
+    });
+    // load room info
+    db.ref('room').once('value').then(r=>{
+      if(r.exists()){
+        let room=r.val();
+        snap.forEach(c=>{
+          let el=document.getElementById('room_'+c.key);
+          if(el && c.val().status==='approved'){
+            el.innerHTML=`🎮 Room ID: <b>${room.id}</b> | Pass: <b>${room.pass}</b>`;
+          }
+        });
+      }
     });
   });
+}
+
+function loadAdminJoins(){
+  db.ref('joins').on('value',snap=>{
+    let div=document.getElementById('adminJoins');
+    div.innerHTML='<h4>All Join Requests</h4>';
+    snap.forEach(c=>{
+      let j=c.val();
+      div.innerHTML+=`<div style="background:#090d1a;padding:10px;border-radius:10px;margin-top:6px;font-size:11px">
+      ${j.email}<br>FF:${j.ffname} | UTR:${j.utr} | ${j.status}
+      <div style="display:flex;gap:6px;margin-top:6px">
+      <button onclick="approveJoin('${c.key}')" style="background:#22c55e;color:white;border:none;padding:6px 10px;border-radius:6px">Approve</button>
+      <button onclick="db.ref('joins/${c.key}').remove()" style="background:#ef4444;color:white;border:none;padding:6px 10px;border-radius:6px">Delete</button>
+      </div></div>`;
+    });
+  });
+}
+function approveJoin(id){ db.ref('joins/'+id).update({status:'approved'}); alert('Approved!'); }
+function updateRoom(){
+  let id=document.getElementById('roomId').value;
+  let pass=document.getElementById('roomPass').value;
+  if(!id) return alert('Room ID dalo');
+  db.ref('room').set({id:id,pass:pass,time:Date.now()});
+  alert('Room Updated for all approved users!');
 }
 </script>
 </body>
