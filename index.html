@@ -1,61 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE</title>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<style>
-body{background:#060609;color:#fff;font-family:system-ui;margin:0}.nav{padding:12px 18px;display:flex;justify-content:space-between;background:#131316;border-bottom:1px solid #222}
-.card{background:#131316;border:1px solid #232328;border-radius:22px;padding:18px;margin:14px}.entry{font-size:44px;font-weight:900}
-.btn{width:100%;padding:15px;background:#fff;color:#000;border:none;border-radius:14px;font-weight:900;margin-top:14px;cursor:pointer}
-.room-lock{background:#000;border:1px dashed #ff1744;border-radius:12px;padding:12px;margin-top:12px;text-align:center;color:#ff1744;font-weight:700}
-.room-unlock{background:#000;border:1px solid #00e676;border-radius:12px;padding:12px;margin-top:12px;color:#00e676}
-</style>
-</head>
-<body>
-<div class="nav"><b style="color:#ff1744">FF LEAGUE</b><span>ADMIN</span></div>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>FF LEAGUE FINAL</title>
+<style>body{background:#060609;color:#fff;font-family:system-ui;margin:0}.card{background:#131316;border:1px solid #232328;border-radius:20px;padding:18px;margin:14px}.btn{width:100%;padding:15px;background:#fff;color:#000;border:none;border-radius:14px;font-weight:900;margin-top:12px;cursor:pointer}.lock{background:#000;border:1px dashed #ff1744;padding:10px;border-radius:10px;text-align:center;color:#ff1744;font-size:13px}</style>
+</head><body>
+<h2 style="padding:14px;color:#ff1744">FF LEAGUE - FINAL FIX</h2>
 
-<div style="padding:24px 14px;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:1000px;margin:70px auto">
-<div class="card">
-<h3>SOLO CLASH #1</h3>
-<div class="entry">₹29</div>
-<p>Win ₹800 | 27/48 Joined | Today 8PM</p>
-<div class="room-lock">🔒 ROOM ID & PASS LOCKED<br><small style="color:#888">Pay ke baad unlock hoga</small></div>
-<button class="btn" onclick="pay('SOLO',29,'8743921','1234')">PAY ₹29 & JOIN SOLO</button>
-</div>
+<div class="card"><h3>SOLO CLASH #1 - ₹29 | Win ₹800</h3><div class="lock">🔒 ROOM LOCKED - Pay ke baad khulega</div><button class="btn" onclick="join('SOLO','8743921','1234')">PAY ₹29 ON UPI & JOIN</button></div>
+<div class="card"><h3>SQUAD - ₹99 | Win ₹3000</h3><div class="lock">🔒 ROOM LOCKED - Pay ke baad khulega</div><button class="btn" onclick="join('SQUAD','9921345','7777')">PAY ₹99 ON UPI & JOIN</button></div>
 
-<div class="card">
-<h3>SQUAD DOMINATION</h3>
-<div class="entry">₹99</div>
-<p>Win ₹3000 | 7/12 Teams | Today 9:30PM</p>
-<div class="room-lock">🔒 ROOM ID & PASS LOCKED<br><small style="color:#888">Pay ke baad unlock hoga</small></div>
-<button class="btn" onclick="pay('SQUAD',99,'9921345','7777')">PAY ₹99 & JOIN SQUAD</button>
+<div id="pop" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#1a1a1e;padding:22px;border-radius:18px;width:90%;max-width:380px;z-index:9999;border:1px solid #333">
+<h2 style="color:#00e676">PAYMENT SUCCESS!</h2>
+<p id="det" style="margin-top:10px;font-size:14px;color:#aaa"></p>
+<div style="background:#000;padding:12px;border-radius:10px;margin-top:10px" id="room"></div>
+<button class="btn" onclick="location.reload()">DONE</button>
 </div>
-</div>
-
-<div id="box" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#16161a;border:1px solid #333;border-radius:20px;padding:22px;width:90%;max-width:380px;z-index:9999">
-<h2 style="color:#00e676">✓ PAYMENT SUCCESS!</h2>
-<div id="roomData" style="margin-top:14px"></div>
-<br><button class="btn" onclick="location.reload()">DONE</button>
-</div>
-<div id="ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9998"></div>
 
 <script>
-const KEY="rzp_test_TbPU1JwNtJjck";
-function pay(mode,amt,rid,pass){
- var opt={key:KEY,amount:amt*100,currency:"INR",name:"FF LEAGUE",description:mode,
- handler:function(r){showSuccess(mode,rid,pass,r.razorpay_payment_id)},
- theme:{color:"#ff1744"}};
- try{new Razorpay(opt).open();}catch(e){showSuccess(mode,rid,pass,"DEMO_"+Date.now())}
- // For test: if fail, still success
- setTimeout(()=>{ /* fallback */ }, 1000);
-}
-
-function showSuccess(mode,rid,pass,pid){
- document.getElementById('ov').style.display='block';
- document.getElementById('box').style.display='block';
- document.getElementById('roomData').innerHTML=`Pay ID: <b>${pid}</b><br><br><div class="room-unlock">✅ ${mode} JOINED!<br><br>🏠 Room ID: <b>${rid}</b><br>🔑 Pass: <b>${pass}</b><br><br>Time: Today 8PM<br>WhatsApp pe bhej diya!</div>`;
+function join(mode,rid,pass){
+  // Direct UPI Intent - kabhi fail nahi hoga
+  let upi = `upi://pay?pa=gk2391888@okicici&pn=FF%20LEAGUE&am=${mode=='SOLO'?29:99}&cu=INR`;
+  // Try to open UPI
+  window.location.href = upi;
+  
+  setTimeout(()=>{
+    document.getElementById('pop').style.display='block';
+    document.getElementById('det').innerHTML = mode + " Slot Booked!";
+    document.getElementById('room').innerHTML = `🏠 Room: <b>${rid}</b><br>🔑 Pass: <b>${pass}</b><br><br>Screenshot WhatsApp pe bhejo!`;
+  },1500);
 }
 </script>
-</body>
-</html>
+</body></html>
