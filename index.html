@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - ADMIN APPROVAL</title>
+<title>FF LEAGUE - FULL ADMIN</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
@@ -16,9 +16,10 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
 .bottom-nav div{text-align:center;font-size:10px;color:#666;cursor:pointer;padding:6px 12px;border-radius:10px}.bottom-nav div.active{color:#ff1a1a;background:#1f1f2a}
 .wallet-box{background:linear-gradient(135deg,#ff1a1a,#8a0000);border-radius:20px;padding:20px;text-align:center}
-.input{background:#0f0f14;border:1px solid #333;padding:14px;border-radius:12px;width:100%;color:#fff;font-size:16px;font-weight:700;margin-top:8px}
-.recharge-card{background:#1c1c26;border:1px solid #2a2a3a;padding:14px;border-radius:14px;text-align:center;cursor:pointer}
-.admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:16px;display:none;overflow:auto}
+.input{background:#0f0f14;border:1px solid #444;padding:12px;border-radius:10px;width:100%;color:#fff;font-size:14px;margin-top:6px}
+.admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:14px;display:none;overflow:auto}
+.t-box{background:#15151c;border:1px solid #2a2a3a;border-radius:16px;padding:14px;margin-top:14px}
+.label{font-size:11px;color:#ff1a1a;font-weight:800;margin-top:12px;display:block}
 .pending-card{background:#1a1a00;border:1px solid #ffcc00;border-radius:14px;padding:12px;margin-bottom:10px}
 .approve-btn{background:#00e676;color:#000;border:none;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer}
 .reject-btn{background:#222;color:#ff1a1a;border:1px solid #ff1a1a;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer;margin-left:8px}
@@ -34,50 +35,37 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
 <body>
 
 <div class="header">
-  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE <small style="font-size:8px;background:#00e676;color:#000;padding:2px 6px;border-radius:4px">ADMIN APPROVAL</small></div>
-  <div style="display:flex;gap:10px;align-items:center"><span id="pendingBadge" style="display:none;background:#ffcc00;color:#000;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:900">0 PENDING</span><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div>
+  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE</div>
+  <div style="display:flex;gap:10px;align-items:center"><span id="pendingBadge" style="display:none;background:#ffcc00;color:#000;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:900">0 PENDING</span><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div>
 </div>
 
 <div id="page-home" class="page active">
-  <div style="color:#ff1a1a;font-size:11px;font-weight:800">UPI: 9709461672@YBL - ADMIN APPROVAL SYSTEM</div>
+  <div style="color:#ff1a1a;font-size:11px;font-weight:800">PRO ESPORTS • UPI: 9709461672@YBL</div>
   <h1 style="font-size:34px;font-weight:900;line-height:0.9">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1>
   <div style="display:flex;gap:8px;margin:12px 0"><div style="background:#1c1c26;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-wallet" style="color:#00e676"></i> Balance: ₹<span id="bal1">0</span></div></div>
   <div id="home-list"></div>
 </div>
 
 <div id="page-tournaments" class="page"><h2>All Tournaments</h2><div id="tournaments-list" style="margin-top:12px"></div></div>
-<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches</h2><div id="live-list" style="margin-top:14px"></div></div>
+<div id="page-live" class="page"><h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches (5 Min)</h2><div id="live-list" style="margin-top:14px"></div></div>
 
 <div id="page-wallet" class="page">
   <div class="wallet-box">
     <div style="font-size:12px;opacity:0.8">WALLET BALANCE</div>
     <div style="font-size:42px;font-weight:900;margin:8px 0">₹<span id="bal2">0</span></div>
-    <div style="font-size:11px;opacity:0.7">Direct UPI to 9709461672@YBL</div>
+    <div style="font-size:11px;opacity:0.7">UPI: 9709461672@YBL</div>
   </div>
-
-  <h3 style="margin:18px 0 10px 0">Recharge - Manual Amount</h3>
-  <div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a">
+  <div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px">
     <label style="font-size:11px;color:#888">Amount (₹10 - ₹5000)</label>
-    <input id="customAmount" class="input" type="number" placeholder="e.g. 100" value="100">
-    <button onclick="payUPI()" style="width:100%;margin-top:10px;background:#00e676;color:#000;padding:14px;border:none;border-radius:12px;font-weight:900"><i class="fa-brands fa-google-pay"></i> STEP 1: PAY TO 9709461672@YBL</button>
-    <div style="background:#0f0f14;border:1px dashed #333;padding:12px;border-radius:10px;margin-top:10px">
-      <label style="font-size:11px;color:#ffcc00">STEP 2: UTR / Transaction ID Daalo (Pay karne ke baad)</label>
-      <input id="utrInput" class="input" type="text" placeholder="e.g. 409712345678">
-      <button onclick="submitRequest()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">STEP 2: SUBMIT FOR ADMIN APPROVAL</button>
-    </div>
-    <p style="font-size:10px;color:#888;margin-top:8px;text-align:center">Pay -> UTR daalo -> Admin approve karega -> Balance add hoga</p>
+    <input id="customAmount" class="input" type="number" value="100">
+    <button onclick="payUPI()" style="width:100%;margin-top:10px;background:#00e676;color:#000;padding:14px;border:none;border-radius:12px;font-weight:900">STEP 1: PAY TO 9709461672@YBL</button>
+    <label style="font-size:11px;color:#ffcc00;margin-top:10px;display:block">STEP 2: UTR Daalo</label>
+    <input id="utrInput" class="input" placeholder="UTR e.g. 409712345678">
+    <button onclick="submitRequest()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">SUBMIT FOR APPROVAL</button>
   </div>
-
-  <div class="recharge-grid" style="margin-top:14px">
-    <div class="recharge-card" onclick="quick(50)"><b>₹50</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
-    <div class="recharge-card" onclick="quick(100)"><b>₹100</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
-    <div class="recharge-card" onclick="quick(250)"><b>₹250</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
-    <div class="recharge-card" onclick="quick(500)"><b>₹500</b><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px">SELECT</div></div>
-  </div>
-
   <div style="background:#15151c;border-radius:14px;padding:14px;margin-top:16px">
-    <h4>My Recharge Requests</h4><div id="my-requests" style="margin-top:8px"></div>
-    <h4 style="margin-top:16px">Wallet History</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px">No transactions</div>
+    <h4>My Requests</h4><div id="my-requests" style="margin-top:8px"></div>
+    <h4 style="margin-top:16px">History</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px"></div>
   </div>
 </div>
 
@@ -91,28 +79,26 @@ body{background:#0a0a0e;color:#fff;padding-bottom:80px}
   <div id="nav-profile" onclick="showPage('profile')"><i class="fa-solid fa-user"></i><br>Profile</div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- FULL ADMIN PANEL - AB SAB KUCH DIKHEGA -->
 <div class="admin-panel" id="adminPanel">
-<h2 style="color:#ff1a1a">🔐 ADMIN PANEL - 9709461672@YBL</h2>
-<p style="color:#888;font-size:11px">Logo pe 5 tap = Admin | Password: GKFF2026</p>
+  <h2 style="color:#ff1a1a">🔐 ADMIN PANEL</h2>
+  <p style="color:#888;font-size:11px">UPI: 9709461672@YBL | Password: GKFF2026</p>
 
-<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:1px solid #ffcc00">
-  <h3 style="color:#ffcc00"><i class="fa-solid fa-clock"></i> PENDING APPROVALS (<span id="adminPendingCount">0</span>)</h3>
-  <p style="font-size:10px;color:#888;margin-top:4px">Yahan se approve karne pe hi user ka balance add hoga</p>
-  <div id="adminPendingList" style="margin-top:12px"></div>
-</div>
+  <!-- 1. PAYMENT APPROVAL -->
+  <div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:2px solid #ffcc00">
+    <h3 style="color:#ffcc00"><i class="fa-solid fa-clock"></i> PAYMENT APPROVAL - <span id="adminPendingCount">0</span> Pending</h3>
+    <div id="adminPendingList" style="margin-top:12px"></div>
+    <div id="adminApprovedList" style="margin-top:10px;font-size:11px;color:#888"></div>
+  </div>
 
-<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px">
-  <h3>Approved History</h3>
-  <div id="adminApprovedList" style="margin-top:8px;font-size:12px;color:#888"></div>
-</div>
+  <!-- 2. TOURNAMENT EDIT - WIN PRIZE, ENTRY FEE, ROOM ID, PASS -->
+  <div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:2px solid #ff1a1a">
+    <h3 style="color:#ff1a1a"><i class="fa-solid fa-trophy"></i> TOURNAMENT EDIT - Win Prize / Entry Fee / Room ID / Pass</h3>
+    <div id="adminTour"></div>
+    <button onclick="saveTournaments()" style="width:100%;margin-top:14px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">💾 SAVE ALL TOURNAMENTS</button>
+  </div>
 
-<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px">
-  <h3>Tournament Settings</h3>
-  <div id="adminTour"></div>
-</div>
-
-<button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:16px" onclick="closeAdmin()">CLOSE ADMIN</button>
+  <button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:16px" onclick="closeAdmin()">CLOSE ADMIN</button>
 </div>
 
 <script>
@@ -124,21 +110,22 @@ const DEFAULT = [
 ];
 const SHOW_TIME = 5*60*1000;
 
-function getData(){ let d=localStorage.getItem('ff_admin_approval'); return d?JSON.parse(d):DEFAULT; }
-function getBalance(){ return parseInt(localStorage.getItem('wallet_admin')||"0"); }
-function setBalance(v){ localStorage.setItem('wallet_admin', v.toString()); updateBal(); }
+function getData(){ let d=localStorage.getItem('ff_full_admin'); return d?JSON.parse(d):DEFAULT; }
+function setData(d){ localStorage.setItem('ff_full_admin', JSON.stringify(d)); }
+function getBalance(){ return parseInt(localStorage.getItem('wallet_full')||"0"); }
+function setBalance(v){ localStorage.setItem('wallet_full', v.toString()); updateBal(); }
 function updateBal(){ document.querySelectorAll('#bal1,#bal2,.bal').forEach(e=>{ if(e) e.innerText=getBalance(); }); }
-function getPending(){ return JSON.parse(localStorage.getItem('pending_req')||"[]"); }
-function setPending(arr){ localStorage.setItem('pending_req', JSON.stringify(arr)); updateBadge(); renderAdmin(); renderMyRequests(); }
-function getApproved(){ return JSON.parse(localStorage.getItem('approved_req')||"[]"); }
-function setApproved(arr){ localStorage.setItem('approved_req', JSON.stringify(arr)); }
+function getPending(){ return JSON.parse(localStorage.getItem('pending_full')||"[]"); }
+function setPending(arr){ localStorage.setItem('pending_full', JSON.stringify(arr)); updateBadge(); renderAdmin(); renderMyRequests(); }
+function getApproved(){ return JSON.parse(localStorage.getItem('approved_full')||"[]"); }
+function setApproved(arr){ localStorage.setItem('approved_full', JSON.stringify(arr)); }
 
 function updateBadge(){
   let pending=getPending().filter(p=>p.status==='pending').length;
   let badge=document.getElementById('pendingBadge');
   let count=document.getElementById('adminPendingCount');
   if(count) count.innerText=pending;
-  if(badge){ if(pending>0){ badge.style.display='inline-block'; badge.innerText=pending+' PENDING'; } else badge.style.display='none'; }
+  if(badge){ badge.style.display=pending>0?'inline-block':'none'; badge.innerText=pending+' PENDING'; }
 }
 
 function render(){
@@ -159,15 +146,15 @@ function render(){
 function joinTournament(id){
  let data=getData().find(x=>x.id===id);
  let bal=getBalance();
- if(bal < data.fee){ alert(`Balance kam hai! ₹${data.fee} chahiye, balance ₹${bal} hai. Wallet recharge karo.`); showPage('wallet'); return; }
+ if(bal < data.fee){ alert(`Balance kam hai! ₹${data.fee} chahiye, balance ₹${bal} hai.`); showPage('wallet'); return; }
  if(!confirm(`JOIN ${data.name}?\n₹${data.fee} wallet se katega`)) return;
  setBalance(bal - data.fee);
- let joined=JSON.parse(localStorage.getItem('joined_admin')||"[]");
+ let joined=JSON.parse(localStorage.getItem('joined_full')||"[]");
  joined.unshift({id:id, room:data.room, pass:data.pass, time:Date.now(), name:data.name, prize:data.prize});
- localStorage.setItem('joined_admin', JSON.stringify(joined));
- let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]");
+ localStorage.setItem('joined_full', JSON.stringify(joined));
+ let txns=JSON.parse(localStorage.getItem('txns_full')||"[]");
  txns.unshift(`JOINED ${id} -₹${data.fee} - ${new Date().toLocaleString()}`);
- localStorage.setItem('txns_admin', JSON.stringify(txns));
+ localStorage.setItem('txns_full', JSON.stringify(txns));
  localStorage.setItem('paid_obj_'+id, JSON.stringify({room:data.room, pass:data.pass, time:Date.now()}));
  render(); showPage('live');
 }
@@ -175,39 +162,29 @@ function joinTournament(id){
 function quick(amt){ document.getElementById('customAmount').value=amt; }
 function payUPI(){
  let amount=parseInt(document.getElementById('customAmount').value);
- if(isNaN(amount)||amount<10){ alert("Minimum ₹10 daalo"); return; }
- let upiLink = `upi://pay?pa=${encodeURIComponent(ADMIN_UPI)}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent('FF LEAGUE Recharge Rs.'+amount)}`;
+ if(isNaN(amount)||amount<10){ alert("Min ₹10"); return; }
+ let upiLink = `upi://pay?pa=${encodeURIComponent(ADMIN_UPI)}&pn=${encodeURIComponent(ADMIN_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent('FF LEAGUE Rs.'+amount)}`;
  window.location.href = upiLink;
- alert(`STEP 1: ${ADMIN_UPI} pe ₹${amount} pay karo\n\nPay karne ke baad neeche UTR daal ke SUBMIT karo`);
 }
-
 function submitRequest(){
  let amount=parseInt(document.getElementById('customAmount').value);
  let utr=document.getElementById('utrInput').value.trim();
  if(isNaN(amount)||amount<10){ alert("Amount daalo"); return; }
- if(!utr||utr.length<4){ alert("UTR / Transaction ID daalo (Google Pay me milta hai)"); return; }
+ if(!utr||utr.length<4){ alert("UTR daalo"); return; }
  let pending=getPending();
- // duplicate check
- if(pending.some(p=>p.utr===utr)){ alert("Ye UTR pehle se submit hai"); return; }
- let req={id:Date.now(), amount:amount, utr:utr, time:new Date().toLocaleString(), status:'pending', upi:ADMIN_UPI};
- pending.unshift(req);
+ if(pending.some(p=>p.utr===utr)){ alert("Ye UTR pehle se hai"); return; }
+ pending.unshift({id:Date.now(), amount:amount, utr:utr, time:new Date().toLocaleString(), status:'pending', upi:ADMIN_UPI});
  setPending(pending);
  document.getElementById('utrInput').value='';
- alert(`✅ Request Submitted!\n\n₹${amount} - UTR ${utr}\n\nAdmin approve karega tab balance add hoga. Thoda wait karo.`);
- renderMyRequests();
+ alert(`✅ Submitted! ₹${amount} - UTR ${utr}\nAdmin approve karega`);
 }
 
 function renderMyRequests(){
  let pending=getPending();
- let html="";
- if(pending.length===0) html=`<div style="color:#666;font-size:12px">No requests yet</div>`;
- else{
-   html=pending.map(r=>{
-     let color = r.status==='pending'? '#ffcc00' : r.status==='approved'? '#00e676' : '#ff1a1a';
-     let icon = r.status==='pending'? '⏳ PENDING' : r.status==='approved'? '✅ APPROVED' : '❌ REJECTED';
-     return `<div style="background:#0f0f14;border:1px solid ${color};padding:10px;border-radius:10px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b>₹${r.amount}</b><span style="color:${color};font-weight:900">${icon}</span></div><div style="color:#888;margin-top:4px">UTR: ${r.utr}<br>Time: ${r.time}<br>To: ${r.upi}</div></div>`;
-   }).join('');
- }
+ let html=pending.length===0?`<div style="color:#666;font-size:12px">No requests</div>`:pending.map(r=>{
+   let color = r.status==='pending'? '#ffcc00' : r.status==='approved'? '#00e676' : '#ff1a1a';
+   return `<div style="background:#0f0f14;border:1px solid ${color};padding:10px;border-radius:10px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b>₹${r.amount}</b><span style="color:${color};font-weight:900">${r.status.toUpperCase()}</span></div><div style="color:#888">UTR: ${r.utr}<br>${r.time}</div></div>`;
+ }).join('');
  document.getElementById('my-requests').innerHTML=html;
 }
 
@@ -216,61 +193,75 @@ function renderAdmin(){
  let approved=getApproved();
  let htmlPending="";
  let pendingOnly=pending.filter(p=>p.status==='pending');
- if(pendingOnly.length===0) htmlPending=`<div style="color:#666;font-size:12px;padding:20px;text-align:center">No pending requests</div>`;
- else{
-   htmlPending=pendingOnly.map(r=>`<div class="pending-card"><div style="display:flex;justify-content:space-between"><b style="font-size:16px">₹${r.amount}</b><span style="font-size:10px;color:#888">${r.time}</span></div><div style="margin-top:6px;font-size:12px">UTR: <b style="color:#fff">${r.utr}</b><br>To: ${r.upi}</div><div style="margin-top:10px"><button class="approve-btn" onclick="approveReq(${r.id})">✅ APPROVE & ADD BALANCE</button><button class="reject-btn" onclick="rejectReq(${r.id})">REJECT</button></div></div>`).join('');
- }
+ if(pendingOnly.length===0) htmlPending=`<div style="color:#666;padding:20px;text-align:center">No pending payments</div>`;
+ else htmlPending=pendingOnly.map(r=>`<div class="pending-card"><div style="display:flex;justify-content:space-between"><b style="font-size:16px">₹${r.amount}</b><span style="font-size:10px;color:#888">${r.time}</span></div><div style="margin-top:6px;font-size:12px">UTR: <b style="color:#fff">${r.utr}</b><br>To: ${r.upi}</div><div style="margin-top:10px"><button class="approve-btn" onclick="approveReq(${r.id})">✅ APPROVE</button><button class="reject-btn" onclick="rejectReq(${r.id})">REJECT</button></div></div>`).join('');
  document.getElementById('adminPendingList').innerHTML=htmlPending;
- document.getElementById('adminApprovedList').innerHTML= approved.length? approved.map(r=>`<div style="padding:6px;border-bottom:1px solid #222">${r.status.toUpperCase()} - ₹${r.amount} - UTR ${r.utr} - ${r.time}</div>`).join('') : "No history";
+ document.getElementById('adminApprovedList').innerHTML= approved.length? approved.slice(0,10).map(r=>`<div style="padding:6px;border-bottom:1px solid #222">${r.status.toUpperCase()} - ₹${r.amount} - UTR ${r.utr} - ${r.time}</div>`).join('') : "";
+
+ // TOURNAMENT EDIT FIELDS
+ let data=getData();
+ let tHtml="";
+ data.forEach((t,i)=>{
+   tHtml+=`<div class="t-box"><h3 style="color:#ff1a1a">${t.id}</h3>
+   <span class="label">Tournament Name</span><input id="t_name_${i}" class="input" value="${t.name}">
+   <div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Map</span><input id="t_map_${i}" class="input" value="${t.map}"></div><div style="flex:1"><span class="label">Starts In</span><input id="t_starts_${i}" class="input" value="${t.starts}"></div></div>
+   <div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Entry Fee (₹)</span><input id="t_fee_${i}" class="input" type="number" value="${t.fee}"></div><div style="flex:1"><span class="label">Win Prize (₹) - YE EDIT KAR SAKTA HAI</span><input id="t_prize_${i}" class="input" type="number" value="${t.prize}"></div></div>
+   <div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Slots (e.g. 87/100)</span><input id="t_slots_${i}" class="input" value="${t.slots}"></div><div style="flex:1"><span class="label">Bar %</span><input id="t_bar_${i}" class="input" type="number" value="${t.bar}"></div></div>
+   <div style="display:flex;gap:8px"><div style="flex:1"><span class="label">Room ID - YE EDIT KAR SAKTA HAI</span><input id="t_room_${i}" class="input" value="${t.room}"></div><div style="flex:1"><span class="label">Room Pass - YE EDIT KAR SAKTA HAI</span><input id="t_pass_${i}" class="input" value="${t.pass}"></div></div>
+   <span class="label">Status (LIVE / REGISTRATION)</span><input id="t_status_${i}" class="input" value="${t.status}">
+   </div>`;
+ });
+ document.getElementById('adminTour').innerHTML=tHtml;
 }
 
 function approveReq(id){
- if(!confirm("Approve karu? Isse user ka balance add ho jayega. UTR check kiya kya Google Pay me?")) return;
- let pending=getPending();
- let approved=getApproved();
- let idx=pending.findIndex(p=>p.id===id);
- if(idx===-1) return;
- let req=pending[idx];
- req.status='approved';
- // ADD BALANCE - REAL
+ if(!confirm("Approve karu? Balance add ho jayega.")) return;
+ let pending=getPending(); let approved=getApproved();
+ let idx=pending.findIndex(p=>p.id===id); if(idx===-1) return;
+ let req=pending[idx]; req.status='approved';
  setBalance(getBalance()+req.amount);
- let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]");
- txns.unshift(`RECHARGE APPROVED +₹${req.amount} - UTR ${req.utr} - ${new Date().toLocaleString()}`);
- localStorage.setItem('txns_admin', JSON.stringify(txns));
- approved.unshift(req);
- setApproved(approved);
- pending.splice(idx,1);
- pending.unshift(req); // keep in list as approved
- setPending(pending);
- render(); alert(`✅ APPROVED! ₹${req.amount} balance me add ho gaya\nUTR: ${req.utr}`);
+ let txns=JSON.parse(localStorage.getItem('txns_full')||"[]");
+ txns.unshift(`RECHARGE APPROVED +₹${req.amount} - UTR ${req.utr}`);
+ localStorage.setItem('txns_full', JSON.stringify(txns));
+ approved.unshift(req); setApproved(approved);
+ pending.splice(idx,1); pending.unshift(req); setPending(pending);
+ render(); alert(`✅ APPROVED ₹${req.amount}`);
 }
-
 function rejectReq(id){
- let reason=prompt("Reject reason (optional):");
- let pending=getPending();
- let approved=getApproved();
- let idx=pending.findIndex(p=>p.id===id);
- if(idx===-1) return;
- let req=pending[idx];
- req.status='rejected'; req.reason=reason||'';
- approved.unshift(req);
- setApproved(approved);
- pending.splice(idx,1);
- pending.unshift(req);
- setPending(pending);
- render(); alert("❌ Rejected");
+ let pending=getPending(); let approved=getApproved();
+ let idx=pending.findIndex(p=>p.id===id); if(idx===-1) return;
+ let req=pending[idx]; req.status='rejected';
+ approved.unshift(req); setApproved(approved);
+ pending.splice(idx,1); pending.unshift(req); setPending(pending);
+ render();
 }
-
+function saveTournaments(){
+ let data=getData();
+ data.forEach((t,i)=>{
+   t.name=document.getElementById(`t_name_${i}`).value;
+   t.map=document.getElementById(`t_map_${i}`).value;
+   t.starts=document.getElementById(`t_starts_${i}`).value;
+   t.fee=parseInt(document.getElementById(`t_fee_${i}`).value)||0;
+   t.prize=parseInt(document.getElementById(`t_prize_${i}`).value)||0;
+   t.slots=document.getElementById(`t_slots_${i}`).value;
+   t.bar=parseInt(document.getElementById(`t_bar_${i}`).value)||0;
+   t.room=document.getElementById(`t_room_${i}`).value;
+   t.pass=document.getElementById(`t_pass_${i}`).value;
+   t.status=document.getElementById(`t_status_${i}`).value;
+ });
+ setData(data);
+ alert("✅ Saved! Win Prize, Entry Fee, Room ID, Pass sab update ho gaya");
+ render();
+ closeAdmin();
+}
 function checkPaid(){
  let data=getData();
  data.forEach(t=>{
-   let raw=localStorage.getItem('paid_obj_'+t.id);
-   if(!raw) return;
-   let obj=JSON.parse(raw);
-   let elapsed=Date.now()-obj.time;
+   let raw=localStorage.getItem('paid_obj_'+t.id); if(!raw) return;
+   let obj=JSON.parse(raw); let elapsed=Date.now()-obj.time;
    let ub=document.getElementById('unlock-'+t.id), act=document.getElementById('act-'+t.id), exp=document.getElementById('expired-'+t.id);
    if(elapsed>SHOW_TIME){ localStorage.removeItem('paid_obj_'+t.id); if(ub) ub.style.display='none'; if(exp) exp.style.display='block'; if(act) act.style.display='none'; }
-   else{ if(ub) ub.style.display='block'; if(act) act.style.display='none'; let cont=document.getElementById('unlock-content-'+t.id); if(cont) cont.innerHTML=`✅ JOINED<br><br>🏠 Room: <b style="color:#fff;font-size:18px">${obj.room}</b><br>🔑 Pass: <b style="color:#fff;font-size:18px">${obj.pass}</b><br><small>5 min me gayab</small>`; startTimer(t.id); }
+   else{ if(ub) ub.style.display='block'; if(act) act.style.display='none'; let cont=document.getElementById('unlock-content-'+t.id); if(cont) cont.innerHTML=`✅ JOINED<br><br>🏠 Room: <b style="color:#fff;font-size:18px">${obj.room}</b><br>🔑 Pass: <b style="color:#fff;font-size:18px">${obj.pass}</b>`; startTimer(t.id); }
  });
 }
 let timers={};
@@ -286,21 +277,19 @@ function startTimer(id){
  },1000);
 }
 function renderLive(){
- let joined=JSON.parse(localStorage.getItem('joined_admin')||"[]");
+ let joined=JSON.parse(localStorage.getItem('joined_full')||"[]");
  let html= joined.length===0? `<div style="text-align:center;color:#666;padding:40px">No live matches</div>` : joined.map(j=>{
    let left=SHOW_TIME-(Date.now()-j.time); let expired=left<=0;
-   return `<div class="card" style="${expired?'opacity:0.5':''}"><div style="display:flex;justify-content:space-between"><div class="mode">${j.id}</div><div class="timer" id="ltimer-${j.id}">${expired?'EXPIRED':''}</div></div><h2 style="margin:12px 0">${j.name}</h2><div class="unlock-box" style="display:block">${expired?'⏰ Expired':`🏠 Room: <b style="color:#fff">${j.room}</b><br>🔑 Pass: <b style="color:#fff">${j.pass}</b><br>Prize: ₹${j.prize}`}</div></div>`;
+   return `<div class="card" style="${expired?'opacity:0.5':''}"><div style="display:flex;justify-content:space-between"><div class="mode">${j.id}</div><div class="timer" id="ltimer-${j.id}">${expired?'EXPIRED':''}</div></div><h2 style="margin:12px 0">${j.name}</h2><div class="unlock-box" style="display:block">${expired?'⏰ Expired':`🏠 Room: <b style="color:#fff">${j.room}</b><br>🔑 Pass: <b style="color:#fff">${j.pass}</b>`}</div></div>`;
  }).join('');
  document.getElementById('live-list').innerHTML=html;
  joined.forEach(j=>{ if(SHOW_TIME-(Date.now()-j.time)>0) startTimer(j.id); });
 }
-function renderTxns(){ let txns=JSON.parse(localStorage.getItem('txns_admin')||"[]"); document.getElementById('txn-list').innerHTML=txns.length?txns.map(t=>`<div style="padding:8px;border-bottom:1px solid #222">${t}</div>`).join(''):"No transactions"; }
+function renderTxns(){ let txns=JSON.parse(localStorage.getItem('txns_full')||"[]"); document.getElementById('txn-list').innerHTML=txns.length?txns.map(t=>`<div style="padding:8px;border-bottom:1px solid #222">${t}</div>`).join(''):"No transactions"; }
 function showPage(p){ document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById('page-'+p).classList.add('active'); document.querySelectorAll('.bottom-nav div').forEach(el=>el.classList.remove('active')); document.getElementById('nav-'+p).classList.add('active'); if(p==='live') renderLive(); if(p==='wallet') {renderTxns(); renderMyRequests();} }
 let tapCount=0,lastTap=0; document.getElementById('logoTap').addEventListener('click',()=>{ let now=Date.now(); if(now-lastTap>2000) tapCount=0; tapCount++; lastTap=now; if(tapCount>=5){ tapCount=0; let pw=prompt("ADMIN PASSWORD:"); if(btoa(pw)==="R0tGRjIwMjY="){ renderAdmin(); document.getElementById('adminPanel').style.display='block'; } }});
 function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; }
-
-render();
-renderAdmin();
+render(); renderAdmin();
 </script>
 </body>
 </html>
