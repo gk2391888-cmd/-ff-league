@@ -1,105 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAUGE - India's Biggest FF Tournament</title>
+<title>FF LEAGUE</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#070a14;color:#e2e8f0}
-:root{--y:#ffcc00;--y2:#ff9900;--card:#12182e;--border:#1e294a}
-.header{background:rgba(18,24,46,.9);backdrop-filter:blur(10px);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border)}
-.logo{font-weight:900;font-size:24px;color:var(--y);letter-spacing:1px}
-.logo span{color:white}
-.btn{padding:10px 18px;border:none;border-radius:100px;font-weight:800;cursor:pointer}
-.btn-y{background:linear-gradient(90deg,var(--y),var(--y2));color:black}
-.btn-dark{background:#1e294a;color:white}
-.main{max-width:600px;margin:0 auto;padding:14px;padding-bottom:100px}
-.banner{background:linear-gradient(135deg,#ffcc00 0%, #ff6a00 100%);border-radius:22px;padding:22px;color:black;text-align:center;position:relative;overflow:hidden}
-.banner h1{font-size:28px;font-weight:900;line-height:1}
-.banner p{font-size:12px;font-weight:600;margin-top:6px;opacity:.8}
-.card{background:linear-gradient(180deg,#151d36 0%, #12182e 100%);border:1px solid var(--border);border-radius:20px;padding:18px;margin-top:14px}
-.t-row{display:flex;justify-content:space-between;align-items:center}
-.badge{background:#ffcc0022;color:var(--y);padding:5px 12px;border-radius:100px;font-size:10px;font-weight:800;border:1px solid #ffcc0033}
-.meta{display:flex;gap:12px;margin-top:12px;font-size:12px}
-.meta span{background:#0a0e1e;padding:6px 12px;border-radius:100px;border:1px solid var(--border)}
-input,select{width:100%;padding:13px 14px;background:#090d1a;border:1px solid var(--border);border-radius:12px;color:white;margin:6px 0;outline:none}
-.prize-box{background:#090d1a;border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;margin-top:12px}
-.prize-box b{color:var(--y);font-size:18px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0e1428;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 0 18px;z-index:99}
-.b-item{flex:1;text-align:center;opacity:.5;font-size:10px;font-weight:700;cursor:pointer}
-.b-item.active{opacity:1;color:var(--y)}
+body{background:#080a10;color:white;overflow-x:hidden}
+.header{background:linear-gradient(180deg,#151821,#0d0f18);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ff1a1a44;position:sticky;top:0;z-index:100}
+.logo{font-family:'Orbitron';font-weight:900;font-size:22px;display:flex;align-items:center;gap:6px}
+.logo i{color:#ff1a1a}
+.logo .ff{color:#ff1a1a} .logo .league{color:white}
+.hero{padding:18px 16px;background:radial-gradient(ellipse at top, #1a0a0a 0%, #080a10 70%);border-bottom:1px solid #ff1a1a22}
+.hero h4{color:#ff1a1a;font-size:11px;letter-spacing:2px;font-weight:800}
+.hero h1{font-family:'Orbitron';font-size:32px;font-weight:900;line-height:1.1;margin-top:6px}
+.hero h1 span{color:#ff1a1a}
+.hero p{font-size:11px;opacity:.6;margin-top:8px}
+.stats{display:flex;background:#12131d;border:1px solid #ff1a1a33;border-radius:12px;padding:12px;margin-top:16px;justify-content:space-between}
+.stats div{display:flex;align-items:center;gap:6px;font-size:11px}
+.stats b{font-size:13px}
+.active-head{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 8px}
+.live-badge{background:#ff1a1a;color:white;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
+.card{background:linear-gradient(180deg,#151821 0%, #10121a 100%);border:1px solid #ff1a1a44;border-radius:18px;margin:12px 16px;padding:14px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff1a1a,#ff1a1a00)}
+.t-top{display:flex;justify-content:space-between;align-items:center}
+.t-type{background:#ff1a1a;color:white;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;display:flex;align-items:center;gap:6px}
+.t-live{background:#22c55e;color:white;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:800}
+.t-title{font-family:'Orbitron';font-size:16px;font-weight:800;margin-top:10px;letter-spacing:.5px}
+.t-map{background:#0a0c14;padding:8px 10px;border-radius:10px;font-size:11px;margin-top:10px;display:flex;align-items:center;gap:6px;opacity:.7}
+.t-info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;border-top:1px solid #ffffff0a;padding-top:12px}
+.t-info small{font-size:9px;opacity:.5;display:block} .t-info b{font-size:15px}
+.progress{height:6px;background:#1a1d2a;border-radius:10px;margin-top:10px;overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,#ff1a1a,#ff4444);border-radius:10px}
+.btns{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;padding:12px;border-radius:10px;font-weight:800;font-size:12px;border:none;cursor:pointer}
+.btn-outline{background:transparent;border:1px solid #ff1a1a66;color:#ff1a1a}
+.btn-red{background:linear-gradient(90deg,#ff1a1a,#cc0000);color:white}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0f111c;border-top:1px solid #ff1a1a33;display:flex;justify-content:space-around;padding:10px 0 16px;z-index:100}
+.b-item{text-align:center;opacity:.5;font-size:9px;font-weight:700;cursor:pointer}
+.b-item.active{opacity:1;color:#ff1a1a}
 .b-item i{font-size:20px;display:block;margin-bottom:4px}
-.hidden{display:none}
+input{width:100%;padding:12px;background:#0a0c14;border:1px solid #2a2d3d;border-radius:10px;color:white;margin:6px 0}
+#joinModal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:end}
+#joinModal.open{display:flex}
+.modal-box{background:#151821;width:100%;border-radius:22px 22px 0 0;padding:18px;border-top:1px solid #ff1a1a}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="logo">FF <span>LEAUGE</span></div>
-<div style="display:flex;gap:8px;align-items:center">
-<span id="userName" style="font-size:11px;opacity:.7"></span>
-<button id="loginBtn" onclick="googleLogin()" class="btn btn-dark" style="font-size:11px"><i class="fa-brands fa-google"></i> Login</button>
+<div class="logo"><i class="fa-solid fa-fire-flame-curved"></i> <span class="ff">FF</span><span class="league">LEAGUE</span></div>
+<div style="display:flex;gap:14px;font-size:18px"><i class="fa-solid fa-bell"></i><i class="fa-solid fa-wallet"></i><i class="fa-solid fa-headset"></i></div>
+</div>
+
+<div class="hero">
+<h4>PRO ESPORTS TOURNAMENTS</h4>
+<h1>COMPETE. WIN. <span>EARN.</span></h1>
+<p>Live tournaments for Free Fire - Join now and claim rewards</p>
+<div class="stats">
+<div><i class="fa-solid fa-wallet" style="color:#ff1a1a"></i> <span>Balance:<br><b id="balance">$250.00</b></span></div>
+<div><i class="fa-solid fa-trophy" style="color:#ff1a1a"></i> <span>Wins:<br><b id="wins">12</b></span></div>
+<div><i class="fa-solid fa-gem" style="color:#ff1a1a"></i> <span><b>Diamond II</b></span></div>
 </div>
 </div>
 
-<div class="main">
-<div class="banner">
-<h1>WIN ₹5000 DAILY</h1>
-<p>SOLO • DUO • SQUAD • FULL MAP • CUSTOM ROOM</p>
-<div style="margin-top:14px;display:flex;justify-content:center;gap:10px">
-<span style="background:black;color:#ffcc00;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:800">100% SAFE</span>
-<span style="background:black;color:#ffcc00;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:800">INSTANT PAYOUT</span>
+<div class="active-head"><h3>Active Tournaments</h3><span class="live-badge">All • 2 Live</span></div>
+
+<div id="list"></div>
+
+<!-- Join Modal -->
+<div id="joinModal" onclick="closeModal()">
+<div class="modal-box" onclick="event.stopPropagation()">
+<h3 id="modalTitle">Join Tournament</h3>
+<p id="modalFee" style="font-size:12px;opacity:.6;margin:6px 0"></p>
+<input id="ffuid" placeholder="Free Fire UID">
+<input id="ffname" placeholder="In-Game Name">
+<input id="utr" placeholder="UTR / Txn ID (UPI Payment)">
+<div style="background:#0a0c14;padding:10px;border-radius:10px;font-size:11px;margin:8px 0">UPI: <b style="color:#ff1a1a">ffleauge@okaxis</b> - ₹ bhejo aur UTR dalo</div>
+<button class="btn btn-red" style="width:100%" onclick="confirmJoin()">CONFIRM JOIN <i class="fa-solid fa-arrow-right"></i></button>
+<p id="jStatus" style="font-size:11px;text-align:center;margin-top:8px"></p>
 </div>
 </div>
 
-<div style="display:flex;gap:8px;margin-top:14px;overflow-x:auto">
-<div onclick="filterType('All')" id="fAll" class="btn btn-y" style="font-size:11px;white-space:nowrap">All</div>
-<div onclick="filterType('Solo')" id="fSolo" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Solo</div>
-<div onclick="filterType('Duo')" id="fDuo" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Duo</div>
-<div onclick="filterType('Squad')" id="fSquad" class="btn btn-dark" style="font-size:11px;white-space:nowrap">Squad</div>
-</div>
-
-<div id="tournamentList"></div>
-
-<div class="card" id="joinCard" style="border:1px dashed #ffcc00">
-<h3><i class="fa-solid fa-bolt" style="color:#ffcc00"></i> Join Tournament</h3>
-<p id="selectedInfo" style="font-size:11px;margin:8px 0;opacity:.6">Pehle upar se koi tournament select karo</p>
-<input id="ffid" placeholder="🎮 Free Fire UID (e.g. 1234567890)">
-<input id="ffname" placeholder="👤 In-Game Name">
-<input id="utr" placeholder="💳 UTR / Transaction ID (12 digit)">
-<div style="background:#090d1a;padding:10px;border-radius:10px;margin:8px 0;font-size:11px">
-<b>UPI ID:</b> <span style="color:#ffcc00">ffleauge@okaxis</span><br>
-QR ke liye: <span style="color:#ffcc00">9100000000@ybl</span> pe ₹ Entry Fee bhejo
-</div>
-<button class="btn btn-y" style="width:100%;padding:14px" onclick="submitJoin()">Pay & Join Now <i class="fa-solid fa-arrow-right"></i></button>
-<p id="joinStatus" style="font-size:11px;text-align:center;margin-top:10px"></p>
-</div>
-
-<div class="card">
-<h3>🏆 My Matches & Room ID</h3>
-<div id="myJoins" style="margin-top:10px">Login karo toh dikhega</div>
-</div>
-
-<div class="card" id="adminPanel" style="display:none;border:1px solid #ff3300">
-<h3 style="color:#ff3300">👑 ADMIN PANEL</h3>
-<input id="roomId" placeholder="Room ID">
-<input id="roomPass" placeholder="Room Password">
-<button class="btn btn-dark" style="width:100%;margin-top:6px" onclick="updateRoom()">Update Room ID for All</button>
-<div id="adminJoins" style="margin-top:14px"></div>
-</div>
-
-</div>
-
+<div style="height:80px"></div>
 <div class="bottom">
-<div class="b-item active" onclick="window.scrollTo(0,0)"><i class="fa-solid fa-house"></i>Home</div>
-<div class="b-item" onclick="document.getElementById('myJoins').scrollIntoView()"><i class="fa-solid fa-trophy"></i>My Match</div>
-<div class="b-item" onclick="alert('Wallet: Admin approve ke baad prize milega')"><i class="fa-solid fa-wallet"></i>Wallet</div>
-<div class="b-item" onclick="googleLogin()"><i class="fa-solid fa-user"></i>Profile</div>
+<div class="b-item active"><i class="fa-solid fa-house"></i>Home</div>
+<div class="b-item"><i class="fa-solid fa-trophy"></i>Tournaments</div>
+<div class="b-item"><i class="fa-solid fa-circle-play"></i>Live</div>
+<div class="b-item"><i class="fa-solid fa-wallet"></i>Wallet</div>
+<div class="b-item" onclick="login()"><i class="fa-solid fa-user"></i>Profile</div>
 </div>
 
 <script>
@@ -117,150 +110,65 @@ firebase.initializeApp(firebaseConfig);
 const db=firebase.database();
 const auth=firebase.auth();
 let currentUser=null;
-let selectedTournament=null;
-let allTournaments=[];
-let currentFilter='All';
+let selected=null;
 
-auth.onAuthStateChanged(u=>{
-  if(u){
-    currentUser=u;
-    document.getElementById('loginBtn').innerHTML='<i class="fa-solid fa-check"></i> '+u.displayName.split(' ')[0];
-    document.getElementById('userName').innerText=u.email;
-    if(u.email==='sk729@gmail.com' || u.email.includes('admin')) document.getElementById('adminPanel').style.display='block';
-    loadMyJoins();
-    if(u.email.includes('admin')) loadAdminJoins();
-  }
-});
+auth.onAuthStateChanged(u=>{ if(u) currentUser=u; });
 
-function googleLogin(){
-  const p=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(p).then(r=>location.reload()).catch(e=>alert(e.message));
+function login(){
+  let p=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(p).then(r=>{ currentUser=r.user; alert('Logged in '+r.user.email); });
 }
 
-function filterType(t){
-  currentFilter=t;
-  ['All','Solo','Duo','Squad'].forEach(x=>{
-    document.getElementById('f'+x).className = (x===t)?'btn btn-y':'btn btn-dark';
-  });
-  renderTournaments();
-}
+let tournaments=[
+  {id:'247',type:'SOLO',title:'SOLO — RUSH CLASH #247',map:'Bermuda',time:'Starts in 12:34',entry:5,prize:1500,slots:87,total:100,status:'LIVE'},
+  {id:'112',type:'SQUAD',title:'SQUAD — TEAM DOMINATION #112',map:'Purgatory',time:'Starts in 45:20',entry:20,prize:5000,slots:32,total:64,status:'REGISTRATION'}
+];
 
-db.ref('tournaments').on('value',snap=>{
-  allTournaments=[];
-  snap.forEach(c=>{ let v=c.val(); v.id=c.key; allTournaments.push(v); });
-  if(allTournaments.length===0){
-    // auto create 3 tournaments
-    db.ref('tournaments').push({title:'Daily Solo Special',type:'Solo',entry:30,prize:1000,map:'Bermuda',time:'Today 7:00 PM',slots:'48/100'});
-    db.ref('tournaments').push({title:'Duo Domination',type:'Duo',entry:50,prize:2000,map:'Kalahari',time:'Today 9:00 PM',slots:'22/50'});
-    db.ref('tournaments').push({title:'Squad Showdown',type:'Squad',entry:100,prize:5000,map:'Bermuda',time:'Tomorrow 8:00 PM',slots:'10/25'});
-  }
-  renderTournaments();
-});
-
-function renderTournaments(){
-  let div=document.getElementById('tournamentList');
-  div.innerHTML='';
-  let filtered = currentFilter==='All'? allTournaments : allTournaments.filter(x=>x.type===currentFilter);
-  filtered.forEach(t=>{
-    div.innerHTML+=`
-    <div class="card">
-      <div class="t-row"><b>${t.title}</b><span class="badge">${t.type}</span></div>
-      <div class="prize-box">
-        <div><small>PRIZE</small><br><b>₹${t.prize}</b></div>
-        <div><small>ENTRY</small><br><b>₹${t.entry}</b></div>
-        <div><small>SLOTS</small><br><b>${t.slots||'0/100'}</b></div>
+function render(){
+  let html='';
+  tournaments.forEach(t=>{
+    html+=`<div class="card">
+      <div class="t-top"><span class="t-type"><i class="fa-solid fa-crosshairs"></i> ${t.type}</span><span class="${t.status==='LIVE'?'t-live':''} live-badge" style="${t.status!=='LIVE'?'background:#ff9900':''}">${t.status}</span></div>
+      <div class="t-title">${t.title}</div>
+      <div class="t-map"><i class="fa-solid fa-location-dot"></i> Map: ${t.map} • ${t.time}</div>
+      <div class="t-info">
+        <div><small><i class="fa-solid fa-sack-dollar" style="color:#ff1a1a"></i> Entry Fee</small><b>$${t.entry}.00</b></div>
+        <div><small><i class="fa-solid fa-trophy" style="color:#ff1a1a"></i> Prize Pool</small><b style="color:#ff1a1a">$${t.prize.toLocaleString()}</b></div>
+        <div><small><i class="fa-solid fa-users" style="color:#ff1a1a"></i> Slots Filled</small><b>${t.slots}/${t.total}</b></div>
       </div>
-      <div class="meta">
-        <span><i class="fa-solid fa-map"></i> ${t.map}</span>
-        <span><i class="fa-solid fa-clock"></i> ${t.time}</span>
-      </div>
-      <button class="btn btn-y" style="width:100%;margin-top:12px" onclick="selectTournament('${t.id}','${t.title} - ₹${t.entry}')"><i class="fa-solid fa-gamepad"></i> Join ₹${t.entry}</button>
+      <div class="progress"><div style="width:${(t.slots/t.total*100)}%"></div></div>
+      <div class="btns"><button class="btn btn-outline"><i class="fa-solid fa-wallet"></i> PAY $${t.entry}.00</button><button class="btn btn-red" onclick="openJoin('${t.id}')">JOIN NOW <i class="fa-solid fa-chevron-right"></i></button></div>
     </div>`;
   });
+  document.getElementById('list').innerHTML=html;
 }
+render();
 
-function selectTournament(id, name){
-  selectedTournament=id;
-  document.getElementById('selectedInfo').innerHTML=`Selected: <b style="color:#ffcc00">${name}</b>`;
-  document.getElementById('joinCard').scrollIntoView({behavior:'smooth'});
+function openJoin(id){
+  if(!currentUser){ alert('Pehle Login karo!'); login(); return; }
+  selected=tournaments.find(x=>x.id===id);
+  document.getElementById('modalTitle').innerText=selected.title;
+  document.getElementById('modalFee').innerText=`Entry: $${selected.entry} | Prize: $${selected.prize}`;
+  document.getElementById('joinModal').classList.add('open');
 }
+function closeModal(){ document.getElementById('joinModal').classList.remove('open'); }
 
-function submitJoin(){
-  if(!currentUser) return alert('Pehle Login karo!');
-  let ffid=document.getElementById('ffid').value.trim();
-  let ffname=document.getElementById('ffname').value.trim();
+function confirmJoin(){
+  let uid=document.getElementById('ffuid').value.trim();
+  let name=document.getElementById('ffname').value.trim();
   let utr=document.getElementById('utr').value.trim();
-  if(!selectedTournament) return alert('Pehle tournament select karo upar se!');
-  if(ffid.length<5 || ffname.length<2 || utr.length<6) return alert('Sare fields sahi bharo!');
-
-  document.getElementById('joinStatus').innerText='Submitting...';
-  db.ref('joins').push({
-    uid:currentUser.uid,
-    email:currentUser.email,
-    ffid:ffid,
-    ffname:ffname,
-    utr:utr,
-    tournamentId:selectedTournament,
-    status:'pending',
-    time:Date.now()
-  }).then(()=>{
-    document.getElementById('joinStatus').innerHTML='<span style="color:#22c55e">✅ Request sent! Admin 5 min me approve karega. My Matches me Room ID dikhega.</span>';
-    document.getElementById('ffid').value='';document.getElementById('utr').value='';
+  if(!uid||!name||!utr) return alert('Sab bharo!');
+  document.getElementById('jStatus').innerText='Submitting...';
+  db.ref('joins').push({uid:currentUser.uid,email:currentUser.email,ffuid:uid,ffname:name,utr:utr,tournamentId:selected.id,title:selected.title,time:Date.now(),status:'pending'}).then(()=>{
+    document.getElementById('jStatus').innerHTML='<span style="color:#22c55e">✅ Joined! Admin approve karega</span>';
+    setTimeout(closeModal,1500);
   });
 }
 
-function loadMyJoins(){
-  if(!currentUser) return;
-  db.ref('joins').orderByChild('uid').equalTo(currentUser.uid).on('value',snap=>{
-    let div=document.getElementById('myJoins');
-    div.innerHTML='';
-    if(!snap.exists()){ div.innerHTML='<p style="opacity:.5;font-size:12px">Abhi koi match join nahi kiya</p>'; return; }
-    snap.forEach(c=>{
-      let j=c.val();
-      div.innerHTML+=`<div style="background:#090d1a;padding:12px;border-radius:12px;margin-top:8px;border:1px solid ${j.status==='approved'?'#22c55e':'#1e294a'}">
-      <div style="display:flex;justify-content:space-between"><b>${j.tournamentId.substring(0,8)}..</b><span style="background:${j.status==='approved'?'#22c55e':'#ffcc00'};color:black;padding:2px 8px;border-radius:20px;font-size:9px">${j.status.toUpperCase()}</span></div>
-      <div style="font-size:11px;margin-top:6px">FF: ${j.ffname} (${j.ffid})<br>UTR: ${j.utr}</div>
-      <div id="room_${c.key}" style="margin-top:8px;font-size:12px;color:#ffcc00"></div>
-      </div>`;
-    });
-    // load room info
-    db.ref('room').once('value').then(r=>{
-      if(r.exists()){
-        let room=r.val();
-        snap.forEach(c=>{
-          let el=document.getElementById('room_'+c.key);
-          if(el && c.val().status==='approved'){
-            el.innerHTML=`🎮 Room ID: <b>${room.id}</b> | Pass: <b>${room.pass}</b>`;
-          }
-        });
-      }
-    });
-  });
-}
-
-function loadAdminJoins(){
-  db.ref('joins').on('value',snap=>{
-    let div=document.getElementById('adminJoins');
-    div.innerHTML='<h4>All Join Requests</h4>';
-    snap.forEach(c=>{
-      let j=c.val();
-      div.innerHTML+=`<div style="background:#090d1a;padding:10px;border-radius:10px;margin-top:6px;font-size:11px">
-      ${j.email}<br>FF:${j.ffname} | UTR:${j.utr} | ${j.status}
-      <div style="display:flex;gap:6px;margin-top:6px">
-      <button onclick="approveJoin('${c.key}')" style="background:#22c55e;color:white;border:none;padding:6px 10px;border-radius:6px">Approve</button>
-      <button onclick="db.ref('joins/${c.key}').remove()" style="background:#ef4444;color:white;border:none;padding:6px 10px;border-radius:6px">Delete</button>
-      </div></div>`;
-    });
-  });
-}
-function approveJoin(id){ db.ref('joins/'+id).update({status:'approved'}); alert('Approved!'); }
-function updateRoom(){
-  let id=document.getElementById('roomId').value;
-  let pass=document.getElementById('roomPass').value;
-  if(!id) return alert('Room ID dalo');
-  db.ref('room').set({id:id,pass:pass,time:Date.now()});
-  alert('Room Updated for all approved users!');
-}
+// Auto countdown
+setInterval(()=>{
+  // demo timer update
+},1000);
 </script>
 </body>
 </html>
