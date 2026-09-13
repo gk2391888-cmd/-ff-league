@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF LEAGUE - Official</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+:root{--red:#ff1744;--green:#00e676;--yellow:#ffea00;--bg:#08080a;--card:#141416;--border:#222}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:var(--bg);color:#fff}
+.nav{position:fixed;top:0;width:100%;background:rgba(8,8,10,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;justify-content:space-between;z-index:1000}
+.hero{margin-top:70px;padding:30px 16px;text-align:center}
+.hero h1{font-size:36px;font-weight:900}.hero h1 i{color:var(--red);font-style:normal}
+.container{max-width:1100px;margin:0 auto;padding:0 16px 100px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px}
+.entry{font-size:42px;font-weight:900}
+.btn-join{width:100%;margin-top:14px;padding:15px;background:#fff;color:#000;border:none;border-radius:14px;font-weight:900;cursor:pointer}
+.admin-drawer{position:fixed;top:0;right:-100%;width:100%;max-width:420px;height:100vh;background:#0f0f11;z-index:2000;transition:0.35s;padding:20px;overflow:auto}
+.admin-drawer.open{right:0}
+.input{width:100%;background:#1a1a1e;border:1px solid var(--border);color:#fff;padding:13px;border-radius:12px;margin:6px 0 14px}
+.btn-save{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:14px;font-weight:900;cursor:pointer}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1500;display:none}.overlay.show{display:block}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#141416;border:1px solid #2a2a2e;border-radius:24px;padding:24px;width:92%;max-width:400px;z-index:2500;display:none}.modal.show{display:block}
+</style>
+</head>
+<body>
+<div class="nav"><div><b style="color:#ff1744">FF</b> LEAGUE</div><button onclick="openAdmin()" style="background:#1a1a1e;border:1px solid #222;color:#fff;padding:8px 14px;border-radius:100px">ADMIN</button></div>
+<div class="hero"><h1>PAY & <i>PLAY</i> - WIN CASH</h1><p style="color:#888">Auto Verify • Razorpay • Instant Room ID</p></div>
+<div class="container"><div class="grid" id="grid"></div></div>
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="admin-drawer" id="admin">
+<h2>ADMIN PANEL - EDIT ALL</h2><br>
+<div id="adminLogin"><input id="adminPass" class="input" type="password" placeholder="Password admin123"><button class="btn-save" onclick="checkAdmin()">UNLOCK</button></div>
+<div id="adminContent" style="display:none">
+Site Name<input id="a_name" class="input">
+Razorpay Key<input id="a_key" class="input">
+Solo Entry<input id="a_sEntry" type="number" class="input">
+Solo Prize<input id="a_sPrize" type="number" class="input">
+Solo Slots<input id="a_sSlots" type="number" class="input">
+Solo Filled<input id="a_sFilled" type="number" class="input">
+Solo Room<input id="a_sRoom" class="input">
+Solo Time<input id="a_sTime" class="input">
+Squad Entry<input id="a_qEntry" type="number" class="input">
+Squad Prize<input id="a_qPrize" type="number" class="input">
+Squad Slots<input id="a_qSlots" type="number" class="input">
+Squad Filled<input id="a_qFilled" type="number" class="input">
+Squad Room<input id="a_qRoom" class="input">
+<button class="btn-save" onclick="saveAll()">SAVE LIVE</button>
+</div>
+</div>
+<div class="modal" id="payModal">
+<h2 id="payH">JOIN</h2>
+<input id="uid" class="input" placeholder="Free Fire UID">
+<input id="wa" class="input" placeholder="WhatsApp No">
+<button class="btn-save" onclick="startPay()">PAY & AUTO JOIN</button>
+<button onclick="closeAll()" style="width:100%;margin-top:8px;background:transparent;border:1px solid #222;color:#fff;padding:10px;border-radius:10px">Cancel</button>
+</div>
+<div class="modal" id="okModal">
+<h2 style="color:#00e676">✓ JOINED!</h2>
+<p id="okText"></p><br>
+<div style="background:#000;padding:14px;border-radius:12px"><div>Room: <b id="okRoom"></b></div><div>Slot: <b id="okSlot"></b></div><div>Pay ID: <b id="okPid"></b></div></div>
+<br><button class="btn-save" onclick="closeAll()">DONE</button>
+</div>
+<script>
+const DEFAULT={name:"FF LEAGUE",key:"rzp_test_123",upi:"demo@upi",solo:{entry:29,prize:800,slots:48,filled:27,room:"ID: 8743921 / PASS: 1234",time:"Today 8PM"},squad:{entry:99,prize:3000,slots:12,filled:7,room:"ID: 9921345 / PASS: 7777",time:"Today 9:30PM"},pass:"admin123"};
+let cfg=JSON.parse(localStorage.getItem('ff_cfg')||'null')||DEFAULT;let sel=null;
+function render(){document.getElementById('grid').innerHTML=`<div class="card"><h3>SOLO - ${cfg.solo.time}</h3><div class="entry">₹${cfg.solo.entry}</div><div>Win ₹${cfg.solo.prize}</div><div>${cfg.solo.filled}/${cfg.solo.slots} joined</div><button class="btn-join" onclick="openPay('solo')">Pay ₹${cfg.solo.entry} & Join Solo</button></div><div class="card"><h3>SQUAD - ${cfg.squad.time}</h3><div class="entry">₹${cfg.squad.entry}</div><div>Win ₹${cfg.squad.prize}</div><div>${cfg.squad.filled}/${cfg.squad.slots} teams</div><button class="btn-join" onclick="openPay('squad')">Pay ₹${cfg.squad.entry} & Join Squad</button></div>`;document.getElementById('a_name').value=cfg.name;document.getElementById('a_key').value=cfg.key;document.getElementById('a_sEntry').value=cfg.solo.entry;document.getElementById('a_sPrize').value=cfg.solo.prize;document.getElementById('a_sSlots').value=cfg.solo.slots;document.getElementById('a_sFilled').value=cfg.solo.filled;document.getElementById('a_sRoom').value=cfg.solo.room;document.getElementById('a_sTime').value=cfg.solo.time;document.getElementById('a_qEntry').value=cfg.squad.entry;document.getElementById('a_qPrize').value=cfg.squad.prize;document.getElementById('a_qSlots').value=cfg.squad.slots;document.getElementById('a_qFilled').value=cfg.squad.filled;document.getElementById('a_qRoom').value=cfg.squad.room;}
+function openAdmin(){document.getElementById('admin').classList.add('open');document.getElementById('overlay').classList.add('show')}
+function closeAll(){document.getElementById('admin').classList.remove('open');document.getElementById('overlay').classList.remove('show');document.getElementById('payModal').classList.remove('show');document.getElementById('okModal').classList.remove('show')}
+function checkAdmin(){if(document.getElementById('adminPass').value===cfg.pass){document.getElementById('adminLogin').style.display='none';document.getElementById('adminContent').style.display='block'}else alert('Wrong! admin123')}
+function saveAll(){cfg.name=document.getElementById('a_name').value;cfg.key=document.getElementById('a_key').value;cfg.solo.entry=parseInt(document.getElementById('a_sEntry').value);cfg.solo.prize=parseInt(document.getElementById('a_sPrize').value);cfg.solo.slots=parseInt(document.getElementById('a_sSlots').value);cfg.solo.filled=parseInt(document.getElementById('a_sFilled').value);cfg.solo.room=document.getElementById('a_sRoom').value;cfg.solo.time=document.getElementById('a_sTime').value;cfg.squad.entry=parseInt(document.getElementById('a_qEntry').value);cfg.squad.prize=parseInt(document.getElementById('a_qPrize').value);cfg.squad.slots=parseInt(document.getElementById('a_qSlots').value);cfg.squad.filled=parseInt(document.getElementById('a_qFilled').value);cfg.squad.room=document.getElementById('a_qRoom').value;localStorage.setItem('ff_cfg',JSON.stringify(cfg));render();alert('LIVE UPDATED');closeAll();}
+function openPay(t){sel=t;document.getElementById('payH').innerText='JOIN '+t.toUpperCase();document.getElementById('overlay').classList.add('show');document.getElementById('payModal').classList.add('show')}
+function startPay(){const uid=document.getElementById('uid').value;if(uid.length<5){alert('UID dalo');return}const amt=sel==='solo'?cfg.solo.entry:cfg.squad.entry;try{var opt={key:cfg.key,amount:amt*100,currency:"INR",name:cfg.name,handler:function(r){success(r.razorpay_payment_id)}};new Razorpay(opt).open()}catch(e){success('DEMO_'+Date.now())}}
+function success(pid){if(sel==='solo')cfg.solo.filled++;else cfg.squad.filled++;localStorage.setItem('ff_cfg',JSON.stringify(cfg));closeAll();document.getElementById('okText').innerText='Payment '+pid+' Success!';document.getElementById('okRoom').innerText=sel==='solo'?cfg.solo.room:cfg.squad.room;document.getElementById('okSlot').innerText=sel==='solo'?cfg.solo.filled:cfg.squad.filled;document.getElementById('okPid').innerText=pid;document.getElementById('overlay').classList.add('show');document.getElementById('okModal').classList.add('show');render()}
+render();
+</script>
+</body>
+</html>
