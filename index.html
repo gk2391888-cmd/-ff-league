@@ -2,52 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - PRO ESPORTS</title>
+<title>FF LEAGUE - Wallet System</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
-body{background:#0a0a0e;color:#fff;overflow-x:hidden}
-.header{background:#15151c;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #222}
-.logo{font-weight:900;font-size:22px;letter-spacing:1px;cursor:pointer}
+body{background:#0a0a0e;color:#fff;padding-bottom:80px}
+.header{background:#15151c;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:22px;cursor:pointer}
 .logo b{color:#ff1a1a}
-.logo span{color:#fff}
-.hero{background:linear-gradient(180deg,#1a0a0a 0%, #0a0a0e 100%);padding:18px;border-bottom:1px solid #1f1f2a}
-.hero h1{font-size:38px;line-height:0.9;font-weight:900;letter-spacing:-1px}
-.hero h1 em{color:#ff1a1a;font-style:normal}
-.badges{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.badge{background:#1c1c26;border:1px solid #2a2a36;padding:7px 12px;border-radius:10px;font-size:12px;display:flex;align-items:center;gap:6px}
-.badge i{color:#ff1a1a}
-.t-head{display:flex;justify-content:space-between;align-items:center;padding:18px}
-.live-badge{background:#ff1a1a;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:800}
-.card{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;margin:0 14px 16px 14px;padding:16px;position:relative;overflow:hidden}
+.page{display:none;padding:14px}
+.page.active{display:block}
+.card{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;margin-bottom:14px;padding:16px;position:relative;overflow:hidden}
 .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#ff1a1a}
-.card.squad::before{background:#ff8a00}
 .top-row{display:flex;justify-content:space-between;align-items:center}
 .mode{background:#ff1a1a;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:900}
-.mode.squad{background:#ff1a1a}
-.status{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900}
-.status.live{background:#00e676;color:#000}
-.status.reg{background:#ff8a00;color:#000}
-.card h2{margin:14px 0 10px 0;font-size:18px;font-weight:900}
-.map{background:#0f0f14;padding:8px 10px;border-radius:8px;font-size:12px;color:#aaa;display:flex;gap:6px}
+.status.live{background:#00e676;color:#000;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900}
+.status.reg{background:#ff8a00;color:#000;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900}
+.card h2{margin:12px 0 8px 0;font-size:16px;font-weight:900}
+.map{background:#0f0f14;padding:8px 10px;border-radius:8px;font-size:11px;color:#aaa}
 .stats{display:flex;justify-content:space-between;margin-top:14px;border-top:1px solid #222;padding-top:12px}
 .stat{flex:1;text-align:center;border-right:1px solid #222}
 .stat:last-child{border:0}
-.stat span{font-size:11px;color:#888;display:block}
-.stat b{font-size:16px}
+.stat span{font-size:10px;color:#888;display:block}
+.stat b{font-size:14px}
 .stat b.red{color:#ff1a1a}
 .bar{height:5px;background:#222;border-radius:10px;margin-top:6px;overflow:hidden}
-.bar div{height:100%;background:#ff1a1a;width:87%}
+.bar div{height:100%;background:#ff1a1a}
 .actions{display:flex;gap:10px;margin-top:14px}
-.btn-pay{flex:1;background:#1c1c26;border:1px solid #ff1a1a;color:#ff1a1a;padding:12px;border-radius:12px;font-weight:800}
-.btn-join{flex:1;background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800}
-.unlock-box{background:#00200f;border:1px solid #00e676;color:#00e676;padding:12px;border-radius:12px;margin-top:12px;display:none;font-weight:700;font-size:13px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0}
-.bottom-nav div{text-align:center;font-size:10px;color:#666}
-.bottom-nav div.active{color:#ff1a1a}
-.bottom-nav i{display:block;font-size:18px;margin-bottom:4px}
-
-/* ADMIN - HIDDEN */
+.btn-pay{flex:1;background:#1c1c26;border:1px solid #ff1a1a;color:#ff1a1a;padding:11px;border-radius:12px;font-weight:800;cursor:pointer}
+.btn-join{flex:1;background:#ff1a1a;color:#fff;border:none;padding:11px;border-radius:12px;font-weight:800;cursor:pointer}
+.unlock-box{background:#00200f;border:1px solid #00e676;padding:12px;border-radius:12px;margin-top:12px;display:none}
+.timer{background:#ff1a1a;color:#fff;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:900;float:right}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
+.bottom-nav div{text-align:center;font-size:10px;color:#666;cursor:pointer;padding:6px 12px;border-radius:10px}
+.bottom-nav div.active{color:#ff1a1a;background:#1f1f2a}
+.wallet-box{background:linear-gradient(135deg,#ff1a1a,#8a0000);border-radius:20px;padding:20px;text-align:center}
+.recharge-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.recharge-card{background:#1c1c26;border:1px solid #2a2a3a;padding:14px;border-radius:14px;text-align:center;cursor:pointer}
+.recharge-card:hover{border-color:#ff1a1a}
 .admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:16px;display:none;overflow:auto}
 .input{background:#1e1e28;border:1px solid #333;padding:12px;border-radius:10px;width:100%;color:#fff;margin-top:6px}
 .label{font-size:11px;color:#888;margin-top:12px;display:block}
@@ -57,42 +49,77 @@ body{background:#0a0a0e;color:#fff;overflow-x:hidden}
 <body>
 
 <div class="header">
-  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> <span>LEAGUE</span></div>
-  <div style="display:flex;gap:14px;font-size:18px;color:#aaa"><i class="fa-solid fa-bell"></i><i class="fa-solid fa-wallet"></i><i class="fa-solid fa-headset"></i></div>
+  <div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE</div>
+  <div style="display:flex;gap:14px;color:#aaa"><i class="fa-solid fa-bell"></i><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div>
 </div>
 
-<div class="hero">
-  <div style="color:#ff1a1a;font-size:12px;font-weight:800;letter-spacing:1px">PRO ESPORTS TOURNAMENTS</div>
-  <h1>COMPETE. WIN. <em>EARN.</em></h1>
-  <div style="font-size:12px;color:#888;margin-top:6px">Live tournaments for Free Fire - Join now and claim rewards</div>
-  <div class="badges">
-    <div class="badge"><i class="fa-solid fa-wallet"></i> Balance: $250.00</div>
-    <div class="badge"><i class="fa-solid fa-trophy"></i> Wins: 12</div>
-    <div class="badge"><i class="fa-solid fa-gem"></i> Diamond II</div>
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div style="color:#ff1a1a;font-size:11px;font-weight:800">PRO ESPORTS TOURNAMENTS</div>
+  <h1 style="font-size:34px;font-weight:900;line-height:0.9">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1>
+  <div style="font-size:11px;color:#888;margin:6px 0 12px 0">Live tournaments - Wallet se direct join karo</div>
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <div style="background:#1c1c26;border:1px solid #2a2a3a;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-wallet" style="color:#00e676"></i> Balance: $<span id="bal1">0.00</span></div>
+    <div style="background:#1c1c26;border:1px solid #2a2a3a;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-trophy" style="color:#ff1a1a"></i> Wins: 12</div>
+    <div style="background:#1c1c26;border:1px solid #2a2a3a;padding:7px 12px;border-radius:10px;font-size:11px"><i class="fa-solid fa-gem" style="color:#00e676"></i> Diamond II</div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h3>Active Tournaments</h3><div style="background:#ff1a1a;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:800">All • 2 Live</div></div>
+  <div id="home-list"></div>
+</div>
+
+<!-- TOURNAMENTS PAGE -->
+<div id="page-tournaments" class="page">
+  <h2>All Tournaments</h2>
+  <p style="color:#888;font-size:12px;margin:6px 0 14px 0">Wallet balance se join karo, baar baar pay nahi karna</p>
+  <div id="tournaments-list"></div>
+</div>
+
+<!-- LIVE PAGE -->
+<div id="page-live" class="page">
+  <h2><i class="fa-solid fa-circle" style="color:#00e676"></i> My Live Matches</h2>
+  <div id="live-list" style="margin-top:14px"></div>
+</div>
+
+<!-- WALLET PAGE -->
+<div id="page-wallet" class="page">
+  <div class="wallet-box">
+    <div style="font-size:12px;opacity:0.8">WALLET BALANCE</div>
+    <div style="font-size:42px;font-weight:900;margin:8px 0">$<span id="bal2">0.00</span></div>
+    <div style="font-size:11px;opacity:0.7">Recharge karke tournaments join karo</div>
+  </div>
+  <h3 style="margin:18px 0 10px 0">Recharge Wallet</h3>
+  <div class="recharge-grid">
+    <div class="recharge-card" onclick="recharge(5,'https://rzp.io/rzp/dT74Iym')"><b>$5.00</b><br><small style="color:#888">₹29 - Starter</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px;font-weight:800">RECHARGE</div></div>
+    <div class="recharge-card" onclick="recharge(20,'https://rzp.io/rzp/gKa8g0l3')"><b>$20.00</b><br><small style="color:#888">₹99 - Popular</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px;font-weight:800">RECHARGE</div></div>
+    <div class="recharge-card" onclick="recharge(50,'https://rzp.io/rzp/gKa8g0l3')"><b>$50.00</b><br><small style="color:#888">Best Value</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px;font-weight:800">RECHARGE</div></div>
+    <div class="recharge-card" onclick="recharge(100,'https://rzp.io/rzp/gKa8g0l3')"><b>$100.00</b><br><small style="color:#888">Pro Pack</small><div style="background:#ff1a1a;color:#fff;padding:6px;border-radius:8px;margin-top:8px;font-size:11px;font-weight:800">RECHARGE</div></div>
+  </div>
+  <div style="background:#15151c;border-radius:14px;padding:14px;margin-top:16px">
+    <h4>Recent Transactions</h4><div id="txn-list" style="font-size:12px;color:#888;margin-top:8px">No transactions yet</div>
   </div>
 </div>
 
-<div class="t-head"><h3>Active Tournaments</h3><div class="live-badge">All • 2 Live</div></div>
-
-<div id="list"></div>
-
-<div style="height:80px"></div>
-
-<div class="bottom-nav">
-  <div class="active"><i class="fa-solid fa-house"></i>Home</div>
-  <div><i class="fa-solid fa-trophy"></i>Tournaments</div>
-  <div><i class="fa-solid fa-circle-play"></i>Live</div>
-  <div><i class="fa-solid fa-wallet"></i>Wallet</div>
-  <div><i class="fa-solid fa-user"></i>Profile</div>
+<!-- PROFILE PAGE -->
+<div id="page-profile" class="page">
+  <div style="text-align:center;padding:20px"><i class="fa-solid fa-user" style="font-size:50px;background:#1c1c26;padding:20px;border-radius:50%"></i><h2 style="margin-top:12px">Pro Player</h2><p style="color:#888;font-size:12px">ID: FF-884729 | Diamond II</p></div>
+  <div class="card"><div style="display:flex;justify-content:space-between"><span>Wallet Balance</span><b style="color:#00e676">$<span class="bal">0.00</span></b></div><div style="display:flex;justify-content:space-between;margin-top:10px"><span>Tournaments Joined</span><b id="joined-count">0</b></div><div style="display:flex;justify-content:space-between;margin-top:10px"><span>Wins</span><b>12</b></div></div>
+  <button class="btn-pay" style="width:100%" onclick="if(confirm('Wallet reset karu?')){localStorage.clear();location.reload()}">Reset Wallet (Test)</button>
 </div>
 
-<!-- HIDDEN ADMIN PANEL -->
+<div class="bottom-nav">
+  <div class="active" id="nav-home" onclick="showPage('home')"><i class="fa-solid fa-house"></i><br>Home</div>
+  <div id="nav-tournaments" onclick="showPage('tournaments')"><i class="fa-solid fa-trophy"></i><br>Tournaments</div>
+  <div id="nav-live" onclick="showPage('live')"><i class="fa-solid fa-circle-play"></i><br>Live</div>
+  <div id="nav-wallet" onclick="showPage('wallet')"><i class="fa-solid fa-wallet"></i><br>Wallet</div>
+  <div id="nav-profile" onclick="showPage('profile')"><i class="fa-solid fa-user"></i><br>Profile</div>
+</div>
+
+<!-- ADMIN -->
 <div class="admin-panel" id="adminPanel">
-<h2 style="color:#ff1a1a">🔐 ADMIN ONLY</h2>
-<p style="color:#666;font-size:12px">Sirf tu dekh sakta hai - Yaha se sab edit hoga</p>
+<h2 style="color:#ff1a1a">🔐 ADMIN - Wallet System</h2>
 <div id="adminForms"></div>
-<button class="btn-join" style="width:100%;margin-top:20px" onclick="saveAll()">💾 SAVE ALL CHANGES</button>
-<button class="btn-pay" style="width:100%;margin-top:10px" onclick="closeAdmin()">CLOSE ADMIN</button>
+<button style="width:100%;padding:14px;background:#ff1a1a;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:20px" onclick="saveAll()">💾 SAVE ALL</button>
+<button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;font-weight:900;margin-top:10px" onclick="closeAdmin()">CLOSE</button>
 </div>
 
 <script>
@@ -100,107 +127,144 @@ const DEFAULT = [
  {id:"SOLO", name:"SOLO — RUSH CLASH #247", map:"Bermuda", starts:"12:34", fee:5, prize:1500, slots:"87/100", bar:87, room:"8743921", pass:"1234", link:"https://rzp.io/rzp/dT74Iym", status:"LIVE"},
  {id:"SQUAD", name:"SQUAD — TEAM DOMINATION #112", map:"Purgatory", starts:"45:20", fee:20, prize:5000, slots:"32/64", bar:50, room:"9921345", pass:"7777", link:"https://rzp.io/rzp/gKa8g0l3", status:"REGISTRATION"}
 ];
-
-function getData(){ let d=localStorage.getItem('ff_pro_v3'); return d?JSON.parse(d):DEFAULT; }
+const SHOW_TIME = 5*60*1000;
+function getData(){ let d=localStorage.getItem('ff_wallet_final'); return d?JSON.parse(d):DEFAULT; }
+function getBalance(){ return parseFloat(localStorage.getItem('wallet_bal')||"250"); }
+function setBalance(v){ localStorage.setItem('wallet_bal', v.toString()); updateBal(); }
+function updateBal(){ document.querySelectorAll('#bal1,#bal2,.bal').forEach(e=>{ if(e) e.innerText=getBalance().toFixed(2); }); document.getElementById('joined-count').innerText = JSON.parse(localStorage.getItem('joined')||"[]").length; }
 
 function render(){
  let data=getData(); let html="";
  data.forEach(t=>{
-   let paid=localStorage.getItem('paid_'+t.id+'_pro');
-   html+=`
-   <div class="card ${t.id==='SQUAD'?'squad':''}">
-     <div class="top-row">
-       <div style="display:flex;gap:8px;align-items:center"><div class="mode">${t.id}</div><i class="fa-solid fa-crosshairs" style="color:#ff1a1a"></i></div>
-       <div class="status ${t.status==='LIVE'?'live':'reg'}">${t.status}</div>
-     </div>
-     <h2>${t.name}</h2>
-     <div class="map"><i class="fa-solid fa-location-dot"></i> Map: ${t.map} • Starts in ${t.starts}</div>
-     <div class="stats">
-       <div class="stat"><span><i class="fa-solid fa-sack-dollar"></i> Entry Fee</span><b>$${t.fee}.00</b></div>
-       <div class="stat"><span><i class="fa-solid fa-trophy"></i> Prize Pool</span><b class="red">$${t.prize.toLocaleString()}</b></div>
-       <div class="stat"><span><i class="fa-solid fa-users"></i> Slots Filled</span><b>${t.slots}</b><div class="bar"><div style="width:${t.bar}%"></div></div></div>
-     </div>
-     <div class="unlock-box" id="unlock-${t.id}" style="${paid?'display:block':''}">${paid||''}</div>
-     <div class="actions" id="act-${t.id}" style="${paid?'display:none':''}">
-       <button class="btn-pay" onclick="pay('${t.id}')"><i class="fa-solid fa-wallet"></i> PAY $${t.fee}.00</button>
-       <button class="btn-join" onclick="join('${t.id}')">JOIN NOW <i class="fa-solid fa-chevron-right"></i></button>
-     </div>
+   html+=`<div class="card">
+   <div class="top-row"><div class="mode">${t.id}</div><div class="status ${t.status==='LIVE'?'live':'reg'}">${t.status}</div></div>
+   <h2>${t.name}</h2><div class="map">Map: ${t.map} • Starts in ${t.starts}</div>
+   <div class="stats"><div class="stat"><span>Entry Fee</span><b>$${t.fee}</b></div><div class="stat"><span>Prize Pool</span><b class="red">$${t.prize.toLocaleString()}</b></div><div class="stat"><span>Slots</span><b>${t.slots}</b><div class="bar"><div style="width:${t.bar}%"></div></div></div></div>
+   <div class="unlock-box" id="unlock-${t.id}"><div class="timer" id="timer-${t.id}">05:00</div><div id="unlock-content-${t.id}"></div></div>
+   <div class="actions" id="act-${t.id}"><button class="btn-pay">PAY $${t.fee}</button><button class="btn-join" onclick="joinTournament('${t.id}')">JOIN NOW ></button></div>
+   <div id="expired-${t.id}" style="display:none;background:#1a0000;border:1px solid #ff1a1a;color:#ff1a1a;padding:10px;border-radius:10px;margin-top:12px;text-align:center;font-size:11px">⏰ Time Expired (5 min) - Re-join from Live tab</div>
    </div>`;
  });
- document.getElementById('list').innerHTML=html;
+ document.getElementById('home-list').innerHTML=html;
+ document.getElementById('tournaments-list').innerHTML=html;
+ checkPaid(); updateBal(); renderLive(); renderTxns();
 }
 
-function pay(id){
- let d=getData().find(x=>x.id===id);
- window.open(d.link,'_blank');
- alert('Payment page khula! Pay karke JOIN NOW dabao, Room milega');
-}
-function join(id){
- let txn=prompt("Razorpay Transaction ID / UTR daalo (Pay ke baad milta hai):");
- if(!txn||txn.length<4){alert("Sahi Transaction ID daalo");return;}
- let d=getData().find(x=>x.id===id);
- let box=`✅ VERIFIED - ${id}<br>Txn: ${txn}<br><br>🏠 Room ID: <b style="color:#fff">${d.room}</b><br>🔑 Password: <b style="color:#fff">${d.pass}</b>`;
- localStorage.setItem('paid_'+id+'_pro', box);
+function joinTournament(id){
+ let data=getData().find(x=>x.id===id);
+ let bal=getBalance();
+ if(bal < data.fee){ alert(`Balance kam hai! $${data.fee} chahiye, aapke paas $${bal.toFixed(2)} hai. Wallet me recharge karo.`); showPage('wallet'); return; }
+ if(!confirm(`JOIN ${data.name}?\nEntry Fee $${data.fee} wallet se katega`)) return;
+ setBalance(bal - data.fee);
+ let joined=JSON.parse(localStorage.getItem('joined')||"[]");
+ let obj={id:id, room:data.room, pass:data.pass, time:Date.now(), name:data.name, prize:data.prize};
+ joined.unshift(obj);
+ localStorage.setItem('joined', JSON.stringify(joined));
+ // transaction
+ let txns=JSON.parse(localStorage.getItem('txns')||"[]");
+ txns.unshift(`JOINED ${id} -$${data.fee} - ${new Date().toLocaleString()}`);
+ localStorage.setItem('txns', JSON.stringify(txns));
+ // save live paid
+ localStorage.setItem('paid_obj_'+id, JSON.stringify({room:data.room, pass:data.pass, time:Date.now()}));
  render();
+ alert(`✅ Joined! Room 5 min ke liye Live tab me dikhega`);
+ showPage('live');
 }
 
-// SECRET ADMIN OPEN - 5 TAP ON LOGO
-let tapCount=0, lastTap=0;
-document.getElementById('logoTap').addEventListener('click',()=>{
- let now=Date.now();
- if(now-lastTap>2000) tapCount=0;
- tapCount++; lastTap=now;
- if(tapCount>=5){
-   tapCount=0;
-   let p=prompt("ADMIN PASSWORD:");
-   if(btoa(p)==="R0tGRjIwMjY="){
-     buildAdmin(); document.getElementById('adminPanel').style.display='block';
-   }else if(p!==null) alert("Wrong Password!");
- }
-});
+function recharge(amount, link){
+ window.open(link,'_blank');
+ let txn=prompt(`$${amount} ka payment kiya? Transaction ID / UTR daalo:`);
+ if(!txn||txn.length<4){ alert("Recharge cancel - ID nahi dala"); return; }
+ setBalance(getBalance()+amount);
+ let txns=JSON.parse(localStorage.getItem('txns')||"[]");
+ txns.unshift(`RECHARGE +$${amount} - Txn ${txn} - ${new Date().toLocaleString()}`);
+ localStorage.setItem('txns', JSON.stringify(txns));
+ render(); alert(`✅ $${amount} Wallet me add ho gaya!`);
+}
 
+function checkPaid(){
+ let data=getData();
+ data.forEach(t=>{
+   let raw=localStorage.getItem('paid_obj_'+t.id);
+   if(!raw) return;
+   let obj=JSON.parse(raw);
+   let elapsed=Date.now()-obj.time;
+   if(elapsed>SHOW_TIME){
+     localStorage.removeItem('paid_obj_'+t.id);
+     let exp=document.getElementById('expired-'+t.id); if(exp) exp.style.display='block';
+     let ub=document.getElementById('unlock-'+t.id); if(ub) ub.style.display='none';
+   }else{
+     let ub=document.getElementById('unlock-'+t.id); if(ub) ub.style.display='block';
+     let act=document.getElementById('act-'+t.id); if(act) act.style.display='none';
+     let cont=document.getElementById('unlock-content-'+t.id);
+     if(cont) cont.innerHTML=`✅ JOINED - ${t.id}<br><br>🏠 Room: <b style="color:#fff">${obj.room}</b><br>🔑 Pass: <b style="color:#fff">${obj.pass}</b><br><small style="color:#aaa">Screenshot le lo - 5 min me gayab</small>`;
+     startTimer(t.id);
+   }
+ });
+}
+
+let timers={};
+function startTimer(id){
+ if(timers[id]) clearInterval(timers[id]);
+ timers[id]=setInterval(()=>{
+   let raw=localStorage.getItem('paid_obj_'+id);
+   if(!raw){ clearInterval(timers[id]); return; }
+   let obj=JSON.parse(raw);
+   let left=SHOW_TIME-(Date.now()-obj.time);
+   if(left<=0){ clearInterval(timers[id]); checkPaid(); renderLive(); return; }
+   let m=Math.floor(left/60000), s=Math.floor((left%60000)/1000);
+   let el=document.getElementById('timer-'+id); if(el) el.innerText=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+   let el2=document.getElementById('ltimer-'+id); if(el2) el2.innerText=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} LEFT`;
+ },1000);
+}
+
+function renderLive(){
+ let joined=JSON.parse(localStorage.getItem('joined')||"[]");
+ let html="";
+ if(joined.length===0) html=`<div style="text-align:center;color:#666;padding:40px"><i class="fa-solid fa-gamepad" style="font-size:40px"></i><br><br>No live matches<br><small>Join tournament to see Room ID here</small></div>`;
+ else{
+   joined.forEach(j=>{
+     let left=SHOW_TIME-(Date.now()-j.time);
+     let expired=left<=0;
+     html+=`<div class="card" style="${expired?'opacity:0.5':''}"><div class="top-row"><div class="mode">${j.id}</div><div class="timer" id="ltimer-${j.id}">${expired?'EXPIRED':''}</div></div><h2>${j.name}</h2><div class="unlock-box" style="display:block">${expired?'⏰ Expired - 5 min khatam':`🏠 Room: <b style="color:#fff">${j.room}</b><br>🔑 Pass: <b style="color:#fff">${j.pass}</b><br><br>Prize: $${j.prize}`}</div></div>`;
+   });
+ }
+ document.getElementById('live-list').innerHTML=html;
+ joined.forEach(j=>{ if(SHOW_TIME-(Date.now()-j.time)>0) startTimer(j.id); });
+}
+
+function renderTxns(){
+ let txns=JSON.parse(localStorage.getItem('txns')||"[]");
+ document.getElementById('txn-list').innerHTML=txns.length?txns.map(t=>`<div style="padding:8px;border-bottom:1px solid #222">${t}</div>`).join(''):"No transactions yet - Recharge karo";
+}
+
+function showPage(p){
+ document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+ document.getElementById('page-'+p).classList.add('active');
+ document.querySelectorAll('.bottom-nav div').forEach(el=>el.classList.remove('active'));
+ document.getElementById('nav-'+p).classList.add('active');
+ if(p==='live') renderLive();
+ if(p==='wallet') renderTxns();
+}
+
+let tapCount=0,lastTap=0;
+document.getElementById('logoTap').addEventListener('click',()=>{
+ let now=Date.now(); if(now-lastTap>2000) tapCount=0; tapCount++; lastTap=now;
+ if(tapCount>=5){ tapCount=0; let pw=prompt("ADMIN PASSWORD:"); if(btoa(pw)==="R0tGRjIwMjY="){ buildAdmin(); document.getElementById('adminPanel').style.display='block'; } }
+});
 function buildAdmin(){
  let data=getData(); let h="";
- data.forEach((t,i)=>{
-   h+=`<div class="t-box">
-   <h3 style="color:#ff1a1a">${t.id} EDIT</h3>
-   <span class="label">Tournament Name</span><input id="name_${i}" class="input" value="${t.name}">
-   <span class="label">Map</span><input id="map_${i}" class="input" value="${t.map}">
-   <span class="label">Starts In</span><input id="starts_${i}" class="input" value="${t.starts}">
-   <span class="label">Entry Fee $</span><input id="fee_${i}" class="input" type="number" value="${t.fee}">
-   <span class="label">Prize Pool $</span><input id="prize_${i}" class="input" type="number" value="${t.prize}">
-   <span class="label">Slots e.g. 87/100</span><input id="slots_${i}" class="input" value="${t.slots}">
-   <span class="label">Bar % (0-100)</span><input id="bar_${i}" class="input" type="number" value="${t.bar}">
-   <span class="label">Custom Room ID</span><input id="room_${i}" class="input" value="${t.room}">
-   <span class="label">Custom Room Password</span><input id="pass_${i}" class="input" value="${t.pass}">
-   <span class="label">Razorpay Link</span><input id="link_${i}" class="input" value="${t.link}">
-   <span class="label">Status (LIVE / REGISTRATION)</span><input id="status_${i}" class="input" value="${t.status}">
-   </div>`;
- });
+ data.forEach((t,i)=>{ h+=`<div class="t-box"><h3 style="color:#ff1a1a">${t.id}</h3><span class="label">Name</span><input id="name_${i}" class="input" value="${t.name}"><span class="label">Map / Starts / Slots</span><div style="display:flex;gap:6px"><input id="map_${i}" class="input" value="${t.map}"><input id="starts_${i}" class="input" value="${t.starts}"><input id="slots_${i}" class="input" value="${t.slots}"></div><span class="label">Fee / Prize / Bar%</span><div style="display:flex;gap:6px"><input id="fee_${i}" class="input" type="number" value="${t.fee}"><input id="prize_${i}" class="input" type="number" value="${t.prize}"><input id="bar_${i}" class="input" type="number" value="${t.bar}"></div><span class="label">Room / Pass / Link</span><div style="display:flex;gap:6px"><input id="room_${i}" class="input" value="${t.room}"><input id="pass_${i}" class="input" value="${t.pass}"></div><input id="link_${i}" class="input" value="${t.link}" placeholder="Razorpay Link"></div>`; });
  document.getElementById('adminForms').innerHTML=h;
 }
 function saveAll(){
- let data=getData();
- data.forEach((t,i)=>{
-   t.name=document.getElementById('name_'+i).value;
-   t.map=document.getElementById('map_'+i).value;
-   t.starts=document.getElementById('starts_'+i).value;
-   t.fee=parseInt(document.getElementById('fee_'+i).value)||t.fee;
-   t.prize=parseInt(document.getElementById('prize_'+i).value)||t.prize;
-   t.slots=document.getElementById('slots_'+i).value;
-   t.bar=parseInt(document.getElementById('bar_'+i).value)||t.bar;
-   t.room=document.getElementById('room_'+i).value;
-   t.pass=document.getElementById('pass_'+i).value;
-   t.link=document.getElementById('link_'+i).value;
-   t.status=document.getElementById('status_'+i).value;
- });
- localStorage.setItem('ff_pro_v3', JSON.stringify(data));
- alert("✅ Saved! Sab update ho gaya");
- closeAdmin(); render();
+ let data=getData(); data.forEach((t,i)=>{ t.name=document.getElementById('name_'+i).value; t.map=document.getElementById('map_'+i).value; t.starts=document.getElementById('starts_'+i).value; t.slots=document.getElementById('slots_'+i).value; t.fee=parseInt(document.getElementById('fee_'+i).value); t.prize=parseInt(document.getElementById('prize_'+i).value); t.bar=parseInt(document.getElementById('bar_'+i).value); t.room=document.getElementById('room_'+i).value; t.pass=document.getElementById('pass_'+i).value; t.link=document.getElementById('link_'+i).value; });
+ localStorage.setItem('ff_wallet_final', JSON.stringify(data)); alert("Saved!"); closeAdmin(); render();
 }
 function closeAdmin(){ document.getElementById('adminPanel').style.display='none'; }
 
 render();
+setInterval(()=>{ checkPaid(); },2000);
 </script>
 </body>
 </html>
