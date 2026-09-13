@@ -1,184 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - FINAL</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FF LEAGUE - PRO</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
-body{background:#0a0a0e;color:#fff;padding-bottom:80px}
-.header{background:#15151c;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;font-size:22px;cursor:pointer}.logo b{color:#ff1a1a}
-.page{display:none;padding:14px}.page.active{display:block}
-.card{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;margin-bottom:14px;padding:16px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#15151c;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0;z-index:99}
-.bottom-nav div{text-align:center;font-size:10px;color:#666;cursor:pointer;padding:6px 12px;border-radius:10px}.bottom-nav div.active{color:#ff1a1a;background:#1f1f2a}
-.wallet-box{background:linear-gradient(135deg,#ff1a1a,#8a0000);border-radius:20px;padding:20px;text-align:center}
-.input{background:#0f0f14;border:1px solid #444;padding:12px;border-radius:10px;width:100%;color:#fff;font-size:14px;margin-top:6px}
-.pay-modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:none;align-items:center;justify-content:center;padding:16px}
-.pay-box{background:#15151c;border:2px solid #00e676;border-radius:20px;padding:20px;width:100%;max-width:400px;text-align:center}
-.admin-panel{position:fixed;inset:0;background:#0a0a0e;z-index:99999;padding:14px;display:none;overflow:auto}
-.pending-card{background:#1a1a00;border:1px solid #ffcc00;border-radius:14px;padding:12px;margin-bottom:10px}
-.approve-btn{background:#00e676;color:#000;border:none;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer}
-.reject-btn{background:#222;color:#ff1a1a;border:1px solid #ff1a1a;padding:10px 16px;border-radius:10px;font-weight:900;cursor:pointer;margin-left:8px}
-.auth-box{background:#15151c;border:1px solid #2a2a3a;border-radius:20px;padding:20px;margin-top:10px}
-.btn-join{background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800;cursor:pointer;width:100%}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui}
+body{background:#0a0a0e;color:#fff;min-height:100vh;padding-bottom:90px;overflow-x:hidden}
+.header{background:rgba(21,21,28,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;position:sticky;top:0;z-index:100}
+.logo{font-family:'Space Grotesk';font-weight:900;font-size:22px;letter-spacing:-1px;cursor:pointer}.logo i{color:#ff1a1a}.logo b{color:#ff1a1a}
+.badge-live{background:#ff1a1a;color:#fff;font-size:10px;font-weight:900;padding:5px 12px;border-radius:20px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.page{display:none;padding:16px;animation:fade 0.3s}.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-family:'Space Grotesk';font-size:42px;font-weight:900;line-height:0.9;letter-spacing:-2px}.hero h1 span{color:#ff1a1a}
+.hero p{color:#888;font-size:13px;margin-top:8px}
+.card{background:linear-gradient(135deg,#15151c 0%,#1a1a24 100%);border:1px solid #2a2a3a;border-radius:24px;padding:18px;margin-top:16px;position:relative;overflow:hidden;transition:0.3s}
+.card:hover{border-color:#ff1a1a;transform:translateY(-2px)}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mode-pill{background:#ff1a1a;color:#fff;font-size:11px;font-weight:900;padding:6px 14px;border-radius:10px;letter-spacing:1px}
+.prize{color:#00e676;font-weight:900;font-size:13px}
+.card h2{font-family:'Space Grotesk';font-size:18px;margin:8px 0}
+.meta{display:flex;gap:12px;color:#888;font-size:11px;margin:10px 0}
+.meta i{color:#ff1a1a}
+.btn-join{width:100%;background:linear-gradient(135deg,#ff1a1a,#cc0000);color:#fff;border:none;padding:14px;border-radius:14px;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:10px;transition:0.2s}
+.btn-join:active{transform:scale(0.97)}
+.wallet-box{background:linear-gradient(135deg,#ff1a1a 0%,#8a0000 100%);border-radius:24px;padding:24px;text-align:center;box-shadow:0 10px 30px rgba(255,26,26,0.3)}
+.input{background:#0f0f14;border:1px solid #333;padding:14px;border-radius:12px;width:100%;color:#fff;font-size:14px;margin-top:8px;outline:none}
+.input:focus{border-color:#ff1a1a}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(21,21,28,0.98);backdrop-filter:blur(20px);border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;z-index:99}
+.nav-item{text-align:center;font-size:10px;color:#666;cursor:pointer;padding:8px 20px;border-radius:14px;transition:0.2s}.nav-item.active{color:#ff1a1a;background:#1f1f2a}
+.nav-item i{font-size:18px;display:block;margin-bottom:4px}
+.pay-modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:none;align-items:center;justify-content:center;padding:18px}
+.pay-box{background:#15151c;border:2px solid #00e676;border-radius:24px;padding:24px;width:100%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.8)}
+.auth-box{background:#15151c;border:1px solid #2a2a3a;border-radius:24px;padding:22px;margin-top:16px}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo" id="logoTap"><i class="fa-solid fa-fire" style="color:#ff1a1a"></i> <b>FF</b> LEAGUE</div><div style="display:flex;gap:10px;align-items:center"><span id="userTop" style="font-size:11px;color:#00e676;font-weight:800;display:none"></span><i class="fa-solid fa-wallet" onclick="showPage('wallet')"></i></div></div>
+<div class="header">
+<div class="logo" id="logoTap"><i class="fa-solid fa-fire"></i> <b>FF</b> LEAGUE</div>
+<div style="display:flex;gap:12px;align-items:center"><span id="userTop" style="font-size:11px;color:#00e676;font-weight:800;display:none"></span><div class="badge-live">LIVE</div></div>
+</div>
 
 <div id="page-home" class="page active">
-<div style="color:#00e676;font-size:11px;font-weight:800">✓ PROJECT: ff-leauge | UPI: 9709461672@fam</div>
-<h1 style="font-size:34px;font-weight:900;margin-top:8px">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1>
-<div id="home-list" style="margin-top:14px"></div>
+<div class="hero"><h1>COMPETE.<br>WIN. <span>EARN.</span></h1><p>✓ PROJECT: ff-leauge | UPI: 9709461672@fam - FIXED</p></div>
+<div id="home-list"></div>
 </div>
 
 <div id="page-wallet" class="page">
-<div class="wallet-box"><div>WALLET BALANCE</div><div style="font-size:42px;font-weight:900">₹<span id="bal2">0</span></div><div style="font-size:11px">UPI: 9709461672@fam</div><div id="walletUser" style="font-size:11px;margin-top:6px;color:#00e676"></div></div>
-<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px">
-<input id="customAmount" class="input" type="number" value="10" min="1">
-<button onclick="openPay()" style="width:100%;margin-top:12px;background:#00e676;color:#000;padding:16px;border:none;border-radius:12px;font-weight:900"><i class="fa-solid fa-qrcode"></i> PAY NOW - QR FIXED @fam</button>
-</div>
-<div style="background:#15151c;border-radius:16px;padding:14px;border:1px solid #2a2a3a;margin-top:14px">
-<input id="utrInput" class="input" placeholder="Enter UTR after payment">
-<button onclick="submitPay()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">SUBMIT UTR</button>
-</div>
-<div id="my-requests" style="margin-top:14px"></div>
+<div class="wallet-box"><div style="font-size:12px;opacity:0.8;letter-spacing:2px">WALLET BALANCE</div><div style="font-size:48px;font-weight:900;margin:10px 0">₹<span id="bal2">0</span></div><div style="font-size:11px;opacity:0.7">UPI: 9709461672@fam | GAURAV KUMAR</div><div id="walletUser" style="font-size:11px;margin-top:8px;color:#fff;background:rgba(0,0,0,0.3);padding:6px 12px;border-radius:20px;display:inline-block"></div></div>
+<div class="auth-box" style="margin-top:16px"><label style="font-size:12px;font-weight:700;color:#ff1a1a">ADD MONEY (₹1-5000)</label><input id="customAmount" class="input" type="number" value="10" min="1"><button onclick="openPay()" style="width:100%;margin-top:14px;background:#00e676;color:#000;padding:16px;border:none;border-radius:14px;font-weight:900"><i class="fa-solid fa-qrcode"></i> PAY NOW - SHOW QR</button><p style="font-size:10px;color:#888;margin-top:8px;text-align:center">QR Screenshot leke GPay/PhonePe me Upload QR se pay karo - 100% Working</p></div>
+<div class="auth-box"><label style="font-size:12px;color:#ffcc00;font-weight:700">AFTER PAYMENT - ENTER UTR</label><input id="utrInput" class="input" placeholder="e.g. 409712345678"><button onclick="submitPay()" style="width:100%;margin-top:12px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:14px;font-weight:900">SUBMIT FOR APPROVAL</button></div>
+<div id="my-requests" style="margin-top:16px"></div>
 </div>
 
 <div id="page-profile" class="page">
 <div class="auth-box" id="loginBox">
-<h3 style="color:#00e676">Real OTP Login - ff-leauge</h3>
-<p style="font-size:11px;color:#888">Firebase Phone Auth enabled</p>
-<div style="display:flex;gap:8px;margin-top:14px"><span style="background:#0f0f14;border:1px solid #444;padding:12px;border-radius:10px">+91</span><input id="phoneInput" class="input" style="margin:0" type="tel" maxlength="10" placeholder="9709461672"></div>
-<div id="recaptcha-container" style="margin-top:12px"></div>
-<button onclick="sendOTP()" id="sendBtn" style="width:100%;margin-top:12px;background:#00e676;color:#000;padding:14px;border:none;border-radius:12px;font-weight:900">SEND OTP</button>
-<div id="otpSection" style="display:none;margin-top:16px;border-top:1px solid #222;padding-top:16px">
-<input id="otpInput" class="input" placeholder="6-digit OTP from SMS">
-<button onclick="verifyOTP()" style="width:100%;margin-top:10px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:900">VERIFY OTP</button>
-</div>
+<h3 style="color:#00e676"><i class="fa-solid fa-mobile-screen"></i> Real OTP Login</h3><p style="font-size:11px;color:#666;margin-top:4px">Firebase - Real SMS ayega</p>
+<div style="display:flex;gap:10px;margin-top:18px"><span style="background:#0f0f14;border:1px solid #333;padding:14px;border-radius:12px">+91</span><input id="phoneInput" class="input" style="margin:0" type="tel" maxlength="10" placeholder="9709461672"></div>
+<div id="recaptcha-container" style="margin-top:14px"></div>
+<button onclick="sendOTP()" id="sendBtn" style="width:100%;margin-top:14px;background:#00e676;color:#000;padding:16px;border:none;border-radius:14px;font-weight:900">SEND REAL OTP</button>
+<div id="otpSection" style="display:none;margin-top:18px;border-top:1px solid #222;padding-top:18px"><input id="otpInput" class="input" placeholder="Enter 6-digit OTP"><button onclick="verifyOTP()" style="width:100%;margin-top:12px;background:#ff1a1a;color:#fff;padding:16px;border:none;border-radius:14px;font-weight:900">VERIFY & LOGIN</button></div>
 </div>
 <div class="auth-box" id="profileBox" style="display:none;text-align:center">
-<h2 id="profilePhone" style="color:#00e676"></h2>
-<p>Balance: ₹<span id="balProfile">0</span></p>
-<button onclick="logout()" style="width:100%;margin-top:16px;background:#222;color:#ff1a1a;border:1px solid #ff1a1a;padding:12px;border-radius:12px">LOGOUT</button>
+<div style="width:80px;height:80px;background:linear-gradient(135deg,#00e676,#00a653);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="fa-solid fa-user" style="font-size:30px;color:#000"></i></div>
+<h2 id="profilePhone" style="margin-top:16px;color:#00e676"></h2><p style="margin-top:6px">Balance: ₹<span id="balProfile">0</span></p><button onclick="logout()" style="width:100%;margin-top:20px;background:#222;color:#ff1a1a;border:1px solid #ff1a1a;padding:14px;border-radius:14px;font-weight:800">LOGOUT</button>
 </div>
 </div>
 
 <div class="bottom-nav">
-<div class="active" id="nav-home" onclick="showPage('home')"><i class="fa-solid fa-house"></i><br>Home</div>
-<div id="nav-wallet" onclick="showPage('wallet')"><i class="fa-solid fa-wallet"></i><br>Wallet</div>
-<div id="nav-profile" onclick="showPage('profile')"><i class="fa-solid fa-user"></i><br>Profile</div>
+<div class="nav-item active" onclick="showPage('home')"><i class="fa-solid fa-house"></i>Home</div>
+<div class="nav-item" onclick="showPage('wallet')"><i class="fa-solid fa-wallet"></i>Wallet</div>
+<div class="nav-item" onclick="showPage('profile')"><i class="fa-solid fa-user"></i>Profile</div>
 </div>
 
 <div class="pay-modal" id="payModal">
 <div class="pay-box">
-<h3 style="color:#00e676">Pay ₹<span id="payModalAmount">10</span></h3>
-<p style="font-size:11px">UPI: 9709461672@fam</p>
-<img id="qrImage" src="" style="width:280px;height:280px;margin:14px auto;background:#fff;padding:8px;border-radius:16px;display:block">
-<div style="background:#ffcc00;color:#000;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:900">QR SCAN = 100% WORKING</div>
-<p style="font-size:11px;color:#aaa;margin-top:8px">Screenshot lo > GPay/PhonePe > Scan from Gallery</p>
-<button onclick="copyUPI()" style="width:100%;margin-top:12px;background:#222;color:#fff;padding:12px;border-radius:10px">COPY UPI: 9709461672@fam</button>
-<button onclick="closePay()" style="width:100%;margin-top:8px;background:#ff1a1a;color:#fff;padding:12px;border-radius:10px">CLOSE</button>
+<h3 style="color:#00e676;font-size:20px">Pay ₹<span id="payModalAmount">10</span></h3><p style="font-size:11px;color:#888">To: GAURAV KUMAR - 9709461672@fam</p>
+<img id="qrImage" src="" style="width:300px;height:300px;margin:16px auto;background:#fff;padding:10px;border-radius:20px;display:block">
+<div style="background:#ffcc00;color:#000;padding:8px 16px;border-radius:20px;font-size:11px;font-weight:900;display:inline-block">MANUAL QR SCAN = 100% WORKING</div>
+<p style="font-size:11px;color:#aaa;margin-top:12px;line-height:1.5">1. Screenshot lo<br>2. GPay/PhonePe > Scan > Upload from Gallery</p>
+<button onclick="copyUPI()" style="width:100%;margin-top:16px;background:#222;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:800">COPY UPI: 9709461672@fam</button>
+<button onclick="closePay()" style="width:100%;margin-top:8px;background:#ff1a1a;color:#fff;padding:14px;border:none;border-radius:12px;font-weight:800">CLOSE</button>
 </div>
-</div>
-
-<div class="admin-panel" id="adminPanel">
-<h2 style="color:#ff1a1a">ADMIN - ff-leauge</h2>
-<p style="font-size:11px">UPI: 9709461672@fam | Pass: GKFF2026</p>
-<div style="background:#15151c;padding:14px;border-radius:14px;margin-top:14px;border:2px solid #ffcc00"><h3 style="color:#ffcc00">Pending Payments</h3><div id="adminPendingList"></div></div>
-<button style="width:100%;padding:14px;background:#222;color:#fff;border:none;border-radius:12px;margin-top:16px" onclick="document.getElementById('adminPanel').style.display='none'">CLOSE</button>
 </div>
 
 <script>
-// NEW CONFIG - ff-leauge (from your screenshot)
-const firebaseConfig = {
-  apiKey: "AIzaSyAd9e5LTzKxVYimuJFoCV_M_RflsFlQHc",
-  authDomain: "ff-leauge.firebaseapp.com",
-  projectId: "ff-leauge",
-  storageBucket: "ff-leauge.firebasestorage.app",
-  messagingSenderId: "26073423984",
-  appId: "1:26073423984:web:a4c56728df0aca79ec14b5",
-  measurementId: "G-J65B23P84F"
-};
+const firebaseConfig = {apiKey:"AIzaSyAd9e5LTzKxVYimuJFoCV_M_RflsFlQHc",authDomain:"ff-leauge.firebaseapp.com",projectId:"ff-leauge",storageBucket:"ff-leauge.firebasestorage.app",messagingSenderId:"26073423984",appId:"1:26073423984:web:a4c56728df0aca79ec14b5"};
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-const ADMIN_UPI="9709461672@fam";
-let confirmationResult;
-
-window.onload = ()=>{
-  auth.onAuthStateChanged(user=>{
-    if(user){
-      document.getElementById('loginBox').style.display='none';
-      document.getElementById('profileBox').style.display='block';
-      document.getElementById('profilePhone').innerText=user.phoneNumber;
-      document.getElementById('userTop').style.display='block';
-      document.getElementById('userTop').innerText=user.phoneNumber;
-      document.getElementById('walletUser').innerText='Logged: '+user.phoneNumber;
-      loadBalance(user.uid); loadRequests(user.uid);
-    } else {
-      document.getElementById('loginBox').style.display='block';
-      document.getElementById('profileBox').style.display='none';
-      document.getElementById('userTop').style.display='none';
-    }
-  });
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {size:'normal'});
-  renderTournaments();
+const auth=firebase.auth();const db=firebase.firestore();const ADMIN_UPI="9709461672@fam";let confirmationResult;
+window.onload=()=>{
+ auth.onAuthStateChanged(user=>{
+  if(user){
+   document.getElementById('loginBox').style.display='none';document.getElementById('profileBox').style.display='block';
+   document.getElementById('profilePhone').innerText=user.phoneNumber;document.getElementById('userTop').style.display='block';
+   document.getElementById('userTop').innerText=user.phoneNumber;document.getElementById('walletUser').innerText='✓ '+user.phoneNumber;
+   loadBalance(user.uid);loadRequests(user.uid);
+  }else{document.getElementById('loginBox').style.display='block';document.getElementById('profileBox').style.display='none';document.getElementById('userTop').style.display='none';}
+ });
+ window.recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{size:'normal'});render();
 }
-function sendOTP(){
- let phone=document.getElementById('phoneInput').value.trim();
- if(!/^[0-9]{10}$/.test(phone)){alert("10 digit number");return;}
- let fullPhone="+91"+phone;
- document.getElementById('sendBtn').innerText='Sending...';
- auth.signInWithPhoneNumber(fullPhone, window.recaptchaVerifier).then(res=>{
-   confirmationResult=res;
-   document.getElementById('otpSection').style.display='block';
-   document.getElementById('sendBtn').innerText='OTP SENT ✓';
-   alert("OTP sent to "+fullPhone);
- }).catch(err=>{alert(err.message); document.getElementById('sendBtn').innerText='SEND OTP';});
-}
-function verifyOTP(){
- let code=document.getElementById('otpInput').value.trim();
- if(code.length!=6){alert("6 digit OTP");return;}
- confirmationResult.confirm(code).then(r=>{
-   alert("Login Success");
-   db.collection("users").doc(r.user.uid).set({phone:r.user.phoneNumber, createdAt:firebase.firestore.FieldValue.serverTimestamp(), balance:0}, {merge:true});
- }).catch(err=>{alert("Wrong OTP: "+err.message);});
-}
+function sendOTP(){let p=document.getElementById('phoneInput').value.trim();if(!/^[0-9]{10}$/.test(p)){alert("10 digit dalo");return;}let fp="+91"+p;document.getElementById('sendBtn').innerText='Sending...';auth.signInWithPhoneNumber(fp,window.recaptchaVerifier).then(r=>{confirmationResult=r;document.getElementById('otpSection').style.display='block';document.getElementById('sendBtn').innerText='OTP SENT ✓';alert("OTP sent to "+fp);}).catch(e=>{alert(e.message);document.getElementById('sendBtn').innerText='SEND REAL OTP';});}
+function verifyOTP(){let c=document.getElementById('otpInput').value.trim();if(c.length!=6){alert("6 digit");return;}confirmationResult.confirm(c).then(r=>{db.collection("users").doc(r.user.uid).set({phone:r.user.phoneNumber,balance:0},{merge:true});alert("Login Success!");}).catch(e=>alert(e.message));}
 function logout(){auth.signOut().then(()=>location.reload());}
-function loadBalance(uid){ db.collection("users").doc(uid).onSnapshot(doc=>{let bal=doc.exists?doc.data().balance||0:0; document.getElementById('bal2').innerText=bal; document.getElementById('balProfile').innerText=bal;});}
-function openPay(){
- if(!auth.currentUser){alert("Pehle login karo!"); showPage('profile'); return;}
- let amt=parseInt(document.getElementById('customAmount').value); document.getElementById('payModalAmount').innerText=amt;
- let upiStr=`upi://pay?pa=${ADMIN_UPI}&pn=GAURAV%20KUMAR&am=${amt}&cu=INR&tn=FF LEAGUE`;
- let qr=`https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiStr)}`;
- document.getElementById('qrImage').src=qr; document.getElementById('payModal').style.display='flex';
-}
+function loadBalance(uid){db.collection("users").doc(uid).onSnapshot(d=>{let b=d.exists?d.data().balance||0:0;document.getElementById('bal2').innerText=b;document.getElementById('balProfile').innerText=b;});}
+function openPay(){if(!auth.currentUser){alert("Login karo!");showPage('profile');return;}let amt=parseInt(document.getElementById('customAmount').value);document.getElementById('payModalAmount').innerText=amt;let upi=`upi://pay?pa=${ADMIN_UPI}&pn=GAURAV%20KUMAR&am=${amt}&cu=INR&tn=FF%20LEAGUE`;let qr=`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(upi)}`;document.getElementById('qrImage').src=qr;document.getElementById('payModal').style.display='flex';}
 function closePay(){document.getElementById('payModal').style.display='none';}
 function copyUPI(){navigator.clipboard.writeText(ADMIN_UPI).then(()=>alert("Copied: "+ADMIN_UPI));}
-function submitPay(){
- if(!auth.currentUser){alert("Login karo");return;}
- let amt=parseInt(document.getElementById('customAmount').value); let utr=document.getElementById('utrInput').value.trim();
- if(utr.length<4){alert("UTR dalo");return;}
- db.collection("payments").add({userId:auth.currentUser.uid, phone:auth.currentUser.phoneNumber, amount:amt, utr:utr, upi:ADMIN_UPI, status:"pending", time:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>{alert("Submitted!"); document.getElementById('utrInput').value=''; closePay();});
-}
-function loadRequests(uid){
- db.collection("payments").where("userId","==",uid).orderBy("time","desc").limit(10).onSnapshot(snap=>{
-   let html=""; snap.forEach(doc=>{let d=doc.data(); let color=d.status=='pending'?'#ffcc00':d.status=='approved'?'#00e676':'#ff1a1a'; html+=`<div style="background:#0f0f14;border:1px solid ${color};padding:10px;border-radius:10px;margin-bottom:8px;font-size:12px"><b>₹${d.amount}</b> - <span style="color:${color}">${d.status.toUpperCase()}</span><br>UTR: ${d.utr}</div>`;});
-   document.getElementById('my-requests').innerHTML=html||'<div style="color:#666;font-size:12px">No requests</div>';
- });
-}
-function renderTournaments(){let data=[{id:"SOLO", name:"SOLO — RUSH CLASH", fee:29, prize:1500},{id:"SQUAD", name:"SQUAD — TEAM DOMINATION", fee:99, prize:5000}]; let html=""; data.forEach(t=>{html+=`<div class="card"><b>${t.id}</b><h3 style="margin:8px 0">${t.name}</h3><p>Fee ₹${t.fee} | Prize ₹${t.prize}</p><button class="btn-join" style="margin-top:10px">JOIN</button></div>`;}); document.getElementById('home-list').innerHTML=html;}
-function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');}
-let tap=0,last=0;document.getElementById('logoTap').addEventListener('click',()=>{let now=Date.now();if(now-last>2000) tap=0; tap++; last=now; if(tap>=5){tap=0; let pw=prompt("ADMIN PASS:"); if(btoa(pw)==="R0tGRjIwMjY="){document.getElementById('adminPanel').style.display='block'; loadAdmin();}}});
-function loadAdmin(){db.collection("payments").where("status","==","pending").onSnapshot(snap=>{let html=""; snap.forEach(doc=>{let d=doc.data(); html+=`<div class="pending-card"><b>₹${d.amount} - ${d.phone}</b><br>UTR: ${d.utr}<br><button class="approve-btn" onclick="approvePay('${doc.id}',${d.amount},'${d.userId}')">APPROVE</button><button class="reject-btn" onclick="rejectPay('${doc.id}')">REJECT</button></div>`;}); document.getElementById('adminPendingList').innerHTML=html||'No pending';});}
-function approvePay(id,amt,uid){if(!confirm("Approve ₹"+amt+"?")) return; db.collection("payments").doc(id).update({status:"approved"}); db.collection("users").doc(uid).get().then(doc=>{let bal=(doc.data()?.balance||0)+amt; db.collection("users").doc(uid).update({balance:bal});});}
-function rejectPay(id){db.collection("payments").doc(id).update({status:"rejected"});}
+function submitPay(){if(!auth.currentUser){alert("Login");return;}let amt=parseInt(document.getElementById('customAmount').value);let utr=document.getElementById('utrInput').value.trim();if(utr.length<4){alert("UTR dalo");return;}db.collection("payments").add({userId:auth.currentUser.uid,phone:auth.currentUser.phoneNumber,amount:amt,utr:utr,status:"pending",time:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>{alert("Submitted! Admin approve karega");closePay();document.getElementById('utrInput').value='';});}
+function loadRequests(uid){db.collection("payments").where("userId","==",uid).orderBy("time","desc").limit(10).onSnapshot(s=>{let h="";s.forEach(d=>{let x=d.data();let c=x.status=='pending'?'#ffcc00':x.status=='approved'?'#00e676':'#ff1a1a';h+=`<div style="background:#15151c;border:1px solid ${c};padding:12px;border-radius:14px;margin-bottom:8px;font-size:12px"><b>₹${x.amount}</b> - <span style="color:${c}">${x.status.toUpperCase()}</span><br>UTR: ${x.utr}</div>`;});document.getElementById('my-requests').innerHTML=h;});}
+function render(){let d=[{m:"SOLO",n:"SOLO — RUSH CLASH #247",f:29,p:1500,s:"48 PLAYERS",t:"10 MIN"},{m:"DUO",n:"DUO — DEADLY DUOS",f:59,p:3000,s:"24 TEAMS",t:"15 MIN"},{m:"SQUAD",n:"SQUAD — TEAM DOMINATION",f:99,p:5000,s:"12 SQUADS",t:"20 MIN"}];let h="";d.forEach(t=>{h+=`<div class="card"><div class="card-top"><span class="mode-pill">${t.m}</span><span class="prize">₹${t.p} PRIZE</span></div><h2>${t.n}</h2><div class="meta"><span><i class="fa-solid fa-users"></i> ${t.s}</span><span><i class="fa-solid fa-clock"></i> ${t.t}</span><span><i class="fa-solid fa-indian-rupee-sign"></i> ${t.f} ENTRY</span></div><button class="btn-join">JOIN BATTLE - ₹${t.f}</button></div>`;});document.getElementById('home-list').innerHTML=h;}
+function showPage(p){document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));if(p=='home')document.querySelectorAll('.nav-item')[0].classList.add('active');if(p=='wallet')document.querySelectorAll('.nav-item')[1].classList.add('active');if(p=='profile')document.querySelectorAll('.nav-item')[2].classList.add('active');}
+let tap=0,last=0;document.getElementById('logoTap').addEventListener('click',()=>{let n=Date.now();if(n-last>2000)tap=0;tap++;last=n;if(tap>=5){tap=0;let pw=prompt("ADMIN PASS:");if(btoa(pw)==="R0tGRjIwMjY="){alert("Admin: Pending payments check karne ke liye Firebase Console > Firestore > payments collection dekho");}}});
 </script>
 </body>
 </html>
