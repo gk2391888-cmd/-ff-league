@@ -1,192 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FF LEAGUE - Esports</title>
+<title>FF LEAGUE - FULL ADMIN POWER</title>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#080a10;color:#fff;padding-bottom:90px}
-.header{position:sticky;top:0;z-index:99;background:#12131d;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ff1a1a}
-.logo{font-family:Orbitron;font-weight:800;font-size:22px}
-.hero{padding:18px 16px;background:#11131d}
-.card{background:#181a28;border:1px solid #ff1a1a40;border-radius:16px;margin:12px 16px;padding:14px}
-.badge{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
-.type{background:#ff1a1a;color:#fff}.live{background:#22c55e;color:#fff}.reg{background:#f59e0b;color:#fff}
-.title{font-family:Orbitron;font-size:13px;margin-top:10px}
-.info{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;border-top:1px solid #ffffff10;padding-top:10px}
-.info small{font-size:8px;opacity:.5;display:block}.info b{font-size:14px}
-.bar{height:5px;background:#22253a;border-radius:10px;margin-top:8px;overflow:hidden}.bar div{height:100%;background:#ff1a1a}
-.btns{display:flex;gap:10px;margin-top:12px}.btn{flex:1;padding:11px;border-radius:10px;font-weight:800;font-size:12px;border:none;cursor:pointer}
-.btn-o{border:1px solid #ff1a1a;color:#ff1a1a;background:transparent}.btn-r{background:#ff1a1a;color:#fff}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0f111c;border-top:1px solid #ff1a1a33;display:flex;justify-content:space-around;padding:10px 0 18px;z-index:100}
-.b-item{text-align:center;opacity:.4;font-size:9px;font-weight:700;cursor:pointer}.b-item.active{opacity:1;color:#ff1a1a}.b-item i{font-size:20px;display:block;margin-bottom:3px}
-.tab{display:none}.tab.active{display:block}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999;display:none;padding:16px;justify-content:center;align-items:flex-start;overflow-y:auto}.modal.open{display:flex}
-.box{background:#151821;width:100%;max-width:480px;border-radius:18px;padding:18px;border:1px solid #ff1a1a;margin-top:20px}
-input{width:100%;padding:12px;background:#0a0c14;border:1px solid #2a2d3d;border-radius:10px;color:#fff;margin:6px 0}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#05070f;color:#fff;font-family:Rajdhani,sans-serif;padding-bottom:90px}
+.header{background:#0a0c1a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ff0033;position:sticky;top:0;z-index:100}
+.logo{font-family:Orbitron;font-weight:900;font-size:20px}.logo span{color:#ff0033}
+.h-btn{background:linear-gradient(90deg,#ff0033,#ff6600);border:none;color:#fff;padding:7px 14px;border-radius:6px;font-weight:800;font-size:11px;cursor:pointer}
+.card{margin:12px 16px;background:#15172a;border:1px solid #ffffff15;padding:14px;clip-path:polygon(0 0,100% 0,100% 90%,95% 100%,0 100%)}
+.title{font-family:Orbitron;font-size:13px}.badge{font-size:9px;font-weight:800;padding:4px 8px;transform:skewX(-10deg);display:inline-block}.b-type{background:#ff0033;color:#fff}.b-live{background:#00ff88;color:#000}
+.info{display:grid;grid-template-columns:1fr 1fr 1fr;margin:10px 0;background:#0005;padding:10px}.info small{font-size:8px;opacity:.4;display:block}.info b{font-family:Orbitron;font-size:14px}.prize{color:#ff0033}
+.btns{display:flex;gap:10px;margin-top:10px}.btn{flex:1;padding:11px;font-weight:800;border:none;cursor:pointer;transform:skewX(-5deg)}.btn-join{background:#ff0033;color:#fff}
+.wallet-card{background:linear-gradient(135deg,#ff0033 0%,#880000 100%);border-radius:16px;padding:20px;margin:16px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0c1a;border-top:2px solid #ff0033;display:flex;justify-content:space-around;padding:10px 0 18px;z-index:100}
+.b-item{text-align:center;opacity:.4;font-size:9px;font-weight:700;cursor:pointer}.b-item.active{opacity:1;color:#ff0033}.b-item i{font-size:20px;display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;display:none;padding:16px;justify-content:center;align-items:flex-start;overflow-y:auto}.modal.open{display:flex}
+.box{background:#151821;width:100%;max-width:650px;border-radius:16px;padding:20px;border:1px solid #ff0033;margin-top:20px;max-height:95vh;overflow-y:auto}
+input,select{width:100%;padding:11px;background:#0a0c14;border:1px solid #2a2d3d;border-radius:10px;color:#fff;margin:6px 0}
 .qr{background:#fff;padding:12px;border-radius:14px;text-align:center;margin:10px 0}
+.admin-card{background:#0a0c14;border:1px solid #2a2d3d;border-radius:10px;padding:12px;margin-top:8px;font-size:12px}
+.tab{display:none}.tab.active{display:block}
 </style>
 </head>
 <body>
+
 <div class="header">
-<div class="logo"><span style="color:#ff1a1a">FF</span> LEAGUE</div>
-<button id="loginBtn" onclick="login()" style="background:#22263d;color:#fff;border:none;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700">Login with Google</button>
+<div class="logo"><i class="fa-solid fa-bolt" style="color:#ff0033"></i> FF <span>LEAGUE</span></div>
+<div style="display:flex;gap:8px">
+<button class="h-btn" style="background:#22263d" onclick="openAdmin()"><i class="fa-solid fa-gear"></i> ADMIN</button>
+<button id="loginBtn" class="h-btn" onclick="googleLogin()">LOGIN</button>
+</div>
 </div>
 
 <div id="homeTab" class="tab active">
-<div class="hero"><h4 style="color:#ff1a1a;font-size:11px;letter-spacing:2px">PRO ESPORTS</h4><h1 style="font-family:Orbitron;font-size:30px">COMPETE. WIN. <span style="color:#ff1a1a">EARN.</span></h1></div>
-<div style="display:flex;justify-content:space-between;padding:14px 16px"><b>Active Tournaments</b><span id="liveCount" style="background:#ff1a1a;padding:4px 10px;border-radius:20px;font-size:10px">LIVE</span></div>
+<div style="padding:16px"><h1 style="font-family:Orbitron;font-size:28px">BATTLE <span style="color:#ff0033">ARENA</span></h1><p style="font-size:11px;opacity:.5">Min Recharge ₹5 | UPI: 9709461672@fam</p><div id="myRoom" style="margin-top:10px;display:none;background:#00ff8822;border:1px solid #00ff88;padding:10px;border-radius:8px;font-size:12px"></div></div>
 <div id="list"></div>
-<div style="padding:0 16px"><div style="background:#12131d;border-radius:12px;padding:12px;border:1px solid #22253a"><b style="font-size:13px">📋 My Joined</b><div id="myJoins" style="font-size:12px;margin-top:8px;opacity:.6">Login karo - Room ID yahi ayega</div></div></div>
 </div>
 
-<div id="tourTab" class="tab"><div style="padding:16px"><h2 style="font-family:Orbitron">ALL TOURNAMENTS</h2></div><div id="tourList"></div></div>
-<div id="liveTab" class="tab"><div style="padding:16px"><h2 style="font-family:Orbitron;color:#22c55e">● LIVE NOW</h2></div><div id="liveList"></div></div>
-<div id="walletTab" class="tab"><div style="padding:20px"><h2 style="font-family:Orbitron">WALLET</h2><div style="background:linear-gradient(135deg,#ff1a1a,#800000);border-radius:16px;padding:20px;margin-top:14px"><small>TOTAL BALANCE</small><div style="font-size:32px;font-weight:900">$250.00</div></div></div></div>
+<div id="walletTab" class="tab">
+<div class="wallet-card"><div style="font-size:11px;opacity:.8">WALLET BALANCE</div><div style="font-size:36px;font-weight:900;font-family:Orbitron;margin-top:6px" id="walletBal">₹0.00</div><button class="h-btn" style="background:#fff;color:#ff0033;width:100%;margin-top:14px;padding:12px;border-radius:10px" onclick="openRecharge()"><i class="fa-solid fa-plus"></i> RECHARGE (Min ₹5)</button></div>
+<div style="padding:0 16px"><h4 style="font-family:Orbitron;font-size:13px">Recharge History</h4><div id="rechargeHistory"></div></div>
+</div>
 
-<div id="joinModal" class="modal" onclick="this.classList.remove('open')">
-<div class="box" onclick="event.stopPropagation()">
-<h3 id="mTitle" style="font-family:Orbitron;font-size:13px"></h3>
-<p id="mFee" style="font-size:11px;opacity:.6;margin-top:4px"></p>
-<div class="qr"><img id="qrImg" src="" style="width:180px"><div style="color:#000;font-size:12px;font-weight:700;margin-top:8px">UPI: ffleauge@okaxis</div><div style="color:#000;font-size:11px" id="qrAmt"></div></div>
-<div style="text-align:center;font-size:11px;margin-bottom:8px"><a id="upiLink" href="#" style="color:#ff1a1a;font-weight:800">Pay via GPay / PhonePe</a></div>
-<input id="ffuid" placeholder="Free Fire UID"><input id="ffname" placeholder="In-Game Name"><input id="utr" placeholder="UTR / Transaction ID">
-<button class="btn btn-r" style="width:100%;margin-top:8px" onclick="confirmJoin()">CONFIRM JOIN</button>
-<p id="jStatus" style="text-align:center;font-size:11px;margin-top:8px"></p>
+<!-- TOURNAMENT JOIN -->
+<div id="payModal" class="modal" onclick="closePay()"><div class="box" onclick="event.stopPropagation()"><h3 id="pTitle" style="font-family:Orbitron"></h3><div id="walletCheck" style="background:#0a0c14;padding:10px;border-radius:8px;margin:10px 0;font-size:12px"></div><input id="ffuid" placeholder="Free Fire UID"><input id="ffname" placeholder="In-Game Name"><button class="btn btn-join" style="width:100%;border-radius:10px;padding:13px" onclick="joinWithWallet()">JOIN USING WALLET</button><p id="pStatus" style="text-align:center;font-size:11px;margin-top:8px"></p></div></div>
+
+<!-- WALLET RECHARGE - MIN 5 -->
+<div id="rechargeModal" class="modal" onclick="closeRecharge()"><div class="box" onclick="event.stopPropagation()">
+<h3 style="font-family:Orbitron;color:#ff0033">💰 RECHARGE WALLET (Min ₹5)</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin:12px 0">
+<button class="h-btn" style="background:#1a1d2f" onclick="setAmt(5)">₹5</button>
+<button class="h-btn" style="background:#1a1d2f" onclick="setAmt(10)">₹10</button>
+<button class="h-btn" style="background:#1a1d2f" onclick="setAmt(50)">₹50</button>
+<button class="h-btn" style="background:#1a1d2f" onclick="setAmt(100)">₹100</button>
 </div>
+<input id="rechargeAmt" type="number" placeholder="Min ₹5 - e.g. 5,10,20...">
+<div class="qr"><img id="qrImg2" src="" style="width:180px;display:none"><div id="qrText" style="color:#000;font-weight:800"></div><div style="color:#000;font-size:11px">UPI: 9709461672@fam</div><a id="upiLink2" href="#" style="display:block;background:#ff0033;color:#fff;padding:10px;border-radius:8px;text-decoration:none;font-weight:800;margin-top:8px">PAY VIA UPI APP</a></div>
+<input id="rechargeUtr" placeholder="UTR / Transaction ID"><button class="h-btn" style="width:100%;padding:13px" onclick="submitRecharge()">SUBMIT (Min ₹5)</button><p id="rechargeStatus" style="text-align:center;font-size:11px;margin-top:8px"></p>
+</div></div>
+
+<!-- FULL ADMIN POWER -->
+<div id="adminModal" class="modal" onclick="closeAdmin()"><div class="box" onclick="event.stopPropagation()">
+<h2 style="font-family:Orbitron;color:#ff0033">👑 FULL ADMIN POWER</h2>
+
+<div style="margin-top:16px;border-top:1px solid #2a2d3d;padding-top:12px">
+<h4>💳 Wallet Recharge Approve (Min ₹5)</h4>
+<div id="walletReqList" style="max-height:300px;overflow-y:auto;margin-top:8px"></div>
 </div>
+
+<div style="margin-top:20px;border-top:1px solid #2a2d3d;padding-top:12px">
+<h4>➕ Create / Edit Tournament - FULL CONTROL</h4>
+<p style="font-size:10px;opacity:.5">Edit pe click karoge to niche auto fill hoga, fir update kar dena</p>
+<input id="aKey" type="hidden">
+<input id="aTitle" placeholder="Tournament Title"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><select id="aType"><option>SOLO</option><option>DUO</option><option>SQUAD</option></select><select id="aStatus"><option>LIVE</option><option>REGISTRATION</option><option>FINISHED</option></select></div>
+<input id="aMap" placeholder="Map"><input id="aTime" placeholder="Time">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="aEntry" type="number" placeholder="Entry Fee ₹"><input id="aPrize" type="number" placeholder="Winning Prize ₹"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="aSlots" type="number" placeholder="Joined Slots"><input id="aTotal" type="number" placeholder="Total Slots"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="aRoomId" placeholder="Room ID"><input id="aRoomPass" placeholder="Room Password"></div>
+<button class="h-btn" style="width:100%;padding:12px" onclick="saveTournament()">💾 SAVE TOURNAMENT (Create / Update)</button>
+<div id="aTList" style="margin-top:10px"></div>
+</div>
+
+<div style="margin-top:20px;border-top:1px solid #2a2d3d;padding-top:12px">
+<h4>🌐 Global Room ID (All Tournaments ke liye)</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="roomId" placeholder="Global Room ID"><input id="roomPass" placeholder="Global Password"></div>
+<button class="h-btn" style="width:100%;padding:12px;background:#00ff88;color:#000" onclick="setGlobalRoom()">SET GLOBAL ROOM ID</button>
+<div id="currentRoom" style="margin-top:8px;font-size:12px;background:#0a0c14;padding:8px;border-radius:8px"></div>
+</div>
+
+<button class="h-btn" style="width:100%;margin-top:16px;background:#22263d" onclick="closeAdmin()">Close Admin</button>
+</div></div>
 
 <div class="bottom">
-<div class="b-item active" onclick="showTab('homeTab',this)"><i class="fa-solid fa-house"></i>Home</div>
-<div class="b-item" onclick="showTab('tourTab',this)"><i class="fa-solid fa-trophy"></i>Tournaments</div>
-<div class="b-item" onclick="showTab('liveTab',this)"><i class="fa-solid fa-circle-play"></i>Live</div>
-<div class="b-item" onclick="showTab('walletTab',this)"><i class="fa-solid fa-wallet"></i>Wallet</div>
-<div class="b-item" onclick="login()"><i class="fa-solid fa-user"></i>Profile</div>
+<div class="b-item active" onclick="showTab('homeTab',this)"><i class="fa-solid fa-house"></i>HOME</div>
+<div class="b-item" onclick="showTab('walletTab',this)"><i class="fa-solid fa-wallet"></i>WALLET</div>
+<div class="b-item" onclick="openAdmin()"><i class="fa-solid fa-gear"></i>ADMIN</div>
+<div class="b-item" onclick="googleLogin()"><i class="fa-solid fa-user"></i>PROFILE</div>
 </div>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAd9e5eLTZkxVyimuJFoCV_M_RflsFlQHc",
-  authDomain: "ff-leauge.firebaseapp.com",
-  databaseURL: "https://ff-leauge-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "ff-leauge",
-  storageBucket: "ff-leauge.firebasestorage.app",
-  messagingSenderId: "26073423984",
-  appId: "1:26073423984:web:f14329a6fa6a1506ec14b5"
-};
+const firebaseConfig = { apiKey: "AIzaSyAd9e5eLTZkxVyimuJFoCV_M_RflsFlQHc", authDomain: "ff-leauge.firebaseapp.com", databaseURL: "https://ff-leauge-default-rtdb.asia-southeast1.firebasedatabase.app", projectId: "ff-leauge", storageBucket: "ff-leauge.firebasestorage.app", messagingSenderId: "26073423984", appId: "1:26073423984:web:f14329a6fa6a1506ec14b5" };
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
-let currentUser = null;
-let selected = null;
+const auth=firebase.auth(), db=firebase.database();
+let currentUser=null, selected=null; const MY_UPI="9709461672@fam";
+let tours=[{key:'t1',title:'SOLO — RUSH CLASH #247',type:'SOLO',map:'Bermuda',time:'Starts in 12:34',entry:5,prize:1500,slots:87,total:100,status:'LIVE',roomId:'',roomPass:''}];
 
-// HARD CODED DATA - 100% DIKHEGA
-let tournaments = [
-  {key:'t1', title:'SOLO — RUSH CLASH #247', type:'SOLO', map:'Bermuda', time:'Starts in 12:34', entry:5, prize:1500, slots:87, total:100, status:'LIVE'},
-  {key:'t2', title:'SQUAD — TEAM DOMINATION #112', type:'SQUAD', map:'Purgatory', time:'Starts in 01:22', entry:10, prize:5000, slots:15, total:40, status:'LIVE'},
-  {key:'t3', title:'DUO — BERMUDA BLAST #89', type:'DUO', map:'Bermuda', time:'Tomorrow 6 PM', entry:8, prize:2000, slots:10, total:50, status:'REGISTRATION'}
-];
-
-function showTab(id, el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
-}
-
-function card(t){
-  const pct = Math.round((t.slots/t.total)*100);
-  const sClass = t.status==='LIVE'? 'live' : 'reg';
-  return `<div class="card">
-  <div style="display:flex;justify-content:space-between"><span class="badge type">${t.type}</span><span class="badge ${sClass}">${t.status}</span></div>
-  <div class="title">${t.title}</div>
-  <div style="background:#0c0e18;padding:7px 10px;border-radius:8px;font-size:11px;margin-top:8px;opacity:.7">Map: ${t.map} • ${t.time}</div>
-  <div class="info"><div><small>Entry</small><b>$${t.entry}</b></div><div><small>Prize</small><b style="color:#ff1a1a">$${t.prize}</b></div><div><small>Slots</small><b>${t.slots}/${t.total}</b></div></div>
-  <div class="bar"><div style="width:${pct}%"></div></div>
-  <div class="btns"><button class="btn btn-o" onclick="openJoin('${t.key}')">PAY</button><button class="btn btn-r" onclick="openJoin('${t.key}')">JOIN NOW</button></div>
-  </div>`;
-}
-
-function render(){
-  document.getElementById('list').innerHTML = tournaments.map(card).join('');
-  document.getElementById('tourList').innerHTML = tournaments.map(card).join('');
-  const live = tournaments.filter(t=>t.status==='LIVE');
-  document.getElementById('liveList').innerHTML = live.length? live.map(card).join('') : '<p style="text-align:center;padding:30px;opacity:.5">No Live Matches</p>';
-  document.getElementById('liveCount').innerText = live.length + ' Live';
+function showTab(id,el){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active')); if(el) el.classList.add('active'); }
+function render(){ document.getElementById('list').innerHTML=tours.map(t=>`<div class="card"><div style="display:flex;justify-content:space-between"><span class="badge b-type">${t.type}</span><span class="badge b-live">${t.status}</span></div><div class="title">${t.title}</div><div class="info"><div><small>ENTRY</small><b>₹${t.entry}</b></div><div><small>WIN</small><b class="prize">₹${t.prize}</b></div><div><small>SLOTS</small><b>${t.slots}/${t.total}</b></div></div>${t.roomId?`<div style="background:#00ff8822;border:1px solid #00ff88;padding:6px 10px;border-radius:6px;font-size:11px;margin:8px 0">Room: <b>${t.roomId}</b> | Pass: <b>${t.roomPass}</b></div>`:''}<div class="btns"><button class="btn btn-join" onclick="openPay('${t.key}')">JOIN - ₹${t.entry}</button></div></div>`).join('');
+ document.getElementById('aTList').innerHTML=tours.map(t=>`<div class="admin-card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${t.title}</b><br>₹${t.entry} Entry | ₹${t.prize} Win | Room: ${t.roomId||'Not Set'} | ${t.slots}/${t.total}</div><div style="display:flex;gap:6px"><button onclick="editTour('${t.key}')" style="background:#00aaff;color:#fff;border:none;padding:6px 10px;border-radius:6px">EDIT</button><button onclick="deleteTour('${t.key}')" style="background:#ff0033;color:#fff;border:none;padding:6px 10px;border-radius:6px">DEL</button></div></div>`).join('');
 }
 render();
-
-auth.onAuthStateChanged(u=>{
-  if(u){
-    currentUser = u;
-    document.getElementById('loginBtn').innerText = u.displayName? u.displayName.split(' ')[0] : 'User';
-    loadMyJoins();
-  }
-});
-
-function login(){
-  if(currentUser){ alert('Already logged in as ' + currentUser.email); return; }
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).then(r=>{
-    alert('Login Success: ' + r.user.email);
-    location.reload();
-  }).catch(e=>{
-    alert('Login Error: ' + e.message + '\n\nFirebase Console > Authentication > Sign-in method > Google ko Enable karo!');
-  });
+auth.onAuthStateChanged(u=>{ if(u){ currentUser=u; document.getElementById('loginBtn').innerText=u.displayName.split(' ')[0]; loadWallet(); loadMyRoom(); loadMyRecharges(); }});
+function googleLogin(){ const p=new firebase.auth.GoogleAuthProvider(); auth.signInWithPopup(p).then(()=>location.reload()).catch(e=>alert('Google Login Enable karo Firebase me!\n\n'+e.message)); }
+function openPay(k){ if(!currentUser){ googleLogin(); return; } selected=tours.find(t=>t.key===k); loadWalletCheck(); document.getElementById('payModal').classList.add('open'); }
+function closePay(){ document.getElementById('payModal').classList.remove('open'); }
+function openRecharge(){ if(!currentUser){ googleLogin(); return; } document.getElementById('rechargeModal').classList.add('open'); updateQR(); }
+function closeRecharge(){ document.getElementById('rechargeModal').classList.remove('open'); }
+function openAdmin(){ document.getElementById('adminModal').classList.add('open'); loadWalletRequests(); loadRoom(); }
+function closeAdmin(){ document.getElementById('adminModal').classList.remove('open'); }
+function setAmt(v){ document.getElementById('rechargeAmt').value=v; updateQR(); }
+function updateQR(){ const amt=document.getElementById('rechargeAmt').value||5; const upi=`upi://pay?pa=${MY_UPI}&pn=FF%20LEAGUE&am=${amt}&cu=INR&tn=Wallet%20Recharge`; document.getElementById('upiLink2').href=upi; document.getElementById('qrImg2').style.display='block'; document.getElementById('qrImg2').src=`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upi)}`; document.getElementById('qrText').innerText=`Amount: ₹${amt} (Min ₹5)`; }
+document.getElementById('rechargeAmt')?.addEventListener('input', updateQR);
+function submitRecharge(){ const amt=parseInt(document.getElementById('rechargeAmt').value), utr=document.getElementById('rechargeUtr').value.trim(); if(!amt||amt<5) return alert('Min Recharge ₹5 hai!'); if(!utr) return alert('UTR bharo!'); db.ref('walletRecharges').push({uid:currentUser.uid,email:currentUser.email,amount:amt,utr:utr,time:Date.now(),status:'pending'}).then(()=>{ document.getElementById('rechargeStatus').innerHTML='<span style="color:#00ff88">✅ Request Sent! Min ₹5 - Admin approve karega</span>'; setTimeout(closeRecharge,1500); }); }
+function loadWallet(){ db.ref('users/'+currentUser.uid+'/wallet').on('value',s=>{ const bal=s.val()||0; document.getElementById('walletBal').innerText='₹'+bal+'.00'; document.getElementById('walletCheck').innerHTML=`Wallet: <b>₹${bal}</b> | Entry: <b>₹${selected?selected.entry:0}</b><br>${bal >= (selected?selected.entry:0)? '<span style="color:#00ff88">✅ Enough Balance</span>' : '<span style="color:#ff0033">❌ Low Balance - Min Recharge ₹5 karo</span>'}`; }); }
+function loadWalletCheck(){ if(currentUser) loadWallet(); }
+function joinWithWallet(){ const uid=document.getElementById('ffuid').value.trim(), name=document.getElementById('ffname').value.trim(); if(!uid||!name) return alert('UID Name bharo!'); db.ref('users/'+currentUser.uid+'/wallet').once('value').then(s=>{ const bal=s.val()||0; if(bal < selected.entry) return alert('Balance kam hai! Balance: ₹'+bal+' Min Recharge ₹5'); db.ref('users/'+currentUser.uid+'/wallet').set(bal-selected.entry).then(()=>{ db.ref('joins').push({uid:currentUser.uid,email:currentUser.email,ffuid:uid,ffname:name,title:selected.title,entry:selected.entry,time:Date.now(),status:'approved'}); document.getElementById('pStatus').innerHTML='<span style="color:#00ff88">✅ Joined! Deducted ₹'+selected.entry+'</span>'; setTimeout(closePay,1500); }); }); }
+function loadWalletRequests(){ db.ref('walletRecharges').orderByChild('status').equalTo('pending').on('value',snap=>{ const div=document.getElementById('walletReqList'); if(!snap.exists()){div.innerHTML='<p style="opacity:.5">No pending (Min ₹5)</p>';return;} let h=''; snap.forEach(c=>{ const r=c.val(); h+=`<div class="admin-card"><b>₹${r.amount}</b> (Min ₹5) | UTR:<b style="color:#ff0033">${r.utr}</b><br>${r.email}<br><div style="display:flex;gap:8px;margin-top:8px"><button onclick="approveWallet('${c.key}','${r.uid}',${r.amount})" style="flex:1;background:#00ff88;color:#000;border:none;padding:8px;border-radius:6px;font-weight:800">APPROVE ₹${r.amount}</button><button onclick="rejectWallet('${c.key}')" style="flex:1;background:#ff0033;color:#fff;border:none;padding:8px;border-radius:6px">REJECT</button></div></div>`;}); div.innerHTML=h; }); }
+function approveWallet(reqId, userId, amount){ db.ref('users/'+userId+'/wallet').once('value').then(s=>{ const old=s.val()||0; db.ref('users/'+userId+'/wallet').set(old+amount).then(()=>{ db.ref('walletRecharges/'+reqId).update({status:'approved'}); alert('Approved! New Balance: ₹'+(old+amount)); }); }); }
+function rejectWallet(id){ db.ref('walletRecharges/'+id).update({status:'rejected'}); }
+function loadMyRecharges(){ db.ref('walletRecharges').orderByChild('uid').equalTo(currentUser.uid).on('value',snap=>{ const div=document.getElementById('rechargeHistory'); if(!snap.exists()){div.innerHTML='<p style="opacity:.5">No recharges</p>';return;} let h=''; snap.forEach(c=>{ const r=c.val(); h+=`<div class="admin-card">₹${r.amount} | ${r.utr} | <b style="color:${r.status==='approved'?'#00ff88':'#ffaa00'}">${r.status.toUpperCase()}</b></div>`;}); div.innerHTML=h; }); }
+function saveTournament(){
+ const key=document.getElementById('aKey').value;
+ const data={title:document.getElementById('aTitle').value.trim(),type:document.getElementById('aType').value,status:document.getElementById('aStatus').value,map:document.getElementById('aMap').value||'Bermuda',time:document.getElementById('aTime').value||'Starting soon',entry:parseInt(document.getElementById('aEntry').value)||5,prize:parseInt(document.getElementById('aPrize').value)||1000,slots:parseInt(document.getElementById('aSlots').value)||0,total:parseInt(document.getElementById('aTotal').value)||100,roomId:document.getElementById('aRoomId').value.trim(),roomPass:document.getElementById('aRoomPass').value.trim()};
+ if(!data.title) return alert('Title likho!');
+ if(key){ db.ref('tournaments/'+key).set(data).then(()=>{alert('Updated! Entry ₹'+data.entry+' | Win ₹'+data.prize+' | Room '+data.roomId); document.getElementById('aKey').value='';}); }
+ else { db.ref('tournaments').push(data).then(()=>alert('Created!')); }
+ document.getElementById('aTitle').value=''; document.getElementById('aEntry').value=''; document.getElementById('aPrize').value=''; document.getElementById('aRoomId').value=''; document.getElementById('aRoomPass').value='';
 }
-
-function openJoin(key){
-  if(!currentUser){ login(); return; }
-  selected = tournaments.find(t=>t.key===key);
-  document.getElementById('mTitle').innerText = selected.title;
-  document.getElementById('mFee').innerText = `Entry $${selected.entry} | Prize $${selected.prize}`;
-  document.getElementById('qrAmt').innerText = `Amount $${selected.entry}`;
-  const upi = `upi://pay?pa=ffleauge@okaxis&pn=FFLEAGUE&am=${selected.entry}&cu=INR`;
-  document.getElementById('upiLink').href = upi;
-  document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upi)}`;
-  document.getElementById('joinModal').classList.add('open');
-}
-
-function confirmJoin(){
-  const uid = document.getElementById('ffuid').value.trim();
-  const name = document.getElementById('ffname').value.trim();
-  const utr = document.getElementById('utr').value.trim();
-  if(!uid||!name||!utr) return alert('Sab bharo!');
-  document.getElementById('jStatus').innerText = 'Saving...';
-  db.ref('joins').push({uid:currentUser.uid,email:currentUser.email,ffuid:uid,ffname:name,utr:utr,title:selected.title,entry:selected.entry,time:Date.now(),status:'pending'}).then(()=>{
-    document.getElementById('jStatus').innerHTML = '<span style="color:#22c55e">✅ Submitted! Admin will approve</span>';
-    setTimeout(()=>document.getElementById('joinModal').classList.remove('open'),1500);
-  }).catch(e=>{
-    // Agar rule lock hai to bhi success dikhao
-    document.getElementById('jStatus').innerHTML = '<span style="color:#22c55e">✅ Submitted (Local)! Rule ko Public karo</span>';
-    setTimeout(()=>document.getElementById('joinModal').classList.remove('open'),1500);
-  });
-}
-
-function loadMyJoins(){
-  db.ref('joins').orderByChild('uid').equalTo(currentUser.uid).on('value', snap=>{
-    const div = document.getElementById('myJoins');
-    if(!snap.exists()){ div.innerHTML='No joins yet'; return; }
-    let h='';
-    snap.forEach(c=>{
-      const j=c.val();
-      h+=`<div style="background:#0a0c14;padding:8px;border-radius:8px;margin-top:6px;border:1px solid #22253a"><b>${j.title}</b><br>UTR:${j.utr} - <b style="color:${j.status==='approved'?'#22c55e':'#fbbf24'}">${j.status}</b></div>`;
-    });
-    div.innerHTML=h;
-  });
-}
-
-// Try to load from DB if available
-db.ref('tournaments').on('value', s=>{
-  let list=[]; s.forEach(c=>{let v=c.val();v.key=c.key;list.push(v);});
-  if(list.length>0){ tournaments=list; render(); }
-});
+function editTour(k){ const t=tours.find(x=>x.key===k); document.getElementById('aKey').value=k; document.getElementById('aTitle').value=t.title; document.getElementById('aType').value=t.type; document.getElementById('aStatus').value=t.status; document.getElementById('aMap').value=t.map; document.getElementById('aTime').value=t.time; document.getElementById('aEntry').value=t.entry; document.getElementById('aPrize').value=t.prize; document.getElementById('aSlots').value=t.slots; document.getElementById('aTotal').value=t.total; document.getElementById('aRoomId').value=t.roomId||''; document.getElementById('aRoomPass').value=t.roomPass||''; window.scrollTo(0,0); alert('Edit Mode: Entry Fee, Winning, Room ID sab change kar sakte ho ab! Save dabao'); }
+function deleteTour(k){ if(confirm('Delete karna hai?')) db.ref('tournaments/'+k).remove(); }
+function setGlobalRoom(){ const id=document.getElementById('roomId').value.trim(), pass=document.getElementById('roomPass').value.trim(); if(!id) return alert('Room ID'); db.ref('currentRoom').set({id:id,pass:pass,time:Date.now()}); document.getElementById('currentRoom').innerText='Global Room: '+id+' | '+pass; }
+function loadRoom(){ db.ref('currentRoom').on('value',s=>{ if(s.exists()){ const r=s.val(); document.getElementById('currentRoom').innerText='Current Global: '+r.id+' | '+r.pass; }}); }
+function loadMyRoom(){ db.ref('joins').orderByChild('uid').equalTo(currentUser.uid).on('value',snap=>{ let has=false; snap.forEach(c=>{ if(c.val().status==='approved') has=true; }); if(has){ db.ref('currentRoom').once('value').then(r=>{ if(r.exists()){ const room=r.val(); const d=document.getElementById('myRoom'); d.style.display='block'; d.innerHTML=`🎮 GLOBAL ROOM: <b>${room.id}</b> | PASS: <b>${room.pass}</b>`; }}); tours.forEach(t=>{ if(t.roomId){ const d=document.getElementById('myRoom'); d.style.display='block'; d.innerHTML+=`<br>For ${t.title}: Room <b>${t.roomId}</b> | Pass <b>${t.roomPass}</b>`; }}); } }); }
+db.ref('tournaments').on('value',s=>{ let list=[]; s.forEach(c=>{let v=c.val();v.key=c.key;list.push(v);}); if(list.length>0){ tours=list; render(); }});
 </script>
 </body>
 </html>
